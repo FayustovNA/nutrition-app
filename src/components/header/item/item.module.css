@@ -1,0 +1,36 @@
+.item {
+    text-decoration: none;
+    display: flex;
+    padding: 0;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: left 3s;
+    color: var(--main-text-color);
+}
+
+.item:hover * {
+    color: var(--gold);
+    fill: var(--gold);
+}
+
+.active * {
+    color: var(--gold);
+    fill: var(--gold);
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    margin: auto auto auto 15px;
+    border: none;
+}
+
+.title {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 300;
+    padding: 0;
+    list-style-type: none;
+}

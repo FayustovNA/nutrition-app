@@ -1,0 +1,56 @@
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: rgba(31, 31, 31, .8);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+
+.mainlogo {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+    margin: 0px 20px 0px 20px;
+    align-items: center;
+    justify-content: start;
+}
+
+.button {
+    position: absolute;
+    right: 20px;
+    padding: 0;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.avatar_btn {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 20px;
+    padding: 0;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 2px solid var(--main-background);
+}
+
+.avatar_btn:hover {
+    border: 2px solid var(--hover-blue);
+}
+
+@media (max-width: 950px) {
+
+    .menu {
+        margin: 0px 10px 0px 10px;
+    }
+}

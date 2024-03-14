@@ -1,0 +1,20 @@
+.section {
+    height: 400px;
+    align-items: center;
+    display: flex;
+    margin: 10px 20px 0px 20px;
+    justify-content: end;
+}
+
+.videobox {
+    width: 50%;
+    height: 90%;
+    border-radius: 8px;
+    overflow: hidden;
+    object-fit: cover;
+
+}
+
+.video {
+    width: 100%;
+}

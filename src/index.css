@@ -1,0 +1,72 @@
+@font-face {
+  src: url(./fonts/BlenderPro/BlenderPro-Heavy.woff2) format('woff2'),
+    url(./fonts/BlenderPro/BlenderPro-Heavy.woff) format('woff');
+  font-family: 'BlenderPro';
+  font-style: bold;
+  font-weight: 700;
+}
+
+@font-face {
+  src: url(./fonts/Montserrat/Montserrat-Medium.woff2) format('woff2'),
+    url(./fonts/Montserrat/Montserrat-Medium.woff) format('woff');
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  src: url(./fonts/Montserrat/Montserrat-Bold.woff2) format('woff2'),
+    url(./fonts/Montserrat/Montserrat-Bold.woff) format('woff');
+  font-family: 'Montserrat';
+  font-style: bold;
+  font-weight: 700;
+}
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'BlenderPro',
+    sans-serif;
+  font-weight: 400;
+  color: #CACACA;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  --main-background: #1f1f1f;
+  --gray-main: #86868b;
+  --main-text-color: #CACACA;
+  --gold: #C8AB58;
+
+
+  --hover-blue: #007AFF;
+
+  --background-light: #3E4B5A;
+  --background-dark: #0F1316;
+  --background-gradient: linear-gradient(180deg, #3E4B5A 0%, #0F1316 100%);
+  --gray-text-color: #A7A7A7;
+  --border-light: 0.5px solid rgba(128, 128, 128, .7);
+  background: var(--main-background);
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  place-items: center;
+  width: 100vw;
+  min-width: 320px;
+  height: 100vh;
+}
+
+
+.slick-dots li button::before {
+  font-size: 6px;
+  color: #86868b;
+  opacity: 0.7;
+}
+
+.slick-dots li.slick-active button::before {
+  color: #C8AB58;
+  opacity: 0.7;
+}

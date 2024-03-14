@@ -1,0 +1,80 @@
+export const dataSet = [
+    {
+        img: '../../src/images/library/1.jpg',
+        title: 'Как правильно считать калории',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Процесс',
+    },
+    {
+        img: '../../src/images/library/2.jpg',
+        title: 'Почему скачет вес и как оценивать прогресс? ',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Физиология',
+    },
+    {
+        img: '../../src/images/library/3.jpeg',
+        title: 'Как правильно выстраивать дефицит',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Процесс',
+    },
+    {
+        img: '../../src/images/library/4.jpeg',
+        title: '8 причин которые могут  мешать худеть',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Физиология',
+    },
+    {
+        img: '../../src/images/library/5.jpeg',
+        title: 'Калории. Считать или нет? ',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Процесс',
+    },
+    {
+        img: '../../src/images/library/6.jpeg',
+        title: 'Оптимальный процент жира в организме. На сколько худеть?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Физиология',
+    },
+    {
+        img: '../../src/images/library/7.webp',
+        title: 'Как жир покидает тело когда вы теряете вес?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Физиология',
+    },
+    {
+        img: '../../src/images/library/8.jpg',
+        title: 'Нужен ли завтрак?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Здоровье',
+    },
+    {
+        img: '../../src/images/library/9.jpg',
+        title: 'Как правильно есть?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Здоровье',
+    },
+    {
+        img: '../../src/images/library/10.jpg',
+        title: 'Что такое белок и зачем он нам?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Здоровье',
+    },
+    {
+        img: '../../src/images/library/11.webp',
+        title: 'Нормы и усвоение белка. Сколько есть?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Физиология',
+    },
+    {
+        img: '../../src/images/library/12.webp',
+        title: 'Источники белка. Что и когда есть?',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Процесс',
+    },
+    {
+        img: '../../src/images/library/13.jpg',
+        title: 'Потребление и усвоение белка, что меняется с возрастом? ',
+        link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
+        section: 'Процесс',
+    },
+]

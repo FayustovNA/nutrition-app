@@ -1,0 +1,20 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}
+
+.app {
+  padding: 0px;
+  margin: 0px;
+  width: 100vw;
+  height: 100vh;
+  font-family: Montserrat;
+  overflow: scroll;
+}
+
+.content {
+  width: 100%;
+  overflow: scroll;
+  height: 100%;
+}
