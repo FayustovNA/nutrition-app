@@ -7,6 +7,7 @@ import { HeaderItem } from './item/item';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/root-reducer';
 import AvatarItem from './avatar-item/avatar-item';
+import Telegram from '../../images/social/telegram.svg';
 
 
 export const Header = () => {
@@ -32,6 +33,10 @@ export const Header = () => {
                         <Logo />
                     </NavLink>
                 </div>
+
+                <a className={styles.telegram} href={'https://t.me/nikolayfayustov'}>
+                    <img className={styles.icon} src={Telegram} alt="telegram" />
+                </a>
 
                 {isLoggedIn ?
                     <div
@@ -65,6 +70,16 @@ export const Header = () => {
                     <HeaderItem
                         title={'Библиотека'}
                         path={'/library'}
+                        selected={selected}
+                        setSelected={setSelected} >
+                    </HeaderItem>
+                </div>
+
+                <div className={styles.items}>
+
+                    <HeaderItem
+                        title={'Калькуляторы'}
+                        path={'/calculators'}
                         selected={selected}
                         setSelected={setSelected} >
                     </HeaderItem>

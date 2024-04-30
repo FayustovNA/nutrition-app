@@ -2,11 +2,11 @@ import styles from './modal-item.module.css';
 
 interface ClientInfoProps {
     data: {
-        name: string,
-        info: string,
-        modal_img: string,
-        text: string
-    };
+        name?: string,
+        info?: string,
+        modal_img?: string,
+        text?: string
+    } & any;
 }
 
 

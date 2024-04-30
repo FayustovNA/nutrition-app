@@ -59,11 +59,11 @@ export const dataSet = [
         modal_img: '../../src/images/top-clients/EC_modal.png',
     },
     {
-        img: '../../src/images/avatar.webp',
+        img: '../../src/images/top-clients/AnSm.png',
         name: 'Анастасия Смирнова',
         info: 'Кроссфит-атлет',
         id: '9',
-        modal_img: '../../src/images/top-clients/ASm_modal.png',
+        modal_img: '../../src/images/top-clients/AnSm_modal.png',
     },
     {
         img: '../../src/images/avatar.webp',
@@ -74,31 +74,33 @@ export const dataSet = [
     },
     {
         img: '../../src/images/top-clients/AlenEj.png',
-        name: 'Алена Ежеленко',
+        name: 'Алена Васильева',
         info: 'Управляющая лингва центров',
+        modal_img: '../../src/images/top-clients/AlEj_modal.png',
     },
     {
-        img: '../../src/images/top-clients/AlenEj.png',
+        img: '../../src/images/top-clients/YurIv.jpg',
         name: 'Юрий Иванов',
         info: 'Управляющая лингва центров',
     },
     {
-        img: '../../src/images/top-clients/AlenEj.png',
+        img: '../../src/images/top-clients/TatDm.png',
         name: 'Татьяна Дмитриенко',
         info: 'Управляющая лингва центров',
+        modal_img: '../../src/images/top-clients/TatDm_modal.png',
     },
     {
-        img: '../../src/images/top-clients/AlenEj.png',
+        img: '../../src/images/top-clients/DmShv.png',
         name: 'Дмитрий Шведун',
         info: 'Управляющая лингва центров',
     },
     {
-        img: '../../src/images/top-clients/AlenEj.png',
+        img: '../../src/images/top-clients/AndSkr.png',
         name: 'Андрей Скрябиков',
         info: 'Управляющая лингва центров',
     },
     {
-        img: '../../src/images/top-clients/AlenEj.png',
+        img: '../../src/images/top-clients/DmPr.jpg',
         name: 'Дмитрий Пронин',
         info: 'Управляющая лингва центров',
     },

@@ -5,11 +5,12 @@
     align-items: center;
     transition: all 0.1s linear;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     color: var(--background-dark);
     border: none;
     cursor: pointer;
+    font-family: 'Montserrat';
 }
 
 .circle {
@@ -26,26 +27,62 @@
 }
 
 .default {
-    width: 100%;
+    min-width: 30px;
 }
 
 .small {
     height: 25px;
     width: 100px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .large {
-    width: 100%;
+    width: 200px;
     height: 35px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 400;
     border-radius: 8px;
 }
+
 
 .gold-blue {
     background: var(--gold);
 }
 
+.none {
+    background: none;
+    font-weight: 400;
+    color: var(--gold);
+    font-size: 12px;
+}
+
+.none:hover {
+    color: var(--hover-blue);
+}
+
 .gold-blue:hover {
     background: var(--hover-blue);
+}
+
+.opacity {
+    /* background-color: var(--background-dark); */
+    background-color: rgba(31, 31, 31, .8);
+    color: var(--hover-blue);
+}
+
+.opacity:hover {
+    background: var(--gold);
+    color: var(--background-dark);
+}
+
+.none-blue {
+    color: var(--hover-blue);
+    background: none;
+    font-size: 12px;
+}
+
+.none-blue:hover {
+    color: var(--gold);
+    background: none;
+
 }

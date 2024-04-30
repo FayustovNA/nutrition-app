@@ -1,30 +1,32 @@
 .section_banner {
     position: relative;
-    height: 400px;
+    height: 410px;
     display: flex;
     width: 100%;
-    background-image: url(../../../../images/MainBanner.jpg);
+    background-image: url(../../../../images/Banner.png);
+    /* background-image: url(../../../../images/MainBanner.jpg); */
     background-repeat: no-repeat;
+    margin-top: 40px;
     background-size: cover;
 }
 
 .section_banner_content {
-    font-size: 48px;
+    font-size: 60px;
     color: var(--main-text-color);
     line-height: 1.08349;
     font-weight: 700;
-    margin: 200px auto auto 200px;
+    margin: 120px auto auto 200px;
 }
 
 .section_banner_subtitle {
-    font-size: 14px;
+    font-size: 16px;
     /* color: var(--gray-main); */
     color: var(--gold);
     display: flex;
     justify-content: center;
     padding: 0;
     margin: 10px auto auto auto;
-    font-weight: 400;
+    font-weight: 100;
 }
 
 .linksblock {
@@ -34,6 +36,14 @@
     align-items: center;
     margin: 50px auto auto auto;
     gap: 25px;
+}
+
+.btns {
+    display: flex;
+    gap: 20px;
+    margin: 40px auto auto auto;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 380px) {

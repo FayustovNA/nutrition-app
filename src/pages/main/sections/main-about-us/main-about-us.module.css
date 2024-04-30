@@ -1,17 +1,15 @@
 .section {
-    width: 100%;
     align-items: center;
-    margin: 0px auto 50px auto;
+    margin: 0px 20px 20px 20px;
+    justify-content: center;
 }
 
 .section_titles {
     display: flex;
-    width: 100%;
     flex-direction: row;
 }
 
 .title {
-    width: 100%;
     font-size: 36px;
     align-items: center;
     line-height: 1.08349;
@@ -19,29 +17,12 @@
     color: var(--main-text-color);
     letter-spacing: -.004em;
     display: flex;
-    margin: 40px auto 40px 20px;
+    margin: 40px 0px 40px 0px;
 }
 
 .slider {
-    margin: 0px auto 0px auto;
-    min-height: 220px;
-    width: 100%;
+    min-height: 230px;
+    /* width: calc(100% - 2*20px); */
     font-size: 12px;
     text-align: center;
-}
-
-.item {
-    display: flex;
-    flex-direction: column;
-    scroll-snap-align: start;
-    max-width: 350px;
-    height: 250px;
-    border-radius: 10px;
-    margin: auto;
-    justify-content: center;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    background-color: var(--main-text-color);
-    color: black;
-    cursor: pointer;
 }

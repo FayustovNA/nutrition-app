@@ -1,6 +1,7 @@
 import styles from './main-about-us.module.css';
 import Slider, { Settings } from 'react-slick';
-import { dataSet } from '../../../../utils/mocks-sec-about';
+import { dataSet } from '../../../../utils/mocks-about-us';
+import { ItemAbout } from './item/item-about';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -45,9 +46,7 @@ export const SectionMainAboutUs = () => {
 
     const renderSlides = items.map((item, index) => {
         return (
-            <div key={index} className={styles.item}>
-                <p className={styles.titlemain}>{item.titlemain}</p>
-            </div>
+            <ItemAbout data={item} index={index} />
         );
     });
 

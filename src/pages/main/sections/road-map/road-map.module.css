@@ -1,0 +1,29 @@
+.section {
+    align-items: center;
+    margin: 20px 20px 20px 20px;
+}
+
+.section_titles {
+    display: flex;
+    flex-direction: row;
+}
+
+.title {
+    font-size: 36px;
+    align-items: center;
+    line-height: 1.08349;
+    font-weight: 300;
+    color: var(--main-text-color);
+    letter-spacing: -.004em;
+    display: flex;
+}
+
+.accordion {
+    width: 100%;
+    position: relative;
+}
+
+.grid {
+    margin-left: 20px;
+    width: 45%;
+}

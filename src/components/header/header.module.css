@@ -9,12 +9,13 @@
     backdrop-filter: saturate(180%) blur(20px);
 }
 
-
-.mainlogo {
+.logo {
     display: flex;
     padding: 0;
     justify-content: center;
     cursor: pointer;
+    position: absolute;
+    left: 20px;
 }
 
 .menu {
@@ -22,6 +23,7 @@
     margin: 0px 20px 0px 20px;
     align-items: center;
     justify-content: start;
+    gap: 50px;
 }
 
 .button {
@@ -47,6 +49,35 @@
 .avatar_btn:hover {
     border: 2px solid var(--hover-blue);
 }
+
+.telegram {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 140px;
+    z-index: 2;
+}
+
+.icon {
+    justify-content: center;
+    width: 20px;
+    padding: 0;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    height: 20px;
+    object-fit: contain;
+    z-index: 3;
+}
+
+.icon:hover {
+    opacity: 0.5;
+}
+
 
 @media (max-width: 950px) {
 

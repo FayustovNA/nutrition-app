@@ -19,6 +19,7 @@ export const Footer = () => {
                     <a className={styles.link} href={telegramm}>Использование cookies</a>
                     <a className={styles.link} href={support}>Получить обратную связь</a>
                     <a className={styles.link} href={telegramm}>Telegram</a>
+                    <a className={styles.link} href={instagram}>YouTube</a>
                     <a className={styles.link} href={instagram}>Instagram*</a>
                 </div>
             </div>

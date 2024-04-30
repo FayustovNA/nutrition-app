@@ -4,9 +4,9 @@ import styles from './checkbox.module.css';
 export interface CheckboxProps {
   label: string;
   checked?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  value: string;
+  value?: string;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({

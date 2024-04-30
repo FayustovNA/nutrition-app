@@ -36,13 +36,13 @@
   --gray-main: #86868b;
   --main-text-color: #CACACA;
   --gold: #C8AB58;
-
-
   --hover-blue: #007AFF;
+  --background-gradient: linear-gradient(180deg, #1F1F1F 0%, #000000 100%);
+
 
   --background-light: #3E4B5A;
   --background-dark: #0F1316;
-  --background-gradient: linear-gradient(180deg, #3E4B5A 0%, #0F1316 100%);
+
   --gray-text-color: #A7A7A7;
   --border-light: 0.5px solid rgba(128, 128, 128, .7);
   background: var(--main-background);
