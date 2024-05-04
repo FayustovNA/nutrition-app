@@ -29,12 +29,12 @@ export interface IUserAuthError {
 
 
 export type TUserRegister = {
-    first_name: string
-    last_name: string
-    username: string
-    email: string
-    role: string
-    password: string
+    first_name?: string
+    last_name?: string
+    username?: string
+    email?: string
+    role?: string
+    password?: string
     confirmPassword?: string
 }
 

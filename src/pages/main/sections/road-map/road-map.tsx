@@ -7,7 +7,7 @@ export const SectionRoadMap = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const handleToggle = (index: number) => {
-        setActiveIndex(index === activeIndex ? -1 : index);
+        setActiveIndex(index === activeIndex ? 0 : index);
     }
 
     return (

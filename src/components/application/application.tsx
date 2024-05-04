@@ -8,8 +8,7 @@ export const ApplicationWindow = () => {
 
     const { values, handleChange } = useForm({
         first_name: '',
-        email: '',
-        role: '',
+        phone: '',
     })
 
     return (
@@ -34,14 +33,15 @@ export const ApplicationWindow = () => {
                 />
 
                 <Input
-                    placeholder="E-mail"
-                    name="email"
+                    placeholder="Введите номер телефона WhatsApp или Telegram"
+                    name="phone"
                     styled="main"
                     onChange={handleChange}
-                    value={values.email}
-                    pattern="^\S+@\S+\.\S+$"
-                    maxLength={30}
-                    errorMessage="Введите корректный email"
+                    value={values.phone}
+                    pattern="^\+?\d{1,3}[-\s]?\d{1,14}$"
+                    maxLength={12}
+                    minLength={10}
+                    errorMessage="Введите корректный номер"
                     required
                 />
                 <div className={styles.checkbox}>
