@@ -1,5 +1,5 @@
 import styles from './more-info.module.css';
-import { dataSet } from '../../../../../utils/mock-moreInformation2';
+import { dataSet } from '../../../../../../src/utils/mock-moreInformation2';
 
 
 export const MoreInfo = () => {

@@ -1,5 +1,5 @@
 import styles from './benefits.module.css';
-import { dataSet } from '../../../../utils/mock-benefits';
+import { dataSet } from '../../../../../src/utils/mock-benefits';
 
 
 

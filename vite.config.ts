@@ -4,7 +4,7 @@ import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/nutrition-app/',
+  // base: '/nutrition-app/',
   optimizeDeps: {
     exclude: ['js-big-decimal']
   },

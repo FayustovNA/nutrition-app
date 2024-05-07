@@ -1,6 +1,6 @@
 import styles from './main-about-us.module.css';
 import Slider, { Settings } from 'react-slick';
-import { dataSet } from '../../../../utils/mocks-about-us';
+import { dataSet } from '../../../../../src/utils/mocks-about-us';
 import { ItemAbout } from './item/item-about';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

@@ -1,6 +1,6 @@
 import styles from './top-clients.module.css';
 import Slider, { Settings } from 'react-slick';
-import { dataSet } from '../../../../utils/mocks-top-clients';
+import { dataSet } from '../../../../../src/utils/mocks-top-clients';
 import { useState } from 'react';
 import Modal from '../../../../components/modal/modal';
 import { ClientInfo } from './modal-item/modal-item';

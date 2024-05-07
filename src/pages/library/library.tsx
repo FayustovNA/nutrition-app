@@ -1,6 +1,6 @@
 import { LibraryItem } from '../library/library-item/library-item';
 import styles from './library.module.css';
-import { dataSet } from '../../utils/mock-labrary'
+import { dataSet } from '../../../src/utils/mock-labrary'
 
 
 export const Library = () => {
