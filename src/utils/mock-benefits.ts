@@ -1,18 +1,18 @@
 export const dataSet = [
     {
-        img: '../nutrition-app/dist/images/icons-benefits/calculator.svg',
+        img: 'nutrition-app/dist/images/icons-benefits/calculator.svg',
         text: 'Научишься считать калории'
     },
     {
-        img: '../nutrition-app/src/images/icons-benefits/p-cart.png',
+        img: 'nutrition-app/images/icons-benefits/p-cart.png',
         text: 'Найдешь свое соотношение БЖУ'
     },
     {
-        img: '../nutrition-app/src/images/icons-benefits/crosshair.png',
+        img: 'nutrition-app/dist/images/icons-benefits/crosshair.png',
         text: 'Научишься составлять рацион под цель'
     },
     {
-        img: '../nutrition-app/src/images/icons-benefits/down-arrow.png',
+        img: 'nutrition-app/src/images/icons-benefits/down-arrow.png',
         text: 'Обновишь гардероб на пару размеров'
     },
     {
