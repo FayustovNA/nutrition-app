@@ -14,16 +14,18 @@ type AccordionItemProps = {
 export const AccordionItem = ({ title, text, img, index, isOpen, toggleAccordion }: AccordionItemProps) => {
 
     return (
-        <div className={styles.content}>
+        <div className={`${styles.content}`}>
             <button className={styles.btn} onClick={toggleAccordion}>
                 <p className={styles.title}> <span className={styles.number}>{index + 1}</span>{title}</p>
                 <img className={`${styles.chevron} ${isOpen ? styles.open : ""}`} src={Chevron} />
             </button>
             {isOpen &&
-                <><p className={styles.text}>{text}
-                </p>
-                    <img className={styles.img} src={img} />
-                </>
+                <div className={styles.contents}>
+                    <p className={styles.text}>{text}
+                    </p >
+                    <img className={styles.img} src={img}
+                    />
+                </div>
             }
         </div >
     );

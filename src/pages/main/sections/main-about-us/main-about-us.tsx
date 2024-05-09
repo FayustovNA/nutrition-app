@@ -36,8 +36,8 @@ export const SectionMainAboutUs = () => {
                 breakpoint: 768,
                 settings: {
                     arrows: false,
-                    slidesToShow: 3,
-                    slidesToScroll: 2,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
                 },
             },
         ],

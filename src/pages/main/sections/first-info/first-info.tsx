@@ -26,29 +26,31 @@ export const SectionFirstInfo = () => {
 
     return (
         <div className={styles.section} >
-            <section className={styles.section_banner}>
-                <div className={styles.section_banner_content}>
-                    BlackFox Nutrition
-                    <p className={styles.section_banner_subtitle}>Приводим в форму. Легко. Комфортно. Навсегда.</p>
-                    <div className={styles.btns}>
-                        <Button
-                            variant='default'
-                            size='large'
-                            color='opacity'
-                            onClick={() => openModal()}
-                        >
-                            Записаться
-                        </Button>
-                        <Button
-                            variant='default'
-                            color='none-blue'
-                            onClick={() => openModalMore()}
-                        >
-                            Подробнее
-                        </Button>
-                    </div>
+
+            <div className={styles.content}>
+
+                <h2 className={styles.title}>BlackFox Nutrition</h2>
+                <p className={styles.subtitle}>Приводим в форму. Легко. Комфортно. Навсегда.</p>
+
+                <div className={styles.btns}>
+                    <Button
+                        variant='default'
+                        size='large'
+                        color='opacity'
+                        onClick={() => openModal()}
+                    >
+                        Записаться
+                    </Button>
+                    <Button
+                        variant='default'
+                        color='none-blue'
+                        onClick={() => openModalMore()}
+                    >
+                        Подробнее
+                    </Button>
                 </div>
-            </section>
+            </div>
+
             {
                 isOpenModal && (<Modal onClose={closeModal}>
                     <ApplicationWindow />

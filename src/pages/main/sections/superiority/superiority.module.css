@@ -1,5 +1,4 @@
 .section {
-    height: 400px;
     align-items: center;
     display: flex;
     margin: 20px 20px 0px 20px;
@@ -36,11 +35,10 @@
 
 .videobox {
     width: 50%;
-    height: 90%;
     border-radius: 8px;
     overflow: hidden;
     object-fit: cover;
-
+    max-height: 400px;
 }
 
 .video {
@@ -61,3 +59,50 @@
     color: var(--gold);
     font-size: 22px;
 }
+
+
+@media (max-width: 950px) {
+    .section {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+
+    .title {
+        font-size: 32px;
+    }
+
+    .textbox {
+        width: 100%;
+    }
+
+    .text {
+        margin: 10px auto 10px 0px;
+    }
+
+    .btns {
+        justify-content: center;
+        margin: 40px auto 40px auto;
+    }
+
+    .videobox {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: contain;
+    }
+
+    .video {
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 381px) and (max-width: 767px) {}
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+@media (min-width: 1200px) and (max-width: 1680px) {}
+
+@media (min-width: 1681px) {}

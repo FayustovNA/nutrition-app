@@ -33,7 +33,7 @@ export const dataSet = [
     },
     {
         img: '../../src/images/icons-benefits/mineral.png',
-        text: 'Научишься закрывать потребности организма в витаминах и минералах'
+        text: 'Закроешь нормы витаминов и минералов'
     },
     {
         img: '../../src/images/icons-benefits/fire.png',

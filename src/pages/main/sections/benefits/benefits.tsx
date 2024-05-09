@@ -1,8 +1,6 @@
 import styles from './benefits.module.css';
 import { dataSet } from '../../../../../src/utils/mock-benefits';
 
-
-
 export const SectionBenefits = () => {
 
     const items = dataSet;

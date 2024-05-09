@@ -70,9 +70,10 @@
     color: var(--gray-main);
 }
 
-@media (max-width: 380px) {
+
+@media (max-width: 950px) {
     .title {
-        font-size: 16px;
+        font-size: 32px;
         margin-left: 10px;
     }
 }

@@ -64,3 +64,42 @@
     margin: 5px auto auto auto;
     padding: 0;
 }
+
+@media (max-width: 950px) {
+    .section {
+        align-items: center;
+        margin: 0px;
+        background: linear-gradient(0deg, #1F1F1F 0%, #000000 100%);
+    }
+
+    .content {
+        border-radius: 0px;
+        background: none;
+        margin: 0px 10px 0px 10px;
+    }
+
+    .section_titles {
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+    }
+
+    .title {
+        width: 100%;
+        padding: 0;
+        font-size: 32px;
+        margin: 40px auto 10px 10px;
+    }
+
+    .grid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        font-size: 12px;
+        justify-content: center;
+        text-align: center;
+        column-gap: 20px;
+        row-gap: 20px;
+        padding-top: 20px;
+    }
+}
