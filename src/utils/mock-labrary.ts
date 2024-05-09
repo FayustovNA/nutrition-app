@@ -1,6 +1,6 @@
 export const dataSet = [
     {
-        img: '../../src/images/library/1.jpg',
+        img: '../nutrition-app/src/images/library/1.jpg',
         title: 'Как правильно считать калории',
         link: 'https://health-diet.ru/diary/share/719404640caca010cd2',
         section: 'Процесс',
