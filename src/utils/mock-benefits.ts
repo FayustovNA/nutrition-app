@@ -1,10 +1,10 @@
 export const dataSet = [
     {
-        img: '../../public/images/icons-benefits/calculator.svg',
+        img: '../nutrition-app/src/images/icons-benefits/calculator.svg',
         text: 'Научишься считать калории'
     },
     {
-        img: '../../src/images/icons-benefits/p-cart.png',
+        img: '../nutrition-app/src/images/icons-benefits/p-cart.png',
         text: 'Найдешь свое соотношение БЖУ'
     },
     {
