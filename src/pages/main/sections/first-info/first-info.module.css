@@ -49,6 +49,7 @@
 @media (max-width: 950px) {
     .section {
         background-position: 70% 100%;
+        margin-top: 0px;
     }
 
     .content {

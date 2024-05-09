@@ -81,6 +81,10 @@
 
 @media (max-width: 950px) {
 
+    .header {
+        bottom: 0px;
+    }
+
     .menu {
         margin: 0px 10px 0px 10px;
     }
