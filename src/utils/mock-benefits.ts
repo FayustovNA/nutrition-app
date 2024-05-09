@@ -1,6 +1,6 @@
 export const dataSet = [
     {
-        img: '../../src/images/icons-benefits/calculator.svg',
+        img: '../../public/images/icons-benefits/calculator.svg',
         text: 'Научишься считать калории'
     },
     {
