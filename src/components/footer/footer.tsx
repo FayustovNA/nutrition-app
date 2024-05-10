@@ -5,6 +5,7 @@ export const Footer = () => {
     const telegramm = 'https://t.me/blackfoxnutrition'
     const instagram = 'https://t.me/blackfoxnutrition'
     const support = 'https://t.me/nikolayfayustov'
+    const youtube = 'https://www.youtube.com/@blackfoxnutrition'
 
 
     return (
@@ -19,7 +20,7 @@ export const Footer = () => {
                     <a className={styles.link} href={telegramm}>Использование cookies</a>
                     <a className={styles.link} href={support}>Получить обратную связь</a>
                     <a className={styles.link} href={telegramm}>Telegram</a>
-                    <a className={styles.link} href={instagram}>YouTube</a>
+                    <a className={styles.link} href={youtube}>YouTube</a>
                     <a className={styles.link} href={instagram}>Instagram*</a>
                 </div>
             </div>

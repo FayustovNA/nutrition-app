@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { loginUserRequestApi } from '../../api'
 import { TUserRegister } from '../types/user'
+import AvatarDefault from '../../images/avatar_def.png';
 
 export type TGetUserInfo = {
     id: number
@@ -30,7 +31,7 @@ const initialState: IUserSliceState = {
     loginFailed: false,
     isLoggedIn: false,
     loginError: false,
-    avatar: '../../../src/images/avatar_def.png',
+    avatar: AvatarDefault,
 }
 
 export const loginIn = createAsyncThunk(

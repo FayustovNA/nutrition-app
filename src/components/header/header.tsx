@@ -14,6 +14,7 @@ export const Header = () => {
     const [selected, setSelected] = useState('');
     const isUser = useSelector((state: RootState) => state.userData.role);
     const isLoggedIn = useSelector((state: RootState) => state.userData.isLoggedIn);
+    // const isLoggedIn = true;
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -34,26 +35,6 @@ export const Header = () => {
                     </NavLink>
                 </div>
 
-                <a className={styles.telegram} href={'https://t.me/nikolayfayustov'}>
-                    <img className={styles.icon} src={Telegram} alt="telegram" />
-                </a>
-
-                {isLoggedIn ?
-                    <div
-                        className={styles.avatar_btn}>
-                        <AvatarItem />
-                    </div>
-                    : <div
-                        className={styles.button}>
-                        <Button
-                            variant={'default'}
-                            size={'small'}
-                            onClick={handleClick}>
-                            < p className={styles.btntxt}> Войти</p>
-                        </Button>
-                    </div>
-
-                }
 
                 <div className={styles.items}>
                     {isLoggedIn ?
@@ -94,6 +75,31 @@ export const Header = () => {
                             setSelected={setSelected} >
                         </HeaderItem> : null}
                 </div>
+
+                <div className={styles.login_block}>
+
+                    <a className={styles.telegram} href={'https://t.me/nikolayfayustov'}>
+                        <img className={styles.icon} src={Telegram} alt="telegram" />
+                    </a>
+
+                    {isLoggedIn ?
+                        <div
+                            className={styles.avatar_btn}>
+                            <AvatarItem />
+                        </div>
+                        : <div
+                            className={styles.button}>
+                            <Button
+                                variant={'default'}
+                                size={'small'}
+                                onClick={handleClick}>
+                                < p className={styles.btntxt}>Войти</p>
+                            </Button>
+                        </div>
+
+                    }
+                </div>
+
             </div>
         </div >
     );
