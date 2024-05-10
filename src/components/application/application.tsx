@@ -14,7 +14,7 @@ export const ApplicationWindow = () => {
     return (
         <div className={styles.content}>
             {/* <p className={styles.info}>{data.info}</p> */}
-            <img className={styles.img} src='../../../src/images/application/applay.png'></img>
+            <img className={styles.img} src='nutrition-app/images/application/applay.png'></img>
             <h3 className={styles.h3}>Добро пожаловать в BFN!</h3>
             <p className={styles.text}>
                 Тебя ждет увлекательная работа с питанием, образом жизни и привычками. Результат, который гарантруем - лучшая физическая форма!
@@ -33,7 +33,7 @@ export const ApplicationWindow = () => {
                 />
 
                 <Input
-                    placeholder="Введите номер телефона WhatsApp или Telegram"
+                    placeholder="Номер WhatsApp или Telegram"
                     name="phone"
                     styled="main"
                     onChange={handleChange}

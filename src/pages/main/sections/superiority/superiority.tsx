@@ -46,7 +46,7 @@ export const SectionSuperiority = () => {
                 </div>
             </div>
             <div className={styles.videobox}>
-                <video src={video} autoPlay loop muted className={styles.video} />
+                <video src={video} autoPlay loop muted playsInline className={styles.video} />
             </div>
             {
                 isOpenModal && (<Modal onClose={closeModal}>

@@ -67,15 +67,15 @@ export const Header = () => {
 
                 <div className={styles.items}>
 
-                    <HeaderItem
+                    {/* <HeaderItem
                         title={'Библиотека'}
                         path={'/library'}
                         selected={selected}
                         setSelected={setSelected} >
-                    </HeaderItem>
+                    </HeaderItem> */}
                 </div>
 
-                <div className={styles.items}>
+                {/* <div className={styles.items}>
 
                     <HeaderItem
                         title={'Калькуляторы'}
@@ -83,7 +83,7 @@ export const Header = () => {
                         selected={selected}
                         setSelected={setSelected} >
                     </HeaderItem>
-                </div>
+                </div> */}
 
                 <div className={styles.items}>
                     {isUser == "isUser" ?

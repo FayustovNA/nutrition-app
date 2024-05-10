@@ -1,8 +1,6 @@
 import styles from './more-information.module.css';
 import { dataSet } from '../../../../../utils/mock-moreInformation';
 
-
-
 export const MoreInformation = () => {
 
     const items: any = dataSet[0];
