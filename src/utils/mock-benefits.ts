@@ -8,11 +8,11 @@ export const dataSet = [
         text: 'Найдешь свое соотношение БЖУ'
     },
     {
-        img: 'nutrition-app/dist/images/icons-benefits/crosshair.png',
+        img: 'nutrition-app/images/icons-benefits/crosshair.png',
         text: 'Научишься составлять рацион под цель'
     },
     {
-        img: 'nutrition-app/dist/images/icons-benefits/down-arrow.png',
+        img: 'nutrition-app/images/icons-benefits/down-arrow.png',
         text: 'Обновишь гардероб на пару размеров'
     },
     {
