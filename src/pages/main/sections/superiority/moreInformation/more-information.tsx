@@ -10,7 +10,7 @@ export const MoreInformation = () => {
 
     return (
         <div className={styles.content}>
-            <img className={styles.img} src='../../../../../../src/images/moreInfo2.png'></img>
+            <img className={styles.img} src='nutrition-app/images/moreInfo2.png'></img>
             <div className={styles.main}>
                 <h3 className={styles.h3}>Почему мы для каждого?</h3>
                 <p className={styles.text}>

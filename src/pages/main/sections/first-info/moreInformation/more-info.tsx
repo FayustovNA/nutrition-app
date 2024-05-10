@@ -8,7 +8,7 @@ export const MoreInfo = () => {
 
     return (
         <div className={styles.content}>
-            <img className={styles.img} src='../../../../../../src/images/moreInfo.png'></img>
+            <img className={styles.img} src='nutrition-app/images/moreInfo.png'></img>
             <div className={styles.main}>
                 <h3 className={styles.h3}>О проекте BFN</h3>
                 <div className={styles.list}>
@@ -26,6 +26,6 @@ export const MoreInfo = () => {
                 </div>
             </div>
 
-        </div>
+        </div >
     );
 };
