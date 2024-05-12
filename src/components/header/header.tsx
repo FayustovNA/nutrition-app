@@ -13,8 +13,8 @@ import Telegram from '../../images/social/telegram.svg';
 export const Header = () => {
     const [selected, setSelected] = useState('');
     const isUser = useSelector((state: RootState) => state.userData.role);
-    const isLoggedIn = useSelector((state: RootState) => state.userData.isLoggedIn);
-    // const isLoggedIn = true;
+    // const isLoggedIn = useSelector((state: RootState) => state.userData.isLoggedIn);
+    const isLoggedIn = true;
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -48,12 +48,12 @@ export const Header = () => {
 
                 <div className={styles.items}>
 
-                    {/* <HeaderItem
+                    <HeaderItem
                         title={'Библиотека'}
                         path={'/library'}
                         selected={selected}
                         setSelected={setSelected} >
-                    </HeaderItem> */}
+                    </HeaderItem>
                 </div>
 
                 {/* <div className={styles.items}>
