@@ -24,7 +24,7 @@ const LogIn = () => {
         e.preventDefault()
         dispatch(loginIn(values)).then((result) => {
             if (result) {
-                navigate('/dashboard')
+                navigate('/settings')
             }
         })
     }

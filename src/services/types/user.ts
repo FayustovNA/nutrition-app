@@ -2,8 +2,8 @@
 export type TUser = {
     credentials: {
         email: string;
-        accessToken: string;
-        refreshToken: string;
+        access: string;
+        refresh: string;
     };
     profile: {
         first_name: string
@@ -22,12 +22,6 @@ export interface IUserAuthError {
     statusCode: number;
 }
 
-
-
-
-
-
-
 export type TUserRegister = {
     first_name?: string
     last_name?: string
@@ -39,15 +33,17 @@ export type TUserRegister = {
 }
 
 export type TUserRegisterResponse = {
-    id: number
-    username: string
-    email: string
-    role: string
-    password: string
-    confirmPassword: string
-    first_name: string
-    last_name: string
-}
+    access: string;
+    refresh: string;
+    id: number;
+    username: string;
+    email: string;
+    role: string;
+    password: string;
+    confirmPassword: string;
+    first_name: string;
+    last_name: string;
+};
 
 export type TLoginProfile = Pick<TUserRegister, 'email' | 'password'>
 

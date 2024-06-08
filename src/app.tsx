@@ -8,7 +8,9 @@ import { Settings } from './pages/settings/settings';
 import ForgotPassword from './pages/forgot-password/forgot-password';
 import ResetPassword from './pages/reset-password/reset-password';
 import { Library } from './pages/library/library';
-
+import { Сalculators } from './pages/сalculators/сalculators';
+import { Stats } from './pages/stats/stats';
+import { Clients } from './pages/clients/clients';
 
 function App() {
 
@@ -24,7 +26,10 @@ function App() {
             <Route path='/library' element={<Library />}></Route>
             <Route path='/settings' element={<Settings />}></Route>
             <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-            <Route path='reset-password' element={<ResetPassword />}></Route>
+            <Route path='/reset-password' element={<ResetPassword />}></Route>
+            <Route path='/calculators' element={<Сalculators />}></Route>
+            <Route path='/stats' element={<Stats />}></Route>
+            <Route path='/clients' element={<Clients />}></Route>
           </Routes>
         </main>
       </div>

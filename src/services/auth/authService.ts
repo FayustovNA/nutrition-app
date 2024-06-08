@@ -1,40 +1,27 @@
 // Функция для сохранения токена в localStorage
-const saveAccessToken = (accessToken: string) => {
-    localStorage.setItem('accessToken', accessToken);
+const setTokens = (access: string, refresh: string): void => {
+    localStorage.setItem('access', access);
+    localStorage.setItem('refresh', refresh);
 };
 
 // Функция для получения токена из localStorage
 const getAccessToken = (): string | null => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('access');
     return accessToken ?? null;
 };
 
-// Функция удаление токена
-const removeAccessToken = (): void => {
-    localStorage.removeItem('accessToken');
-};
-
-// Функция для сохранения рефреш-токена в localStorage
-const saveRefreshToken = (refreshToken: string) => {
-    localStorage.setItem('refreshToken', refreshToken);
-};
-
 // Функция для получения рефреш-токена из localStorage
-const getRefreshToken = (): string | null => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    return refreshToken ?? null;
-};
+const getRefreshToken = () => localStorage.getItem('refresh');
 
-// Функция удаление рефреш-токена
-const removeRefreshToken = (): void => {
-    localStorage.removeItem('refreshToken');
+// Функция для удаления токенов
+const removeTokens = () => {
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
 };
 
 export {
-    saveAccessToken,
-    saveRefreshToken,
     getAccessToken,
     getRefreshToken,
-    removeAccessToken,
-    removeRefreshToken,
+    removeTokens,
+    setTokens,
 };

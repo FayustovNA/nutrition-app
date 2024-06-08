@@ -13,8 +13,7 @@ import Telegram from '../../images/social/telegram.svg';
 export const Header = () => {
     const [selected, setSelected] = useState('');
     const isUser = useSelector((state: RootState) => state.userData.role);
-    // const isLoggedIn = useSelector((state: RootState) => state.userData.isLoggedIn);
-    const isLoggedIn = true;
+    const isLoggedIn = useSelector((state: RootState) => state.userData.isLoggedIn);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -35,9 +34,18 @@ export const Header = () => {
                     </NavLink>
                 </div>
 
+                <div className={styles.items}>
+                    {isUser == "user" ?
+                        <HeaderItem
+                            title={'Моя статистика'}
+                            path={'/stats'}
+                            selected={selected}
+                            setSelected={setSelected} >
+                        </HeaderItem> : null}
+                </div>
 
                 <div className={styles.items}>
-                    {isLoggedIn ?
+                    {isUser == "coach" ?
                         <HeaderItem
                             title={'Клиенты'}
                             path={'/clients'}
@@ -56,7 +64,7 @@ export const Header = () => {
                     </HeaderItem>
                 </div>
 
-                {/* <div className={styles.items}>
+                <div className={styles.items}>
 
                     <HeaderItem
                         title={'Калькуляторы'}
@@ -64,16 +72,6 @@ export const Header = () => {
                         selected={selected}
                         setSelected={setSelected} >
                     </HeaderItem>
-                </div> */}
-
-                <div className={styles.items}>
-                    {isUser == "isUser" ?
-                        <HeaderItem
-                            title={'Моя статистика'}
-                            path={'/statistics'}
-                            selected={selected}
-                            setSelected={setSelected} >
-                        </HeaderItem> : null}
                 </div>
 
                 <div className={styles.login_block}>

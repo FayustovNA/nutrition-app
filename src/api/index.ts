@@ -1,31 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TUserRegister, TUserRegisterResponse } from '../services/types/user'
 import { TLoginProfile } from '../services/slices/registerSlice'
-import { API_URL } from '../utils/config';
-
-export const checkResponse = <T>(res: Response): Promise<T> => {
-    return res.ok ? res.json() : res.json().then(() => Promise.reject(res.status))
-}
-
-// // Вспомогательная функция для обработки полученного ответа с сервера
-// export const checkResponse = <T>(res: Response): Promise<T> => {
-//     return res.ok
-//         ? res.json()
-//         : res
-//             .json()
-//             .then((err) => Promise.reject({ ...err, statusCode: res.status }));
-// }
-
-
-export const apiRequest = <T>(
-    url: string,
-    options: RequestInit
-): Promise<T> => {
-    return fetch(url, options)
-        .then((res) => checkResponse<T>(res));
-}
-
-
+import { apiRequest } from './utils'
+import { API_URL } from '../utils/config'
 
 export const registerUserRequestApi = ({
     first_name,
@@ -65,3 +41,4 @@ export const loginUserRequestApi = ({ email, password }: TLoginProfile) => {
         }),
     })
 }
+

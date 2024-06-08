@@ -3,19 +3,18 @@ import styles from './setting.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/root-reducer';
 import Button from '../../ui/button/button';
-// import Modal from '../../components/modal/modal';
-// import { useState } from 'react';
-
-
+import Modal from '../../components/modal/modal';
+import { useState } from 'react';
+import { getFatSecretRequestLink } from '../../api/fatsecret';
 interface SettingsProps {
     type?: string;
-    startdate?: Date;
     avatar?: any;
     username?: string;
     location?: string;
     target?: string;
     startWeigth?: number;
     targetWeigth?: number;
+    startDate?: string;
     age?: number;
     email?: '',
     password?: '',
@@ -23,29 +22,19 @@ interface SettingsProps {
 }
 
 export const Settings: React.FC<SettingsProps> = () => {
-
-    const Avatar = useSelector((state: RootState) => state.userData.avatar);
-
-    const username = 'Иван Иванов'
-    const email = 'i.i.gmail.com'
-    const age = '45'
-    const location = 'Samara'
-    const target = 'Рекомпозиция'
-    const startWeigth = 105
-    const targetWeigth = 88
-    const startdate: Date = new Date(2023, 6, 28);
+    const User = useSelector((state: RootState) => state.userData);
 
     // const [profileData, setProfileData] = useState({});
 
-    // const [isOpenModal, setisOpenModal] = useState(false);
+    const [isOpenModal, setisOpenModal] = useState(false);
 
-    // const openModal = () => {
-    //     setisOpenModal(true)
-    // }
+    const openModal = () => {
+        setisOpenModal(true)
+    }
 
-    // const closeModal = () => {
-    //     setisOpenModal(false)
-    // }
+    const closeModal = () => {
+        setisOpenModal(false)
+    }
 
     return (
         <div className={`${styles.account_settings}`}>
@@ -66,42 +55,43 @@ export const Settings: React.FC<SettingsProps> = () => {
 
                         <div className={styles.avatar_user}>
                             <div className={styles.avatarbox}>
-                                <img src={Avatar} alt="Аватар" className={styles.avatar} />
+                                <img src={User.avatar} alt="Аватар" className={styles.avatar} />
                             </div>
-                            <h3 className={styles.username}>{username}</h3>
+                            <h3 className={styles.username}>{User.username}</h3>
                         </div>
 
                         <div className={styles.item_grid}>
                             <p className={styles.id}>
                                 <h4 className={styles.h4}>BlackFox ID</h4>
-                                {email}
+                                {User.email}
                             </p>
                             <div className={styles.list}>
                                 <p className={styles.item}>
                                     <h4 className={styles.h4}>Возраст</h4>
-                                    {age}
+                                    {User.age}
                                 </p>
                                 <p className={styles.item}>
                                     <h4 className={styles.h4}>Город</h4>
-                                    {location}
+                                    {User.location}
                                 </p>
                                 <p className={styles.item}>
                                     <h4 className={styles.h4}>Пароль</h4>
-                                    {email}
+                                    {User.password}
                                 </p>
                             </div>
                         </div>
                     </div>
-
                     <div className={styles.button}>
                         <Button
                             variant='default'
                             size='large'
                             buttonHtmlType='submit'
+                            onClick={openModal}
                         >
                             < p className={styles.btntxt}>Изменить данные</p>
                         </Button>
                     </div>
+
                 </div>
 
 
@@ -115,48 +105,44 @@ export const Settings: React.FC<SettingsProps> = () => {
 
                         <p className={styles.item}>
                             <h4 className={styles.h4}>Дата старта</h4>
-                            {startdate.toLocaleDateString()}
+                            {User.startDate}
                         </p>
 
                         <div className={styles.list}>
                             <p className={styles.item}>
                                 <h4 className={styles.h4}>Цель</h4>
-                                {target}
+                                {User.target}
                             </p>
                             <p className={styles.item}>
                                 <h4 className={styles.h4}>Стартовый вес</h4>
-                                {startWeigth}
+                                {User.startWeigth}
                             </p>
                             <p className={styles.item}>
                                 <h4 className={styles.h4}>Целевой вес</h4>
-                                {targetWeigth}
-                            </p>
-                            <p className={styles.item}>
-                                <h4 className={styles.h4}>Текущий вес</h4>
-                                {targetWeigth}
+                                {User.targetWeigth}
                             </p>
 
                         </div>
 
                     </div>
-
                     <div className={styles.button}>
                         <Button
                             variant='default'
                             size='large'
                             buttonHtmlType='submit'
+                            onClick={getFatSecretRequestLink}
                         >
-                            < p className={styles.btntxt}>Изменить данные</p>
+                            < p className={styles.btntxt}>Связать FatSecret
+                            </p>
                         </Button>
                     </div>
                 </div>
 
             </div>
 
-            {/* {
-                isOpenModal && (<Modal onClose={closeModal}></Modal>)
-            } */}
+            {
+                isOpenModal && (<Modal onClose={closeModal} children={undefined}></Modal>)
+            }
         </div >
-
     );
 };
