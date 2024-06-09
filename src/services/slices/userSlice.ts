@@ -32,11 +32,13 @@ interface IUserSliceState {
     targetWeigth: string,
     target: string,
     startDate: string,
+    fatsecret_account: boolean,
 }
 
 const initialState: IUserSliceState = {
     username: '',
     email: '',
+    fatsecret_account: false,
     password: '***',
     role: '',
     age: 'не задан',
@@ -65,6 +67,7 @@ export const loginIn = createAsyncThunk(
             });
             dispatch(setUserData(response));
             setTokens(response.access, response.refresh);
+            return response;
         } catch (error) {
             return rejectWithValue(error as LoginError);
         }
@@ -85,25 +88,6 @@ export const loginIn = createAsyncThunk(
 // };
 
 
-// export const loginIn = createAsyncThunk(
-//     'user/login',
-//     async (
-//         { email, password }: TUserRegister,
-//         { dispatch, rejectWithValue }
-//     ) => {
-//         try {
-//             const response = await loginUserRequestApi({
-//                 email,
-//                 password,
-//             })
-//             dispatch(setUserData(response))
-//             localStorage.setItem('userToken', response.username)
-//         } catch (error) {
-//             return rejectWithValue(error)
-//         }
-//     }
-// )
-
 export const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -113,6 +97,7 @@ export const userSlice = createSlice({
                 username: action.payload.username,
                 email: action.payload.email,
                 role: action.payload.role,
+                fatsecret_account: action.payload.fatsecret_account,
                 isLoggedIn: true,
                 isCoach: false,
             })
@@ -131,6 +116,7 @@ export const userSlice = createSlice({
                 email: action.payload.email,
                 role: action.payload.role,
                 isLoggedIn: true,
+                fatsecret_account: action.payload.fatsecret_account,
             })
         },
     },

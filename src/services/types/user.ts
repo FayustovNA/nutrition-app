@@ -43,6 +43,7 @@ export type TUserRegisterResponse = {
     confirmPassword: string;
     first_name: string;
     last_name: string;
+    fatsecret_account: boolean;
 };
 
 export type TLoginProfile = Pick<TUserRegister, 'email' | 'password'>

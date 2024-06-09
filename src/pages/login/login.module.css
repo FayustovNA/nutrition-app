@@ -63,6 +63,15 @@
     justify-content: center;
 }
 
+.error {
+    font-size: 11px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    color: red;
+}
+
 @media (max-width: 380px) {
     .title {
         margin-top: 80px;

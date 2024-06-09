@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styles from './setting.module.css';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/root-reducer';
-import Button from '../../ui/button/button';
-import Modal from '../../components/modal/modal';
-import { useState } from 'react';
-import { getFatSecretRequestLink } from '../../api/fatsecret';
+import styles from './setting.module.css'
+import { useEffect } from 'react'
+import { useDispatch } from '../../services/hooks'
+import { fetchFatSecretMonthData } from '../../services/slices/fatSecretSlice'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../services/root-reducer'
+import Button from '../../ui/button/button'
+import Modal from '../../components/modal/modal'
+import { useState } from 'react'
+import { getFatSecretRequestLink } from '../../api/fatsecret'
+
 interface SettingsProps {
     type?: string;
     avatar?: any;
@@ -22,7 +26,13 @@ interface SettingsProps {
 }
 
 export const Settings: React.FC<SettingsProps> = () => {
+    const dispatch = useDispatch();
     const User = useSelector((state: RootState) => state.userData);
+    const FatSecretStatus = useSelector((state: RootState) => state.userData.fatsecret_account);
+
+    useEffect(() => {
+        dispatch(fetchFatSecretMonthData());
+    }, [dispatch]);
 
     // const [profileData, setProfileData] = useState({});
 
@@ -91,7 +101,6 @@ export const Settings: React.FC<SettingsProps> = () => {
                             < p className={styles.btntxt}>Изменить данные</p>
                         </Button>
                     </div>
-
                 </div>
 
 
@@ -126,18 +135,36 @@ export const Settings: React.FC<SettingsProps> = () => {
 
                     </div>
                     <div className={styles.button}>
-                        <Button
-                            variant='default'
-                            size='large'
-                            buttonHtmlType='submit'
-                            onClick={getFatSecretRequestLink}
-                        >
-                            < p className={styles.btntxt}>Связать FatSecret
-                            </p>
-                        </Button>
+                        {FatSecretStatus === false ?
+                            <Button
+                                variant='default'
+                                size='large'
+                                color='green-blue'
+                                buttonHtmlType='submit'
+                                onClick={getFatSecretRequestLink}
+                            ><p>Связать FatSecret</p>
+                            </Button> :
+                            <Button
+                                variant='default'
+                                color='green'
+                                disabled
+                                size='large'
+                                buttonHtmlType='submit'
+                            ><p>FatSecret связан</p>
+                            </Button>}
                     </div>
                 </div>
 
+                <div className={styles.exit_btn}>
+                    <Button
+                        variant='default'
+                        size='large'
+                        buttonHtmlType='submit'
+                        onClick={openModal}
+                    >
+                        < p className={styles.btntxt}>Выйти</p>
+                    </Button>
+                </div>
             </div>
 
             {

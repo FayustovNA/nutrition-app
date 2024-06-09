@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import styles from './login.module.css'
 import useForm from '../../hooks/useForm'
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,7 +11,7 @@ import Login from '../../images/login.svg?react'
 // import { useAppSelector } from '../../services/store'
 
 const LogIn = () => {
-
+    const [error, setError] = useState('');
     const { values, handleChange } = useForm({
         email: '',
         password: '',
@@ -20,14 +20,18 @@ const LogIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        dispatch(loginIn(values)).then((result) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const result = await dispatch(loginIn(values)).unwrap();
             if (result) {
-                navigate('/settings')
+                navigate('/settings');
             }
-        })
-    }
+        } catch (error) {
+            setError('Ошибка входа: проверьте ваши данные и попробуйте снова.');
+        }
+    };
+
 
     return (
         <div className={styles.content}>
@@ -60,6 +64,7 @@ const LogIn = () => {
                     maxLength={30}
                     required
                 />
+                <div className={styles.error}>{error}</div>
                 <div className={styles.button}>
                     <Button
                         variant='default'

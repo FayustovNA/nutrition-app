@@ -81,6 +81,20 @@
     font-size: 12px;
 }
 
+
+.green-blue {
+    background: var(--hover-blue);
+}
+
+.green-blue:hover {
+    background: #30D158;
+}
+
+.green {
+    background: #30D158;
+}
+
+
 .none-blue:hover {
     color: var(--gold);
     background: none;

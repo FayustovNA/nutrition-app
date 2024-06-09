@@ -2,6 +2,7 @@
     text-decoration: none;
     display: flex;
     padding: 0;
+    margin-right: 40px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -33,4 +34,11 @@
     padding: 0;
     margin: auto;
     list-style-type: none;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .title {
+        display: block;
+    }
 }

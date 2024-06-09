@@ -56,12 +56,12 @@ export const Header = () => {
 
                 <div className={styles.items}>
 
-                    <HeaderItem
+                    {isLoggedIn ? <HeaderItem
                         title={'Библиотека'}
                         path={'/library'}
                         selected={selected}
                         setSelected={setSelected} >
-                    </HeaderItem>
+                    </HeaderItem> : null}
                 </div>
 
                 <div className={styles.items}>

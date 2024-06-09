@@ -10,6 +10,7 @@ interface HeaderItemProps {
     children?: React.ReactNode;
 }
 
+
 export const HeaderItem: React.FC<HeaderItemProps> = ({
     title,
     children,
@@ -17,7 +18,6 @@ export const HeaderItem: React.FC<HeaderItemProps> = ({
     selected,
     setSelected
 }) => {
-
     return (
         <NavLink to={path} className={`${styles.item} ${selected === path && styles.active}`} onClick={() => setSelected(path)}>
             <div className={`${styles.icon} ${selected === path && styles.active}`}>

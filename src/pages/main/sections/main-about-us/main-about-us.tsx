@@ -46,7 +46,7 @@ export const SectionMainAboutUs = () => {
 
     const renderSlides = items.map((item, index) => {
         return (
-            <ItemAbout data={item} index={index} />
+            <ItemAbout data={item} index={index} key={index} />
         );
     });
 

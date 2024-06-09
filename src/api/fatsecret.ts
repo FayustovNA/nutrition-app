@@ -4,7 +4,6 @@ import { apiRequest } from './utils';
 
 //Запрос на получение ссылки привязки аккаунта fatsecret
 export const getFatSecretRequestLink = async () => {
-    console.log(getAccessToken())
     try {
         const accessToken = getAccessToken();
         if (!accessToken) {
@@ -25,5 +24,31 @@ export const getFatSecretRequestLink = async () => {
         }
     } catch (error) {
         console.error('Error fetching FatSecret request link:', error);
+    }
+};
+
+//Запрос дневников за месяц
+export const getFatSecretMonthData = async () => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+
+        const response = await apiRequest(`${API_URL}/fatsecret/foods/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        if (response) {
+            return response;
+        } else {
+            throw new Error('Data not found in the response');
+        }
+    } catch (error) {
+        console.error('Error fetching FatSecret foods data:', error);
     }
 };
