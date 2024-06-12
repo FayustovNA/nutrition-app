@@ -1,0 +1,84 @@
+.item {
+    width: 160px;
+    height: 75px;
+    background: var(--main-background);
+    border-radius: 8px;
+    position: relative;
+}
+
+.title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    padding: 0px;
+    margin: 10px 0px 5px 10px;
+}
+
+.units {
+    justify-content: center;
+    margin: 8px 0px 0px 0px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    min-height: 40px;
+}
+
+.fact {
+    font-size: 18px;
+    min-height: 30px;
+    font-weight: 700;
+    width: 50%;
+    border-right: 1px solid var(--gold);
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    padding: 0px;
+}
+
+.target {
+    font-size: 12px;
+    width: 50%;
+    font-weight: 900;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+    gap: 5px;
+    color: var(--gray-main);
+}
+
+.subtitle {
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+    align-items: center;
+    font-weight: 400;
+    color: var(--gray-main);
+    justify-content: center;
+}
+
+.value {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.un {
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon {
+    width: 20px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}

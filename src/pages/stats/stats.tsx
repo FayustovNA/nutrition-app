@@ -1,13 +1,9 @@
 import styles from './stats.module.css'
-import { RootState } from '../../services/root-reducer'
-import { useSelector } from 'react-redux'
-
-
+import { DiaryPanel } from '../../components/diary-panel/diary-panel'
+import { FoodTargetPanel } from '../../components/food-target-panel/food-target-panel';
 
 
 export const Stats = () => {
-    const monthData = useSelector((state: RootState) => state.fatSecretDataMonth.month.day);
-    console.log(monthData)
 
 
     return (
@@ -16,11 +12,8 @@ export const Stats = () => {
                 Моя статистика
             </h1>
             <div className={styles.grid}>
-                {monthData.map((item: any) => {
-                    return (
-                        <div>{item.calories} </div>
-                    );
-                })}
+                <DiaryPanel />
+                <FoodTargetPanel />
             </div>
         </div>
     );

@@ -1,0 +1,44 @@
+.tabs {
+    height: 38px;
+    width: 90%;
+    display: flex;
+    background: var(--main-background);
+    border-radius: 8px;
+    backdrop-filter: blur(20px);
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.line {
+    width: 97%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.btn {
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    color: var(--gray-main);
+    text-align: center;
+    font-size: 13px;
+    height: 28px;
+    font-weight: 900;
+    border-radius: 6px;
+    background: none;
+    width: calc(100% - 2*4px);
+    padding: 3px;
+    cursor: pointer;
+}
+
+.active {
+    background: #262626;
+    color: var(--main-text-color)
+}

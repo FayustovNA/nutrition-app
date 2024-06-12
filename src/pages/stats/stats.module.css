@@ -3,6 +3,12 @@
     justify-content: center;
 }
 
+.grid {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
 .title {
     font-size: 36px;
     font-weight: 300;

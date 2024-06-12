@@ -9,3 +9,45 @@
     margin: 60px auto 20px 0px;
     padding: 0;
 }
+
+.grid {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calculator {
+    width: 100%;
+    background: #262626;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.25;
+    padding: 0px;
+    margin: 20px auto 20px 20px;
+    color: var(--main-text-color);
+    opacity: 0.8;
+}
+
+.workspace {
+    margin: 20px 20px 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.data {
+    background: var(--main-background);
+    border-radius: 8px;
+}
+
+.result {
+    background: var(--main-background);
+    border-radius: 8px;
+}

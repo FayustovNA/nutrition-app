@@ -10,6 +10,7 @@ export type TState = {
     password?: string
     confirmPassword?: string
     resetCode?: string
+    gender?: string
 }
 
 const useForm = (inputValues: TState) => {
