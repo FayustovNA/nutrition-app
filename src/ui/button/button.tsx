@@ -4,7 +4,7 @@ import stylesButton from './button.module.css';
 
 export interface IButton {
     variant: 'default' | 'circle';
-    size?: 'medium' | 'large' | 'small';
+    size?: 'medium' | 'large' | 'small' | 'width';
     color?: 'gold-blue' | 'none' | 'opacity' | 'none-blue' | 'green-blue' | 'green';
     buttonHtmlType?: 'button' | 'submit' | 'reset';
     onClick?: VoidFunction;
