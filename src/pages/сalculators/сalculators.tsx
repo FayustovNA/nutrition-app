@@ -229,7 +229,7 @@ export const Сalculators = () => {
                                     <div className={styles.item}>
                                         <h4 className={styles.h4}>Ваша категория</h4>
                                         <div className={styles.result}>
-                                            <div className={styles.unit}>{fatCategory}</div>
+                                            <div className={styles.unit_last}>{fatCategory}</div>
                                         </div>
                                     </div>
 
