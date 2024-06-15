@@ -23,6 +23,7 @@
     align-items: center;
     width: 100%;
     margin-left: 100px;
+    height: 100%;
 }
 
 .login_block {
@@ -79,6 +80,15 @@
     opacity: 0.5;
 }
 
+@media (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+
+    .header {
+        height: 80px;
+    }
+}
 
 @media (max-width: 950px) {
 

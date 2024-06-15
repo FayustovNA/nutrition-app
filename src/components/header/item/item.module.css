@@ -15,6 +15,15 @@
     fill: var(--gold);
 }
 
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 0px;
+}
+
 .active * {
     color: var(--gold);
     fill: var(--gold);
@@ -22,9 +31,10 @@
 
 .icon {
     display: flex;
-    justify-content: center;
-    margin: auto auto auto 15px;
     border: none;
+    width: 15px;
+    height: 15px;
+    display: none;
 }
 
 .title {
@@ -32,13 +42,29 @@
     font-style: normal;
     font-weight: 300;
     padding: 0;
-    margin: auto;
     list-style-type: none;
-    display: none;
+    /* display: none; */
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .title {
         display: block;
+        font-size: 9px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .icon {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 }

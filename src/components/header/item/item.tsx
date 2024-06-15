@@ -20,12 +20,14 @@ export const HeaderItem: React.FC<HeaderItemProps> = ({
 }) => {
     return (
         <NavLink to={path} className={`${styles.item} ${selected === path && styles.active}`} onClick={() => setSelected(path)}>
-            <div className={`${styles.icon} ${selected === path && styles.active}`}>
-                {children}
+            <div className={styles.content}>
+                <div className={`${styles.icon} ${selected === path && styles.active}`}>
+                    {children}
+                </div>
+                <h2 className={`${styles.title} ${selected === path && styles.active}`}>
+                    {title}
+                </h2>
             </div>
-            <h2 className={`${styles.title} ${selected === path && styles.active}`}>
-                {title}
-            </h2>
         </NavLink>
     );
 };
