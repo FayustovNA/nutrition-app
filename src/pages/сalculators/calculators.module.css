@@ -167,3 +167,10 @@
     }
 
 }
+
+@media (max-width: 768px) {
+    .table {
+        display: flex;
+        flex-direction: column;
+    }
+}
