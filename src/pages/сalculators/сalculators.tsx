@@ -240,14 +240,14 @@ export const Сalculators = () => {
                 </div>
 
 
-                <div className={styles.calculator}>
+                {/* <div className={styles.calculator}>
                     <h2 className={styles.subtitle}>Рассчитай базовый уровень метаболизма</h2>
 
                 </div>
                 <div className={styles.calculator}>
                     <h2 className={styles.subtitle}>Рассчитай норму белка</h2>
 
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 .content {
     margin: 0px 20px 0px 20px;
     justify-content: center;
+    width: calc(100% - 2*20px);
 }
 
 .title {
@@ -169,6 +170,11 @@
 }
 
 @media (max-width: 768px) {
+
+    .content {
+        width: calc(100% - 2*10px);
+    }
+
     .table {
         display: flex;
         flex-direction: column;

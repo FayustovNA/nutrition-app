@@ -17,6 +17,8 @@
   width: 100%;
   overflow: scroll;
   height: 100%;
+  justify-content: center;
+  margin: auto;
 }
 
 input[type="number"]::-webkit-outer-spin-button,

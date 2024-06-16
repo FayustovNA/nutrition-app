@@ -2,7 +2,7 @@ import { FC } from "react";
 import styles from './modal-overlay.module.css';
 
 interface IonClick {
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 const ModalOverlay: FC<IonClick> = ({ onClick }) => {

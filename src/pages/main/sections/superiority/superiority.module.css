@@ -2,7 +2,8 @@
     align-items: center;
     display: flex;
     margin: 20px 20px 0px 20px;
-    justify-content: end;
+    justify-content: center;
+    max-width: 1920px;
 }
 
 .title {
@@ -14,7 +15,7 @@
     color: var(--main-text-color);
     letter-spacing: -.004em;
     display: flex;
-    margin: 0px auto 40px 0px;
+    margin: 40px auto 40px 0px;
 }
 
 .textbox {
@@ -106,3 +107,11 @@
 @media (min-width: 1200px) and (max-width: 1680px) {}
 
 @media (min-width: 1681px) {}
+
+@media (min-width: 1920px) {
+    .section {
+        align-items: center;
+        margin: auto;
+        max-width: 1920px;
+    }
+}

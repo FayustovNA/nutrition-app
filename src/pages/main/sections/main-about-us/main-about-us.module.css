@@ -1,7 +1,8 @@
 .section {
     align-items: center;
-    margin: 0px 20px 20px 20px;
+    margin: 20px auto 0px auto;
     justify-content: center;
+    max-width: 1920px;
 }
 
 .section_titles {
@@ -17,7 +18,7 @@
     color: var(--main-text-color);
     letter-spacing: -.004em;
     display: flex;
-    margin: 40px 0px 40px 0px;
+    margin: 40px auto 40px 20px;
 }
 
 .slider {
@@ -45,5 +46,13 @@
 
     .title {
         font-size: 32px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .section {
+        align-items: center;
+        margin: auto;
+        max-width: 1920px;
     }
 }

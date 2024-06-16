@@ -93,3 +93,11 @@
 @media (min-width: 1200px) and (max-width: 1680px) {}
 
 @media (min-width: 1681px) {}
+
+@media (min-width: 1920px) {
+    .section {
+        max-height: 510px;
+        height: 750px;
+        margin-bottom: 20px;
+    }
+}

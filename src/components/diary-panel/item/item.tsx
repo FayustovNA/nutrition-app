@@ -7,13 +7,14 @@ interface ItemDiaryProps {
     date_int: string;
     fat: string;
     protein: string;
+    onclick: () => void;
 }
 
-const ItemDiary: React.FC<ItemDiaryProps> = ({ calories, carbohydrate, date_int, fat, protein }) => {
+const ItemDiary: React.FC<ItemDiaryProps> = ({ calories, carbohydrate, date_int, fat, protein, onclick }) => {
 
 
     return (
-        <div className={styles.item}>
+        <div className={styles.item} onClick={onclick}>
             <h3 className={styles.date}>{date_int} || Дневной отчет</h3>
             <ul className={styles.macros}>
                 <div className={styles.kcal_}>

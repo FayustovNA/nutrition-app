@@ -52,3 +52,29 @@ export const getFatSecretMonthData = async () => {
         console.error('Error fetching FatSecret foods data:', error);
     }
 };
+
+//Запрос дневника по дате
+export const getFatSecretDiary = async (diaryData: any) => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+
+        const response = await apiRequest(`${API_URL}/fatsecret/foods_daily?=${diaryData}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        if (response) {
+            return response;
+        } else {
+            throw new Error('Data not found in the response');
+        }
+    } catch (error) {
+        console.error('Error fetching FatSecret foods data:', error);
+    }
+};
