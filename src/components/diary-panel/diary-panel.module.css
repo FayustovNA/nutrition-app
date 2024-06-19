@@ -46,21 +46,3 @@
     justify-content: center;
     margin-bottom: 10px;
 }
-
-.loader {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.load {
-    z-index: 100;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    position: fixed;
-    z-index: 5;
-}

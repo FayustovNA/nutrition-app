@@ -8,6 +8,7 @@ import Modal from '../modal/modal'
 import ModalDiary from './modal/modal-diary'
 import { getFatSecretDiary } from '../../api/fatsecret'
 import ModalOverlay from '../modal-overlay/modal-overlay'
+import { Loader } from '../loader/loader'
 
 export const DiaryPanel = () => {
     const monthData = useSelector((state: RootState) => state.fatSecretDataMonth.month.day);
@@ -81,12 +82,7 @@ export const DiaryPanel = () => {
             </div>
             {selectedItem && (
                 loading ? (
-                    <div className={styles.loader}>
-                        <ModalOverlay />
-                        <p className={styles.load}>Loading...</p>
-                    </div>
-
-                    // Отображаем загрузчик, пока данные загружаются
+                    <Loader />
                 ) : (
                     <Modal onClose={handleCloseModal}>
                         <ModalDiary data={diaryData}></ModalDiary>
