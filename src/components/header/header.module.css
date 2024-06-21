@@ -81,12 +81,16 @@
 }
 
 @media (max-width: 768px) {
-    .logo {
+    /* .logo {
         display: none;
-    }
+    } */
 
     .header {
         height: 80px;
+    }
+
+    .items {
+        margin-left: 30px;
     }
 }
 

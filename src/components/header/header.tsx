@@ -67,14 +67,14 @@ export const Header = () => {
 
                 <div className={styles.items}>
 
-                    <HeaderItem
+                    {/* <HeaderItem
                         title={'Калькуляторы'}
                         path={'/calculators'}
                         selected={selected}
                         setSelected={setSelected}
                         children={<CalIconfrom />}
                     >
-                    </HeaderItem>
+                    </HeaderItem> */}
                 </div>
 
                 <div className={styles.login_block}>
