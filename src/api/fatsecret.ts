@@ -78,3 +78,28 @@ export const getFatSecretDiary = async (diaryData: any) => {
         console.error('Error fetching FatSecret foods data:', error);
     }
 };
+
+//Запрос на получение данных по весу
+export const getFatSecretWeights = async () => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+
+        const response = await apiRequest(`${API_URL}/fatsecret/weights/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+        if (response) {
+            return response;
+        } else {
+            throw new Error('Data not found in the response');
+        }
+    } catch (error) {
+        console.error('Error fetching FatSecret weights data:', error);
+    }
+};

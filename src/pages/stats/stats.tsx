@@ -1,6 +1,8 @@
 import styles from './stats.module.css'
 import { DiaryPanel } from '../../components/diary-panel/diary-panel'
-import { FoodTargetPanel } from '../../components/food-target-panel/food-target-panel';
+import { FoodTargetPanel } from '../../components/food-target-panel/food-target-panel'
+import WeekWeightPanel from '../../components/week-weight-panel/week-weight-panel';
+
 
 
 export const Stats = () => {
@@ -15,6 +17,7 @@ export const Stats = () => {
                 <DiaryPanel />
                 <FoodTargetPanel />
             </div>
+            <WeekWeightPanel />
         </div>
     );
 };
