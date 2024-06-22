@@ -82,3 +82,20 @@
     right: 10px;
     top: 5px;
 }
+
+@media (max-width: 768px) {
+    .item {
+        width: 100%;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fact {
+        font-size: 14px;
+    }
+
+    .target {
+        font-size: 9px;
+    }
+}

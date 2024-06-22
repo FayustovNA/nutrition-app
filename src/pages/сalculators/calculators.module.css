@@ -172,11 +172,18 @@
 @media (max-width: 768px) {
 
     .content {
+        margin: 0px 10px 90px 10px;
+        justify-content: center;
         width: calc(100% - 2*10px);
     }
 
     .table {
         display: flex;
         flex-direction: column;
+    }
+
+    .title {
+        margin: 20px auto 20px 0px;
+        padding: 0;
     }
 }

@@ -33,3 +33,25 @@
     margin-bottom: 20px;
     border-bottom: 1px solid var(--gold);
 }
+
+@media (max-width: 768px) {
+
+    .h3 {
+        font-size: 19px;
+        font-weight: 300;
+        margin: 0;
+        padding: 0;
+        margin: 20px auto 0px 0px;
+    }
+
+    .header {
+        font-size: 9px;
+        padding: 0px;
+        margin: 30px 0px 10px 0px;
+        padding-bottom: 10px;
+    }
+
+    .item {
+        font-size: 10px;
+    }
+}

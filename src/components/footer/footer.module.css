@@ -65,3 +65,9 @@
         border: none;
     }
 }
+
+@media (max-width: 768px) {
+    .footer {
+        padding-bottom: 40px;
+    }
+}

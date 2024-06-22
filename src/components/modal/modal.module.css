@@ -3,7 +3,7 @@
     max-height: 80vh;
     max-width: 90vw;
     width: 560px;
-    height: 650px;
+    min-height: 650px;
     display: table-cell;
     left: 50%;
     top: 50%;
@@ -42,4 +42,16 @@
     overflow-y: scroll;
     width: 100%;
     height: 100%;
+}
+
+
+@media (max-width: 768px) {
+    .modalwindow {
+        min-height: 500px;
+        height: 600px;
+    }
+
+    .modal_content {
+        margin-bottom: 20px;
+    }
 }
