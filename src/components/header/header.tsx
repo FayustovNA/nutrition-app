@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../services/root-reducer';
 import AvatarItem from './avatar-item/avatar-item';
 import Telegram from '../../images/social/telegram.svg';
-import CalIconfrom from '../../images/header/Tapbar.svg?react';
+// import CalIconfrom from '../../images/header/Tapbar.svg?react';
 
 
 export const Header = () => {
