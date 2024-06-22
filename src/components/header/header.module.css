@@ -26,11 +26,19 @@
     height: 100%;
 }
 
+.panes {
+    display: flex;
+    flex-direction: row;
+}
+
 .login_block {
     display: flex;
     flex-direction: row;
     gap: 15px;
+    margin: auto;
     position: absolute;
+    justify-content: center;
+    align-items: center;
     right: 20px;
 }
 
@@ -66,12 +74,12 @@
 
 .icon {
     justify-content: center;
-    width: 20px;
+    width: 25px;
     padding: 0;
     display: flex;
     margin: auto;
     align-items: center;
-    height: 20px;
+    height: 25px;
     object-fit: contain;
     z-index: 3;
 }
@@ -81,16 +89,19 @@
 }
 
 @media (max-width: 768px) {
-    /* .logo {
-        display: none;
-    } */
 
     .header {
         height: 80px;
     }
 
     .items {
-        margin-left: 30px;
+        margin-left: 0px;
+    }
+
+    .panes {
+        width: 50%;
+        margin: auto;
+        justify-content: center;
     }
 }
 
@@ -101,6 +112,6 @@
     }
 
     .menu {
-        margin: 0px 10px 0px 10px;
+        margin: 0px 0px 0px 0px;
     }
 }

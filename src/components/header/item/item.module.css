@@ -30,11 +30,13 @@
 }
 
 .icon {
-    display: flex;
     border: none;
-    width: 15px;
-    height: 15px;
     display: none;
+    margin: 0px;
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
 }
 
 .title {
@@ -48,7 +50,8 @@
 
 @media (max-width: 768px) {
     .title {
-        display: block;
+        /* display: block; */
+        display: none;
         font-size: 9px;
         margin: 0px;
         padding: 0px;
@@ -56,10 +59,11 @@
 
     .icon {
         display: flex;
-        width: 30px;
-        height: 30px;
         padding: 0px;
         margin: 0px;
+        object-fit: contain;
+        width: 30px;
+        height: 30px;
     }
 
     .content {

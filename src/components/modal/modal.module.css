@@ -2,7 +2,7 @@
     background: var(--main-background);
     max-height: 80vh;
     max-width: 90vw;
-    /* width: 560px; */
+    width: 560px;
     height: 650px;
     display: table-cell;
     left: 50%;

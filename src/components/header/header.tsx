@@ -8,7 +8,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../services/root-reducer';
 import AvatarItem from './avatar-item/avatar-item';
 import Telegram from '../../images/social/telegram.svg';
-// import CalIconfrom from '../../images/header/Tapbar.svg?react';
+import Calculations from '../../images/header/Calc.svg?react';
+import Stats from '../../images/header/Stats.svg?react';
+import Lib from '../../images/header/Lib.svg?react';
 
 
 export const Header = () => {
@@ -35,47 +37,54 @@ export const Header = () => {
                     </NavLink>
                 </div>
 
-                <div className={styles.items}>
-                    {isUser == "user" ?
-                        <HeaderItem
-                            title={'Моя статистика'}
-                            path={'/stats'}
+                <div className={styles.panes}>
+                    <div className={styles.items}>
+                        {isUser == "user" ?
+                            <HeaderItem
+                                title={'Моя статистика'}
+                                path={'/stats'}
+                                selected={selected}
+                                setSelected={setSelected}
+                                children={<Stats />}
+                            >
+
+                            </HeaderItem> : null}
+                    </div>
+
+                    <div className={styles.items}>
+                        {isUser == "coach" ?
+                            <HeaderItem
+                                title={'Клиенты'}
+                                path={'/clients'}
+                                selected={selected}
+                                setSelected={setSelected} >
+                            </HeaderItem> : null}
+                    </div>
+
+                    <div className={styles.items}>
+
+                        {isLoggedIn ? <HeaderItem
+                            title={'Библиотека'}
+                            path={'/library'}
                             selected={selected}
-                            setSelected={setSelected} >
+                            setSelected={setSelected}
+                            children={<Lib />}>
                         </HeaderItem> : null}
-                </div>
+                    </div>
 
-                <div className={styles.items}>
-                    {isUser == "coach" ?
+                    <div className={styles.items}>
+
                         <HeaderItem
-                            title={'Клиенты'}
-                            path={'/clients'}
+                            title={'Калькуляторы'}
+                            path={'/calculators'}
                             selected={selected}
-                            setSelected={setSelected} >
-                        </HeaderItem> : null}
+                            setSelected={setSelected}
+                            children={<Calculations />}
+                        >
+                        </HeaderItem>
+                    </div>
                 </div>
 
-                <div className={styles.items}>
-
-                    {isLoggedIn ? <HeaderItem
-                        title={'Библиотека'}
-                        path={'/library'}
-                        selected={selected}
-                        setSelected={setSelected} >
-                    </HeaderItem> : null}
-                </div>
-
-                <div className={styles.items}>
-
-                    {/* <HeaderItem
-                        title={'Калькуляторы'}
-                        path={'/calculators'}
-                        selected={selected}
-                        setSelected={setSelected}
-                        children={<CalIconfrom />}
-                    >
-                    </HeaderItem> */}
-                </div>
 
                 <div className={styles.login_block}>
 

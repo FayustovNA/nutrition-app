@@ -7,7 +7,6 @@ import { useState } from 'react'
 import Modal from '../modal/modal'
 import ModalDiary from './modal/modal-diary'
 import { getFatSecretDiary } from '../../api/fatsecret'
-import ModalOverlay from '../modal-overlay/modal-overlay'
 import { Loader } from '../loader/loader'
 
 export const DiaryPanel = () => {
