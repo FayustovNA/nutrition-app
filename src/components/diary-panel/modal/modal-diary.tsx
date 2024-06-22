@@ -15,7 +15,7 @@ interface FoodEntry {
 }
 
 interface ModalDiaryProps {
-    data: FoodEntry[];
+    data: FoodEntry[] | null | any;
 }
 
 const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {

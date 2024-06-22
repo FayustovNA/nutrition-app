@@ -22,7 +22,7 @@ export const DiaryPanel = () => {
         setLoading(true); // Устанавливаем состояние загрузки в true
         try {
             console.log(item.date_int)
-            const response = await getFatSecretDiary(item.date_int);
+            const response: any = await getFatSecretDiary(item.date_int);
             const data = response.food_entries.food_entry
             setDiaryData(data);
         } catch (error) {
@@ -31,6 +31,7 @@ export const DiaryPanel = () => {
             setLoading(false); // Устанавливаем состояние загрузки в false после завершения запроса
         }
     };
+
 
     const handleCloseModal = () => {
         setSelectedItem(null);
