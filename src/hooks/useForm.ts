@@ -11,6 +11,7 @@ export type TState = {
     confirmPassword?: string
     resetCode?: string
     gender?: string
+    genderBMI?: string
     weight?: number
     height?: number
     waist?: number
