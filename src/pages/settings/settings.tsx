@@ -29,6 +29,7 @@ export const Settings: React.FC<SettingsProps> = () => {
     const dispatch = useDispatch();
     const User = useSelector((state: RootState) => state.userData);
     const FatSecretStatus = useSelector((state: RootState) => state.userData.fatsecret_account);
+    console.log(User)
 
     useEffect(() => {
         dispatch(fetchFatSecretMonthData());

@@ -4,7 +4,7 @@ import { getFatSecretMonthData } from '../../api/fatsecret';
 interface Day {
     calories: string;
     carbohydrate: string;
-    date_int: string;
+    date: string;
     fat: string;
     protein: string;
 }
@@ -31,7 +31,7 @@ const initialState: NutritionMonthData = {
             {
                 calories: "0",
                 carbohydrate: "0",
-                date_int: "0",
+                date: "0",
                 fat: "0",
                 protein: "0"
             }

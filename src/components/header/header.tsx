@@ -39,7 +39,19 @@ export const Header = () => {
 
                 <div className={styles.panes}>
                     <div className={styles.items}>
-                        {isUser == "user" ?
+                        {isUser == "admin" ?
+                            <HeaderItem
+                                title={'Пользователи'}
+                                path={'/adminpanel'}
+                                selected={selected}
+                                setSelected={setSelected}
+                                children={<Stats />}
+                            >
+
+                            </HeaderItem> : null}
+                    </div>
+                    <div className={styles.items}>
+                        {isUser == "user" ? //заменить на клиента
                             <HeaderItem
                                 title={'Моя статистика'}
                                 path={'/stats'}

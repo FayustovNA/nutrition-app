@@ -1,13 +1,13 @@
 .section {
     position: relative;
-    max-height: 410px;
-    height: 410px;
+    max-height: 440px;
+    height: 440px;
+    margin-top: 50px;
     display: flex;
     width: 100%;
     background-image: url(../../../../images/Banner.png);
     /* background-image: url(../../../../images/MainBanner.jpg); */
     background-repeat: no-repeat;
-    margin-top: 40px;
     background-size: cover;
 }
 

@@ -1,5 +1,5 @@
 .modalwindow {
-    background: var(--main-background);
+    background: #252525;
     max-height: 80vh;
     max-width: 90vw;
     width: 560px;
@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%);
     position: fixed;
     z-index: 5;
-    border-radius: 10px;
+    border-radius: 13px;
 }
 
 .closeicon {

@@ -69,7 +69,7 @@ export const DiaryPanel = () => {
                             key={item.date_int}
                             calories={item.calories}
                             carbohydrate={item.carbohydrate}
-                            date_int={item.date_int}
+                            date={item.date}
                             fat={item.fat}
                             protein={item.protein}
                             onclick={() => handleItemClick(item)}>

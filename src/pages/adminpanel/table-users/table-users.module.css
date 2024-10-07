@@ -1,0 +1,183 @@
+.tablebox {
+    min-width: 100%;
+    padding: 0px;
+    margin: auto;
+}
+
+.table {
+    min-width: 100%;
+    margin: auto;
+    padding: 0px;
+    border: none;
+}
+
+.tbody {
+    padding: 0;
+    margin: 0px;
+}
+
+.head {
+    height: 50px;
+    border-radius: 10px 10px 0 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* color: var(--gold); */
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.25;
+    color: var(--gray-main);
+    background-color: #252525;
+    /* border-bottom: 0.5px solid var(--hover-blue); */
+}
+
+.col {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    width: 100%;
+    height: 50px;
+}
+
+
+.rows {
+    font-size: 12px;
+    height: 35px;
+    margin: auto;
+    gap: 0px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.5px solid var(--gray-main);
+    position: relative;
+    background-color: rgba(84, 84, 88, 0.25);
+}
+
+.item_rows {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.rows:hover {
+    /* color: var(--hover-blue); */
+    background-color: var(--main-background);
+}
+
+.rows:last-child {
+    border-bottom: none;
+    /* border-bottom: 0.5px solid var(--hover-blue); */
+    /* Убираем border-bottom у последнего элемента */
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    margin: auto;
+    height: 35px;
+    width: 100%;
+    padding: 0px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    padding-bottom: 0.5px;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+    background-color: #252525;
+    border-radius: 0 0 10px 10px;
+}
+
+.pgn_panel {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+    align-items: center;
+}
+
+.btn {
+    width: 20px;
+    cursor: pointer;
+    font-size: 10px;
+    height: 20px;
+    border: none;
+    border-radius: 7px;
+    padding: 0px;
+    color: var(--gold);
+    background-color: var(--main-background);
+    border: 1px solid var(--main-background);
+}
+
+.btn:hover {
+    border: 0.5px solid var(--gray-main);
+}
+
+.btn.active {
+    /* background-color: var(--hover-blue); */
+    background-color: #4A4A4A;
+    /* Цвет для активной кнопки */
+    color: white;
+    /* Цвет текста для активной кнопки */
+}
+
+.btn_action {
+    cursor: pointer;
+    background: none;
+    position: absolute;
+    border-radius: none;
+    border: none;
+    outline: none;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    right: 20px;
+    transform: translate(-50%, -50%);
+}
+
+.btn_action_ {
+    cursor: pointer;
+    background: none;
+    position: absolute;
+    border-radius: none;
+    border: none;
+    outline: none;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    right: 50px;
+    transform: translate(-50%, -50%);
+}
+
+.btn_action_:hover * {
+    fill: var(--gold);
+    /* Замените на нужный цвет */
+}
+
+.btn_action:hover * {
+    fill: #FF453A;
+    /* Замените на нужный цвет */
+}
+
+.info {
+    display: flex;
+    margin: auto 40px auto auto;
+    font-size: 12px;
+    color: var(--gray-main);
+}
+
+.count {
+    display: flex;
+    font-weight: 500;
+    margin: auto auto auto 10px;
+    color: var(--gold);
+}

@@ -2,21 +2,67 @@
     width: 100%;
 }
 
-.input {
-    width: calc(100% - 10px);
+.select {
+    /* width: calc(100% - 10px); */
+    width: 100%;
     color: var(--gray-main);
     height: 35px;
     background: var(--main-background);
     border-radius: 8px;
     border: 0.5px solid var(--gray-main);
     font-size: 14px;
-    padding: 0 0 0 10px;
+    text-indent: 10px;
+    appearance: none;
+    /* Отключает стандартную стрелку */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--main-background);
+    border-radius: 8px;
+    border: 0.5px solid var(--gray-main);
+    background-image: url('../../images/icon-status/Chevron.svg');
+    background-position: right 15px center;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.select::-ms-expand {
+    display: none;
+}
+
+.input {
+    width: 100%;
+    /* width: calc(100% - 10px); */
+    color: var(--gray-main);
+    height: 35px;
+    background: var(--main-background);
+    border-radius: 8px;
+    border: 0.5px solid var(--gray-main);
+    font-size: 14px;
+    text-indent: 6px;
+}
+
+.select::placeholder {
+    color: var(--gray-main);
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    /* text-indent: 10px; */
 }
 
 .input::placeholder {
     color: var(--gray-main);
     font-size: 14px;
     font-weight: 500;
+    /* text-indent: 10px; */
+}
+
+.select:focus {
+    background-color: #1f1f1f;
+    outline: none;
+    font-size: 14px;
+    color: var(--hover-blue);
+    border: 0.5px solid var(--gray-main);
 }
 
 .input:focus {
@@ -42,6 +88,21 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #1f1f1f inset;
 }
 
+select:-webkit-autofill:focus {
+    border: 0.5px solid var(--gray-main);
+    outline: none;
+    font-size: 14px;
+    -webkit-text-fill-color: #CACACA;
+    -webkit-box-shadow: 0 0 0px 1000px #1f1f1f inset;
+}
+
+select:-webkit-autofill {
+    border: 0.5px solid var(--gray-main);
+    outline: none;
+    -webkit-text-fill-color: #CACACA;
+    -webkit-box-shadow: 0 0 0px 1000px #1f1f1f inset;
+}
+
 
 .incorrect {
     border: 0.5px solid var(--hover-blue);
@@ -50,4 +111,21 @@ input:-webkit-autofill {
 .incorrect_text {
     color: var(--hover-blue);
     font-size: 11px;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: var(--gold);
+    border-radius: 50%;
+    padding: 4px;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+    display: none;
+    /* Скрываем элементы управления для числовых полей и сброса */
 }

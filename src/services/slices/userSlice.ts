@@ -5,10 +5,13 @@ import AvatarDefault from '../../images/avatar_def.png'
 import { setTokens } from '../auth/authService'
 
 export type TGetUserInfo = {
-    id: number
-    email: string
-    username: string
-    role: string
+    id?: number | undefined
+    email: string | undefined
+    username: string | undefined
+    role: string | undefined
+    first_name?: string | undefined,
+    last_name?: string | undefined,
+    fatsecret_account?: string | undefined
 }
 
 export type LoginError = {

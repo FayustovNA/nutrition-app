@@ -18,6 +18,15 @@ export type TState = {
     neck?: number
     hips?: number
     age?: number
+    start_date?: any
+    target_calories?: string
+    target_carbohydrate?: string
+    target_fat?: string,
+    target_fiber?: string,
+    target_protein?: string,
+    target_sugar?: string,
+    target_weight?: string,
+    coach?: string,
 }
 
 const useForm = (inputValues: TState) => {

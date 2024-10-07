@@ -197,7 +197,7 @@ export const BMRСalculator = () => {
                             </div>
 
                             <div className={styles.kcaltarget}>
-                                <h4 className={styles.h4}>Оптимальная калорийность</h4>
+                                <h4 className={styles.h4}>Оптимальная калорийность при умеренной активности</h4>
                                 <div className={styles.table}>
                                     <div className={styles.result}>
                                         <p className={styles.h5}>Для похудения</p>

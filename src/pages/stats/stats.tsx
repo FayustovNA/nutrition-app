@@ -7,7 +7,6 @@ import WeekWeightPanel from '../../components/week-weight-panel/week-weight-pane
 
 export const Stats = () => {
 
-
     return (
         <div className={styles.content}>
             <h1 className={styles.title}>

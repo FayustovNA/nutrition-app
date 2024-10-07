@@ -1,0 +1,76 @@
+.content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.h3 {
+    line-height: 1.08349;
+    font-weight: 300;
+    color: var(--main-text-color);
+    letter-spacing: .020em;
+    margin: 20px auto 40px auto;
+    line-height: 1.08349;
+    font-size: 24px;
+}
+
+.username {
+    color: var(--gold);
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.h4 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.25;
+    color: var(--gray-main);
+    margin: 10px auto 5px 0px;
+    opacity: 0.8;
+}
+
+.forms {
+    width: calc(100% - 2*25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin: auto;
+}
+
+.nutrition {
+    display: flex;
+    margin: 10px auto;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.nutrition_grid {
+    display: grid;
+    width: 100%;
+    margin-top: 10px auto;
+    justify-content: center;
+    gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.taget {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}

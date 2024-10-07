@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState, useEffect } from 'react';
+import { FC, ChangeEvent, useState } from 'react';
 import styles from './input.module.css';
 
 interface IInput {
@@ -6,26 +6,28 @@ interface IInput {
     placeholder?: string;
     errorMessage?: string;
     value?: string | number;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     disabled?: boolean;
     name?: string;
     minLength?: number;
     maxLength?: number;
     type?: string;
     required?: boolean;
-    styled?: 'main' | 'secondary';
+    styled?: 'main' | 'secondary' | 'select';
     pattern?: string;
     min?: string;
     max?: string;
+    options?: { first_name?: string; last_name?: string, id?: any, username?: string }[] | undefined; // Опции для select
 }
 
 const classNames = {
     main: styles.input,
     secondary: styles.inputSecondary,
+    select: styles.select,
 };
 
 const Input: FC<IInput> = ({
-    placeholder = 'Введите ключ доступа',
+    placeholder = 'Введите значение',
     isInvalid,
     errorMessage = 'Вы ввели неправильное значение',
     value,
@@ -40,6 +42,7 @@ const Input: FC<IInput> = ({
     pattern,
     min,
     max,
+    options, // Если options переданы, рендерим select
 }): JSX.Element => {
 
     const [error, setError] = useState<{ error: boolean; textError: string }>({
@@ -47,16 +50,10 @@ const Input: FC<IInput> = ({
         textError: '',
     });
 
-    const [typeValues, setTypeValues] = useState<string>('');
-
-    useEffect(() => {
-        setTypeValues(type);
-    }, [type]);
-
-
     const className = classNames[styled];
 
-    const validate = (input: ChangeEvent<HTMLInputElement>) => {
+    // Универсальный валидатор для input и select
+    const validate = (input: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const validityState = input.currentTarget.validity;
         if (validityState.valueMissing) {
             setError({ error: true, textError: 'Это поле обязательно' });
@@ -85,35 +82,57 @@ const Input: FC<IInput> = ({
         } else {
             setError({ error: false, textError: '' });
         }
+
         if (min && Number(input.target.value) < Number(min)) {
             input.target.value = min;
             if (input.target.value === '0') {
                 input.target.value = '';
             }
         }
+
         if (max && Number(input.target.value) > Number(max)) {
             input.target.value = max;
         }
-        onChange(input);
+
+        onChange(input); // Вызываем обработчик изменений
     };
 
     return (
         <div className={styles.wrapper}>
 
-            <input
-                className={`${className} ${error.error || isInvalid ? styles.incorrect : ''}`}
-                type={typeValues || 'text'}
-                placeholder={placeholder}
-                value={value}
-                onChange={validate}
-                disabled={disabled}
-                name={name}
-                pattern={pattern}
-                minLength={minLength}
-                maxLength={maxLength}
-                required={required}
-                autoComplete='off'
-            />
+            {options ? (
+                // Если options переданы, рендерим select
+                <select
+                    className={`${className} ${error.error || isInvalid ? styles.incorrect : ''}`}
+                    value={value}
+                    onChange={validate} // Передаем валидатор
+                    disabled={disabled}
+                    name={name}
+                    required={required}
+                >
+                    <option value='' disabled>{placeholder}</option>
+                    {options.map(option => (
+                        <option key={option.id} value={option.username}>
+                            {option.first_name}     {option.last_name}
+                        </option>
+                    ))}
+                </select>
+            ) : (
+                <input
+                    className={`${className} ${error.error || isInvalid ? styles.incorrect : ''}`}
+                    type={type}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={validate} // Передаем валидатор
+                    disabled={disabled}
+                    name={name}
+                    pattern={pattern}
+                    minLength={minLength}
+                    maxLength={maxLength}
+                    required={required}
+                    autoComplete="off"
+                />
+            )}
 
             {
                 (error.error || isInvalid) && (
@@ -122,7 +141,7 @@ const Input: FC<IInput> = ({
                     </div>
                 )
             }
-        </div >
+        </div>
     );
 };
 

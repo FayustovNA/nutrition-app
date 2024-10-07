@@ -4,18 +4,18 @@ import styles from './item.module.css'
 interface ItemDiaryProps {
     calories: string;
     carbohydrate: string;
-    date_int: string;
+    date: string;
     fat: string;
     protein: string;
     onclick: () => void;
 }
 
-const ItemDiary: React.FC<ItemDiaryProps> = ({ calories, carbohydrate, date_int, fat, protein, onclick }) => {
+const ItemDiary: React.FC<ItemDiaryProps> = ({ calories, carbohydrate, date, fat, protein, onclick }) => {
 
 
     return (
         <div className={styles.item} onClick={onclick}>
-            <h3 className={styles.date}>{date_int} || Дневной отчет</h3>
+            <h3 className={styles.date}>{date} || Дневной отчет</h3>
             <ul className={styles.macros}>
                 <div className={styles.kcal_}>
                     <li className={styles.kcal}>{calories}  kcal</li>

@@ -1,6 +1,6 @@
 import { API_URL } from '../utils/config'
 import { getAccessToken } from '../services/auth/authService'
-import { apiRequest } from './utils';
+import { apiRequest } from './utils'
 
 //Запрос на получение ссылки привязки аккаунта fatsecret
 export const getFatSecretRequestLink = async () => {
@@ -35,7 +35,7 @@ export const getFatSecretMonthData = async () => {
             throw new Error('Access token not found');
         }
 
-        const response = await apiRequest(`${API_URL}/fatsecret/foods_mothly/`, {
+        const response = await apiRequest(`${API_URL}/fooddiary/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

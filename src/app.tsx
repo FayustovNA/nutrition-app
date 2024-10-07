@@ -11,6 +11,7 @@ import { Library } from './pages/library/library';
 import { Сalculators } from './pages/сalculators/сalculators';
 import { Stats } from './pages/stats/stats';
 import { Clients } from './pages/clients/clients';
+import { AdminPanel } from './pages/adminpanel/adminpanel';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             <Route path='/calculators' element={<Сalculators />}></Route>
             <Route path='/stats' element={<Stats />}></Route>
             <Route path='/clients' element={<Clients />}></Route>
+            <Route path='/adminpanel' element={<AdminPanel />}></Route>
           </Routes>
         </main>
       </div>

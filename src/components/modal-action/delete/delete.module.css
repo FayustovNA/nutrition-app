@@ -1,0 +1,53 @@
+.item {
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+}
+
+.title {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 14px;
+    height: 45px;
+    display: flex;
+    margin: 15px 10px 10px 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+.username {
+    color: var(--gold);
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.confirm {
+    width: 100%;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.confirm .btn:first-child {
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+    border: none;
+    width: 100%;
+    height: 50px;
+    background: none;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    cursor: pointer;
+    color: var(--hover-blue);
+}
+
+.btn:hover {
+    font-weight: 700;
+}

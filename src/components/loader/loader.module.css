@@ -1,20 +1,19 @@
 .loader_main {
     min-width: 100vw;
     min-height: 100vh;
-    display: flex;
     margin: auto;
     position: relative;
+    display: flex;
 }
 
 .logo {
     z-index: 100;
-    padding: 0px;
-    margin: auto;
     position: absolute;
-    top: 20%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 .item {
     display: flex;

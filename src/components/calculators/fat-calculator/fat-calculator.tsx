@@ -31,7 +31,7 @@ export const FatСalculator = () => {
             { value: 10, nameValue: 'Необходимый жир' },
             { value: 14, nameValue: 'Атлетическое телосложение' },
             { value: 21, nameValue: 'Спортивное телосложение' },
-            { value: 25, nameValue: 'Обычное телосложение' },
+            { value: 27, nameValue: 'Обычное телосложение' },
             { value: 32, nameValue: 'Ожирение' },
         ];
 
