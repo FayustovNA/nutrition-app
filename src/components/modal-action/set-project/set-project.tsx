@@ -4,6 +4,9 @@ import useForm from '../../../hooks/useForm'
 import Button from '../../../ui/button/button'
 import { RootState } from '../../../services/root-reducer'
 import { useSelector } from 'react-redux'
+import { useDispatch } from '../../../services/hooks'
+import { useEffect } from 'react'
+import { createProject, getProjectBySearch, updateProject } from '../../../services/slices/projectSlice'
 
 interface SetProjectProps {
     user?: any;
@@ -12,27 +15,69 @@ interface SetProjectProps {
 
 const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
     const usersList = useSelector((state: RootState) => state.usersList.users);
+    const userProject = useSelector((state: RootState) => state.projectData.projectData);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getProjectBySearch(user.username));
+    }, [dispatch]);
+
+    //Список для выбора тренеров под проект
     const coach = usersList
         .filter(user => user.role === 'coach')
         .map(coach => ({
             ...coach,
-            first_name: coach.first_name || '',  // Задаем значение по умолчанию
-            last_name: coach.last_name || '',    // Задаем значение по умолчанию
-            username: coach.username || '',      // Задаем значение по умолчанию
+            first_name: coach.first_name || '',
+            last_name: coach.last_name || '',
+            username: coach.username || '',
         }));
 
+    //Обработка формы
     const { values, handleChange } = useForm({
-        coach: '',
-        start_date: '',
-        target_calories: '',
-        target_carbohydrate: '',
-        target_fat: '',
-        target_fiber: '',
-        target_protein: '',
-        target_sugar: '',
-        target_weight: '',
+        coach: userProject?.coach.username,
+        start_date: userProject?.start_date,
+        target_calories: userProject?.target_calories,
+        target_carbohydrate: userProject?.target_carbohydrate,
+        target_fat: userProject?.target_fat,
+        target_fiber: userProject?.target_fiber,
+        target_protein: userProject?.target_protein,
+        target_sugar: userProject?.target_sugar,
+        target_weight: userProject?.target_weight,
     })
+
+    // Обработка сохранения/обновления проекта
+    const handleSaveProject = () => {
+        const projectData = {
+            coach: values.coach || '',  // Уже выбранный тренер передается как строка
+            start_date: values.start_date,
+            target_calories: parseInt(values.target_calories, 10),
+            target_carbohydrate: parseInt(values.target_carbohydrate, 10),
+            target_fat: parseInt(values.target_fat, 10),
+            target_fiber: parseInt(values.target_fiber, 10),
+            target_protein: parseInt(values.target_protein, 10),
+            target_sugar: parseInt(values.target_sugar, 10),
+            target_weight: parseInt(values.target_weight, 10),
+        };
+
+        // Если проект уже существует, то обновляем его, иначе создаем новый
+        if (userProject) {
+            dispatch(updateProject({ projectId: userProject.id, updateData: projectData }))
+                .then(() => {
+                    onClose();
+                })
+                .catch((error) => {
+                    console.error('Failed to update project:', error);
+                });
+        } else {
+            dispatch(createProject({ ...projectData, user: user.username }))
+                .then(() => {
+                    onClose();
+                })
+                .catch((error) => {
+                    console.error('Failed to create project:', error);
+                });
+        }
+    };
 
     return (
         <div className={styles.content}>
@@ -139,15 +184,11 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                         variant='default'
                         size='large'
                         buttonHtmlType='submit'
+                        onClick={handleSaveProject}
                     >
-                        < p className={styles.btntxt}>Сохранить</p>
-                    </Button>
-                    <Button
-                        variant='default'
-                        size='large'
-                        buttonHtmlType='submit'
-                    >
-                        < p className={styles.btntxt}>Создать</p>
+                        <p className={styles.btntxt}>
+                            {userProject ? 'Сохранить' : 'Создать'}
+                        </p>
                     </Button>
                 </div>
             </div>

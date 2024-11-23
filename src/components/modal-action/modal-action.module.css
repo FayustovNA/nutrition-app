@@ -3,7 +3,7 @@
     display: table-cell;
     left: 50%;
     top: 50%;
-    width: 290px;
+    min-width: 290px;
     min-height: 150px;
     transform: translate(-50%, -50%);
     position: fixed;
@@ -22,8 +22,9 @@
 
 @media (max-width: 768px) {
     .modalwindow {
-        min-height: 500px;
-        height: 600px;
+        /* min-height: 500px;
+        height: 600px; */
+        width: calc(100% - 2*10px);
     }
 
     .modal_content {

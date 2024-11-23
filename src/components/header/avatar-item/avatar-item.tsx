@@ -3,10 +3,11 @@ import style from './avatar-item.module.css';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../services/root-reducer';
+import Avatar from '../../../images/avatar_def.png'
 
 
 const AvatarItem = () => {
-    const avatar = useSelector((state: RootState) => state.userData.avatar);
+    const avatar = useSelector((state: RootState) => state.userData.image);
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -15,7 +16,7 @@ const AvatarItem = () => {
 
     return (
         <div className={style.content} onClick={handleClick}>
-            <img src={avatar} alt="User Avatar" />
+            <img src={avatar || Avatar} alt="User Avatar" />
         </div>
 
     );

@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { loginUserRequestApi } from '../../api'
 import { TUserRegister } from '../types/user'
-import AvatarDefault from '../../images/avatar_def.png'
-import { setTokens } from '../auth/authService'
+import { setTokens, removeTokens } from '../auth/authService'
+import { updateUserRequestApi } from '../../api/auth'
+import { getUserRequestApi } from '../../api/auth'
 
 export type TGetUserInfo = {
     id?: number | undefined
@@ -12,6 +13,7 @@ export type TGetUserInfo = {
     first_name?: string | undefined,
     last_name?: string | undefined,
     fatsecret_account?: string | undefined
+    image?: string
 }
 
 export type LoginError = {
@@ -25,10 +27,12 @@ interface IUserSliceState {
     loginFailed: boolean
     loginError: boolean
     username: string
+    first_name: string
+    last_name: string
     email: string
     password: string
     role: string,
-    avatar: string,
+    image: string,
     age: string,
     location: string,
     startWeigth: string,
@@ -46,17 +50,20 @@ const initialState: IUserSliceState = {
     role: '',
     age: 'не задан',
     location: 'не задан',
+    first_name: 'не задано',
+    last_name: 'не задана',
     loginRequest: false,
     loginFailed: false,
     isLoggedIn: false,
     loginError: false,
-    avatar: AvatarDefault,
+    image: '',
     startWeigth: 'не задан',
     targetWeigth: 'не задан',
     target: 'снижение веса',
     startDate: 'не задана',
 }
 
+// Логирование пользователя
 export const loginIn = createAsyncThunk(
     'user/login',
     async (
@@ -77,18 +84,33 @@ export const loginIn = createAsyncThunk(
     }
 );
 
-// const refreshToken = async (): Promise<string> => {
-//     try {
-//         const response = await refreshTokenRequestApi({
-//             refreshToken: getRefreshToken(),
-//         });
-//         setTokens(response.accessToken, response.refreshToken);
-//         return response.accessToken;
-//     } catch (error) {
-//         removeTokens();
-//         throw error;
-//     }
-// };
+// Обновление данных пользователя
+export const updateUser = createAsyncThunk(
+    'user/updateUser',
+    async (formData: FormData, { rejectWithValue }) => {
+        try {
+            const response = await updateUserRequestApi(formData); // Отправляем FormData
+            return response;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+
+// Получение данных пользователя
+export const fetchUserData = createAsyncThunk<TGetUserInfo, void>(
+    'user/fetchUserData',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await getUserRequestApi(); // Запрос к API
+            return response as TGetUserInfo; // Указываем явный тип
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
+
 
 
 export const userSlice = createSlice({
@@ -98,32 +120,71 @@ export const userSlice = createSlice({
         setUserData: (state, action) => {
             Object.assign(state, {
                 username: action.payload.username,
+                image: action.payload.image,
                 email: action.payload.email,
                 role: action.payload.role,
+                first_name: action.payload.first_name,
+                last_name: action.payload.last_name,
                 fatsecret_account: action.payload.fatsecret_account,
                 isLoggedIn: true,
-                isCoach: false,
-            })
+            });
         },
         logoutUser: (state) => {
+            removeTokens();
             Object.assign(state, {
                 loginRequest: false,
                 loginFailed: false,
                 isLoggedIn: false,
                 loginError: false,
-            })
+                username: '',
+                email: '',
+                role: '',
+                first_name: '',
+                last_name: '',
+                image: '',
+            });
         },
         loginUser: (state, action) => {
             Object.assign(state, {
                 username: action.payload.username,
                 email: action.payload.email,
                 role: action.payload.role,
+                first_name: action.payload.first_name,
+                last_name: action.payload.last_name,
+                image: action.payload.image,
                 isLoggedIn: true,
                 fatsecret_account: action.payload.fatsecret_account,
-            })
+            });
         },
     },
-})
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchUserData.pending, (state) => {
+                state.loginRequest = true;
+                state.loginFailed = false;
+            })
+            .addCase(fetchUserData.fulfilled, (state, action) => {
+                state.loginRequest = false;
+                state.loginFailed = false;
 
-export default userSlice.reducer
-export const { setUserData, logoutUser, loginUser } = userSlice.actions
+                // Обновляем данные пользователя
+                Object.assign(state, {
+                    username: action.payload.username,
+                    email: action.payload.email,
+                    role: action.payload.role,
+                    first_name: action.payload.first_name,
+                    last_name: action.payload.last_name,
+                    image: action.payload.image,
+                    fatsecret_account: action.payload.fatsecret_account,
+                    isLoggedIn: true,
+                });
+            })
+            .addCase(fetchUserData.rejected, (state) => {
+                state.loginRequest = false;
+                state.loginFailed = true;
+            });
+    },
+});
+
+export default userSlice.reducer;
+export const { setUserData, logoutUser, loginUser } = userSlice.actions;

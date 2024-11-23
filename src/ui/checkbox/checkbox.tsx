@@ -6,7 +6,9 @@ export interface CheckboxProps {
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  value?: string;
+  value?: any;
+  required: any;
+  agree?: any;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -15,6 +17,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   checked,
   onChange,
   value,
+  required
 }) => {
   return (
     <div className={styles.checkbox}>
@@ -22,10 +25,11 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <input
           name={name}
           className={styles.checkmark}
-          type="radio"
+          type="checkbox"
           checked={checked}
           onChange={onChange}
           value={value}
+          required={required}
         />
         <span className={styles.cust} />
         {label}

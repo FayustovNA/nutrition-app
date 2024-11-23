@@ -14,6 +14,7 @@ const initialState: UsersListState = {
     error: null,
 };
 
+
 export const fetchUsersList = createAsyncThunk<TGetUserInfo[], void, { rejectValue: string }>(
     'usersList/fetchUsersList',
     async (_, { dispatch, rejectWithValue }) => {
@@ -57,6 +58,24 @@ const usersListSlice = createSlice({
             });
     },
 });
+
+
+
+export type TProjectData = {
+    user: string;
+    coach: string;
+    start_date: string;
+    target_calories: number;
+    target_carbohydrate: number;
+    target_fat: number;
+    target_fiber: number;
+    target_protein: number;
+    target_sugar: number;
+    target_weight: number;
+}
+
+
+
 
 export default usersListSlice.reducer;
 export const { setUsersData } = usersListSlice.actions;

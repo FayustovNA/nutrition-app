@@ -4,9 +4,11 @@ import styles from './input.module.css';
 interface IInput {
     isInvalid?: boolean;
     placeholder?: string;
+    title?: string;
     errorMessage?: string;
-    value?: string | number;
-    onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    value?: string | number | any;
+    // onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    onChange: any;
     disabled?: boolean;
     name?: string;
     minLength?: number;
@@ -24,6 +26,7 @@ const classNames = {
     main: styles.input,
     secondary: styles.inputSecondary,
     select: styles.select,
+    addClass: styles.addClass,
 };
 
 const Input: FC<IInput> = ({
@@ -42,6 +45,7 @@ const Input: FC<IInput> = ({
     pattern,
     min,
     max,
+    title,
     options, // Если options переданы, рендерим select
 }): JSX.Element => {
 
@@ -122,6 +126,7 @@ const Input: FC<IInput> = ({
                     className={`${className} ${error.error || isInvalid ? styles.incorrect : ''}`}
                     type={type}
                     placeholder={placeholder}
+                    title={title}
                     value={value}
                     onChange={validate} // Передаем валидатор
                     disabled={disabled}

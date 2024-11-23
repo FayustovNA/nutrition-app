@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styles from './table-users.module.css'
 import False from '../../../images/icon-status/False.svg?react'
 import True from '../../../images/icon-status/True.svg?react'
 import Delete from '../../../images/icon-status/delete.svg?react'
 import More from '../../../images/icon-status/More.svg?react'
+import Frame from '../../../images/icon-status/Frame.svg?react'
 import ModalAction from '../../../components/modal-action/modal-action'
 import Modal from '../../../components/modal/modal'
 import DeleteAction from '../../../components/modal-action/delete/delete'
@@ -28,23 +30,28 @@ interface TableUsersProps {
     data: ItemUserProps[];
 }
 
-
 const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isOpenModal, setisOpenModal] = useState(false);
     const [isOpenModalAction, setisOpenModalAction] = useState(false);
     const [currentUser, setcurrentUser] = useState<ItemUserProps | null>(null);
+    const [filter, setFilter] = useState<'all' | 'clients' | 'coaches'>('all');
     const rowsPerPage = 15; // Количество строк на странице
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // Фильтрация данных на основе фильтра
+    const filteredData = data.filter(user => {
+        if (filter === 'clients') {
+            return user.role !== 'coach' && user.role !== 'admin';
+        } else if (filter === 'coaches') {
+            return user.role === 'coach';
+        }
+        return true;
+    });
 
-    const totalPages = Math.ceil(data.length / rowsPerPage);
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
-
-    // const handleEdit = (id: number) => {
-    //     // Логика редактирования пользователя
-    //     console.log(`Редактировать пользователя с id: ${id}`);
-    // };
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -78,11 +85,14 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
         }
     };
 
+    const handleOpenStats = () => {
+        navigate('/stats'); // Навигация на страницу Stats
+    };
 
     // Вычисляем текущие строки для отображения
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
+    const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
     return (
         <div className={styles.tablebox}>
@@ -106,8 +116,12 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                 <td className={styles.row}>{user.role}</td>
                                 <td className={styles.row}>{user.coach === null ? '-' : user.coach}</td>
                             </div>
-
-                            {/* <button onClick={() => handleEdit(user.id)}><Delete /></button> */}
+                            <button
+                                className={styles.btn_st}
+                                onClick={handleOpenStats}
+                            >
+                                <Frame />
+                            </button>
                             <button
                                 className={styles.btn_action}
                                 onClick={() => openModalAction(user)}>
@@ -123,8 +137,28 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                     ))}
                 </tbody>
                 <div className={styles.footer}>
+                    <div className={styles.filter}>
+                        <button
+                            className={`${styles.btn_filter} ${filter === 'all' ? styles.active : ''}`}
+                            onClick={() => setFilter('all')}
+                        >
+                            Все
+                        </button>
+                        <button
+                            className={`${styles.btn_filter} ${filter === 'clients' ? styles.active : ''}`}
+                            onClick={() => setFilter('clients')}
+                        >
+                            Клиенты
+                        </button>
+                        <button
+                            className={`${styles.btn_filter} ${filter === 'coaches' ? styles.active : ''}`}
+                            onClick={() => setFilter('coaches')}
+                        >
+                            Тренеры
+                        </button>
+                    </div>
                     <div className={styles.pgn_panel}>
-                        <p className={styles.info}>Всего пользователей: <p className={styles.count}>{data.length}</p></p>
+                        <p className={styles.info}>Всего пользователей: <p className={styles.count}>{filteredData.length}</p></p>
                         {Array.from({ length: totalPages }, (_, index) => (
                             <button
                                 className={`${styles.btn} ${currentPage === index + 1 ? styles.active : ''}`}

@@ -19,14 +19,16 @@ export type TState = {
     hips?: number
     age?: number
     start_date?: any
-    target_calories?: string
-    target_carbohydrate?: string
-    target_fat?: string,
-    target_fiber?: string,
-    target_protein?: string,
-    target_sugar?: string,
-    target_weight?: string,
-    coach?: string,
+    target_calories?: number | any
+    target_carbohydrate?: number | any
+    target_fat?: number | any
+    target_fiber?: number | any
+    target_protein?: number | any
+    target_sugar?: number | any
+    target_weight?: number | any
+    coach?: any
+    image?: any
+    agree?: boolean;
 }
 
 const useForm = (inputValues: TState) => {

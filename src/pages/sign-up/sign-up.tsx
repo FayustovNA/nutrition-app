@@ -112,6 +112,7 @@ const SignUp = () => {
                                 value={item.value}
                                 onChange={handleChange}
                                 checked={item.value === values.role}
+                                required
                             />
                         );
                     })}

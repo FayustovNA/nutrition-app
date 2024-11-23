@@ -26,6 +26,10 @@
     cursor: pointer;
 }
 
+.input::file-selector-button {
+    display: none;
+}
+
 .select::-ms-expand {
     display: none;
 }

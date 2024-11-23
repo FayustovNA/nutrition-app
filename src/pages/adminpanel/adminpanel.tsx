@@ -15,7 +15,7 @@ export const AdminPanel = () => {
     const usersList = useSelector((state: RootState) => state.usersList.users);
     const loading = useSelector((state: RootState) => state.usersList.loading);
 
-
+    console.log(usersList)
     useEffect(() => {
         dispatch(fetchUsersList());
     }, [dispatch]);

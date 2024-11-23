@@ -53,7 +53,7 @@ export const SectionFirstInfo = () => {
 
             {
                 isOpenModal && (<Modal onClose={closeModal}>
-                    <ApplicationWindow />
+                    <ApplicationWindow onClose={closeModal} />
                 </Modal>)
             }
             {

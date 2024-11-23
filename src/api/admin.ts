@@ -4,6 +4,7 @@ import { apiRequest } from './utils'
 
 // admin@yandex.ru
 // Qwe123!!!
+//FNik@mail.ru FNik1234
 
 //Запрос листа пользователей
 export const getUsersList = async () => {
@@ -29,7 +30,6 @@ export const getUsersList = async () => {
         console.error('Error fetching UsersList data:', error);
     }
 };
-
 
 // Запрос на удаление пользователя по ID
 interface ApiResponse {
@@ -65,14 +65,16 @@ export const deleteUserById = async (userId: string): Promise<ApiResponse | void
     }
 }
 
-//Запрос проекта по id
-export const getProjectById = async (userId: string | number) => {
+//Запрос проекта по строке поиска (query)
+export const getProjectBySearch = async (search: string) => {
     try {
         const accessToken = getAccessToken();
         if (!accessToken) {
             throw new Error('Access token not found');
         }
-        const response = await apiRequest(`${API_URL}/api/project/${userId}/`, {
+
+        // Добавляем строку поиска как query параметр
+        const response = await apiRequest(`${API_URL}/project?search=${encodeURIComponent(search)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -87,5 +89,80 @@ export const getProjectById = async (userId: string | number) => {
         }
     } catch (error) {
         console.error('Error fetching project data:', error);
+    }
+};
+
+// POST запрос для передачи|создания данных проекта
+export const createProject = async (projectData: {
+    user: string;
+    coach: string;
+    start_date: string;
+    target_calories: number;
+    target_carbohydrate: number;
+    target_fat: number;
+    target_fiber: number;
+    target_protein: number;
+    target_sugar: number;
+    target_weight: number;
+}) => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+        // POST запрос для создания нового проекта с переданными данными
+        const response = await apiRequest(`${API_URL}/project/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(projectData), // Передаем данные в формате JSON
+        });
+
+        if (response) {
+            return response;
+        } else {
+            throw new Error('Failed to create project');
+        }
+    } catch (error) {
+        console.error('Error creating project:', error);
+    }
+};
+
+// PATCH запрос для обновления данных проекта по id
+export const updateProject = async (projectId: string, updateData: {
+    coach?: string;
+    start_date?: string;
+    target_calories?: number;
+    target_carbohydrate?: number;
+    target_fat?: number;
+    target_fiber?: number;
+    target_protein?: number;
+    target_sugar?: number;
+    target_weight?: number;
+}) => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+        // PATCH запрос для обновления проекта с переданными данными
+        const response = await apiRequest(`${API_URL}/project/${projectId}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(updateData), // Передаем только те данные, которые нужно обновить
+        });
+
+        if (response) {
+            return response;
+        } else {
+            throw new Error('Failed to update project');
+        }
+    } catch (error) {
+        console.error('Error updating project:', error);
     }
 };
