@@ -28,8 +28,17 @@
     text-align: center;
 }
 
+@media (max-width: 375px) {
+    .section {
+        margin: auto;
+    }
 
-@media (max-width: 950px) {
+    .title {
+        margin: 40px auto 40px 10px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 950px) {
 
     .section {
         align-items: center;

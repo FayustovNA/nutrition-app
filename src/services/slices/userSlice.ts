@@ -111,8 +111,6 @@ export const fetchUserData = createAsyncThunk<TGetUserInfo, void>(
     }
 );
 
-
-
 export const userSlice = createSlice({
     name: 'user',
     initialState,

@@ -25,10 +25,10 @@ export const SectionMainAboutUs = () => {
         pauseOnHover: true,
         responsive: [
             {
-                breakpoint: 381,
+                breakpoint: 375,
                 settings: {
                     arrows: false,
-                    slidesToShow: 2,
+                    slidesToShow: 1,
                     slidesToScroll: 2,
                 },
             },

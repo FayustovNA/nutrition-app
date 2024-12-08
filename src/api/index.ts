@@ -3,6 +3,7 @@ import { TLoginProfile } from '../services/slices/registerSlice'
 import { apiRequest } from './utils'
 import { API_URL } from '../utils/config'
 
+// Запрос на регистрацию пользователя
 export const registerUserRequestApi = ({
     first_name,
     last_name,
@@ -29,6 +30,7 @@ export const registerUserRequestApi = ({
     })
 }
 
+// Запрос на логирование
 export const loginUserRequestApi = async ({ email, password }: TLoginProfile): Promise<TUserRegisterResponse> => {
     try {
         const response = await fetch(`${API_URL}/login/`, {

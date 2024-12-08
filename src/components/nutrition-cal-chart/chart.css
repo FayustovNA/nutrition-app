@@ -1,0 +1,5 @@
+.vertical-data-label text {
+    transform: rotate(90deg);
+    transform-origin: center;
+    text-anchor: middle;
+}

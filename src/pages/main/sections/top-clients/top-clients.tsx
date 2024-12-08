@@ -1,9 +1,9 @@
 import styles from './top-clients.module.css';
 import Slider, { Settings } from 'react-slick';
 import { dataSet } from '../../../../utils/mocks-top-clients';
-import { useState } from 'react';
-import Modal from '../../../../components/modal/modal';
-import { ClientInfo } from './modal-item/modal-item';
+// import { useState } from 'react';
+// import Modal from '../../../../components/modal/modal';
+// import { ClientInfo } from './modal-item/modal-item';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -11,8 +11,8 @@ export const SectionTopClients = () => {
 
     const items = dataSet;
 
-    const [isOpenModal, setisOpenModal] = useState(false);
-    const [selectedItem, setSelectedItem] = useState();
+    // const [isOpenModal, setisOpenModal] = useState(false);
+    // const [selectedItem, setSelectedItem] = useState();
 
 
     const settings: Settings = {
@@ -44,19 +44,24 @@ export const SectionTopClients = () => {
     };
 
 
-    const openModal = (item: any) => {
-        setisOpenModal(true);
-        setSelectedItem(item);
-    }
+    // const openModal = (item: any) => {
+    //     setisOpenModal(true);
+    //     setSelectedItem(item);
+    // }
 
-    const closeModal = () => {
-        setisOpenModal(false)
-    }
+    // const closeModal = () => {
+    //     setisOpenModal(false)
+    // }
+
+    // Функция для открытия профиля Instagram
+    const handleItemClick = (instagramLink: string) => {
+        window.open(instagramLink, '_blank'); // Открывает ссылку в новой вкладке
+    };
 
     const renderSlides = items.map((item, index) => {
         return (
             <div key={index} className={styles.item}>
-                <div className={styles.avatar} onClick={() => openModal(item)}>
+                <div className={styles.avatar} onClick={() => handleItemClick(item.instagramLink)}>
                     <img className={styles.img} src={item.img}></img>
                 </div>
                 <p className={styles.name}>{item.name}</p>
@@ -78,11 +83,11 @@ export const SectionTopClients = () => {
                     {renderSlides.length > 0 ? < Slider {...settings}>{renderSlides}</Slider> : null}
                 </div>
             </div>
-            {
+            {/* {
                 isOpenModal && (<Modal onClose={closeModal}>
                     <ClientInfo data={selectedItem} />
                 </Modal>)
-            }
+            } */}
         </div >
     )
 }

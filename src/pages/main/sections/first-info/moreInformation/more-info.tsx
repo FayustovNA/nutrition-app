@@ -15,7 +15,7 @@ export const MoreInfo = () => {
                     {list.map((item: any) => {
                         return (
                             <div className={styles.list_items}>
-                                <p className={styles.number}>{item.number}</p>
+                                {/* <p className={styles.number}>{item.number}</p> */}
                                 <div className={styles.item}>
                                     <h4 className={styles.h4}>{item.title}</h4>
                                     <p className={styles.text}>{item.text}</p>

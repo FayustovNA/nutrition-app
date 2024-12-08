@@ -85,8 +85,8 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
         }
     };
 
-    const handleOpenStats = () => {
-        navigate('/stats'); // Навигация на страницу Stats
+    const handleOpenStats = (username: string) => {
+        navigate(`/stats?username=${username}`); // Навигация на страницу Stats с параметром username
     };
 
     // Вычисляем текущие строки для отображения
@@ -118,7 +118,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                             </div>
                             <button
                                 className={styles.btn_st}
-                                onClick={handleOpenStats}
+                                onClick={() => handleOpenStats(user.username || '')}
                             >
                                 <Frame />
                             </button>

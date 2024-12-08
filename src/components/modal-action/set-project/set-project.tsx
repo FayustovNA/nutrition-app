@@ -19,11 +19,12 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(user.username)
         dispatch(getProjectBySearch(user.username));
     }, [dispatch]);
 
     //Список для выбора тренеров под проект
-    const coach = usersList
+    const coachList = usersList
         .filter(user => user.role === 'coach')
         .map(coach => ({
             ...coach,
@@ -34,8 +35,9 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
 
     //Обработка формы
     const { values, handleChange } = useForm({
-        coach: userProject?.coach.username,
+        coach: userProject?.coach?.username || coachList[0]?.username,
         start_date: userProject?.start_date,
+        start_weight: userProject?.start_weight,
         target_calories: userProject?.target_calories,
         target_carbohydrate: userProject?.target_carbohydrate,
         target_fat: userProject?.target_fat,
@@ -47,8 +49,9 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
 
     // Обработка сохранения/обновления проекта
     const handleSaveProject = () => {
+        console.log(values.coach)
         const projectData = {
-            coach: values.coach || '',  // Уже выбранный тренер передается как строка
+            coach: values.coach,  // Уже выбранный тренер передается как строка
             start_date: values.start_date,
             target_calories: parseInt(values.target_calories, 10),
             target_carbohydrate: parseInt(values.target_carbohydrate, 10),
@@ -57,6 +60,7 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
             target_protein: parseInt(values.target_protein, 10),
             target_sugar: parseInt(values.target_sugar, 10),
             target_weight: parseInt(values.target_weight, 10),
+            start_weight: parseInt(values.start_weight, 10),
         };
 
         // Если проект уже существует, то обновляем его, иначе создаем новый
@@ -91,8 +95,8 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                     styled="select"
                     type="select"
                     onChange={handleChange}
-                    value={values.coach}
-                    options={coach} // Передаем список тренеров
+                    value={values.coach} // Убедитесь, что значение передается
+                    options={coachList} // Передаем список тренеров
                     required
                 />
 
@@ -162,6 +166,14 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                 <div className={styles.taget}>
                     <h4 className={styles.h4}>Целевые показатели</h4>
                     <Input
+                        placeholder="Стартовый вес"
+                        name="start_weight"
+                        styled="main"
+                        onChange={handleChange}
+                        value={values.start_weight}
+                        required
+                    />
+                    <Input
                         placeholder="Целевой вес"
                         name="target_weight"
                         styled="main"
@@ -192,7 +204,7 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                     </Button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

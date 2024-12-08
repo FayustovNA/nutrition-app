@@ -36,7 +36,7 @@
 
 .videobox {
     width: 50%;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     object-fit: cover;
     max-height: 400px;
@@ -61,6 +61,12 @@
     font-size: 22px;
 }
 
+@media (max-width: 450px) {
+    .section {
+        width: calc(100% - 2*10px);
+        margin: auto;
+    }
+}
 
 @media (max-width: 950px) {
     .section {

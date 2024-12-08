@@ -12,7 +12,6 @@ import Calculations from '../../images/header/Calc.svg?react';
 import Stats from '../../images/header/Stats.svg?react';
 import Lib from '../../images/header/Lib.svg?react';
 
-
 export const Header = () => {
     const [selected, setSelected] = useState('');
     const isUser = useSelector((state: RootState) => state.userData.role);
@@ -39,39 +38,47 @@ export const Header = () => {
 
                 <div className={styles.panes}>
                     <div className={styles.items}>
-                        {isUser == "admin" ?
-                            <HeaderItem
-                                title={'Пользователи'}
-                                path={'/adminpanel'}
-                                selected={selected}
-                                setSelected={setSelected}
-                                children={<Stats />}
-                            >
 
-                            </HeaderItem> : null}
+                        <HeaderItem
+                            title={'Калькуляторы'}
+                            path={'/calculators'}
+                            selected={selected}
+                            setSelected={setSelected}
+                            children={<Calculations />}
+                        >
+                        </HeaderItem>
                     </div>
                     <div className={styles.items}>
-                        {isUser == "user" ? //заменить на клиента
+                        {isUser === "admin" && (
                             <HeaderItem
-                                title={'Моя статистика'}
-                                path={'/stats'}
+                                title="Пользователи"
+                                path="/adminpanel"
                                 selected={selected}
                                 setSelected={setSelected}
-                                children={<Stats />}
                             >
-
-                            </HeaderItem> : null}
-                    </div>
-
-                    <div className={styles.items}>
-                        {isUser == "coach" ?
+                                <Stats />
+                            </HeaderItem>
+                        )}
+                        {isUser === "user" && (
                             <HeaderItem
-                                title={'Клиенты'}
-                                path={'/clients'}
+                                title="Моя статистика"
+                                path="/stats"
                                 selected={selected}
-                                setSelected={setSelected} >
-                            </HeaderItem> : null}
+                                setSelected={setSelected}
+                            >
+                                <Stats />
+                            </HeaderItem>
+                        )}
+                        {isUser === "coach" && (
+                            <HeaderItem
+                                title="Клиенты"
+                                path="/clients"
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                        )}
                     </div>
+
 
                     <div className={styles.items}>
 
@@ -82,18 +89,6 @@ export const Header = () => {
                             setSelected={setSelected}
                             children={<Lib />}>
                         </HeaderItem> : null}
-                    </div>
-
-                    <div className={styles.items}>
-
-                        <HeaderItem
-                            title={'Калькуляторы'}
-                            path={'/calculators'}
-                            selected={selected}
-                            setSelected={setSelected}
-                            children={<Calculations />}
-                        >
-                        </HeaderItem>
                     </div>
                 </div>
 

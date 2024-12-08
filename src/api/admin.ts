@@ -2,9 +2,9 @@ import { API_URL } from '../utils/config'
 import { getAccessToken } from '../services/auth/authService'
 import { apiRequest } from './utils'
 
-// admin@yandex.ru
-// Qwe123!!!
-//FNik@mail.ru FNik1234
+// admin@yandex.ru Qwe123!!!
+
+//Fayustov@mail.com Fayustov123
 
 //Запрос листа пользователей
 export const getUsersList = async () => {
@@ -74,7 +74,7 @@ export const getProjectBySearch = async (search: string) => {
         }
 
         // Добавляем строку поиска как query параметр
-        const response = await apiRequest(`${API_URL}/project?search=${encodeURIComponent(search)}`, {
+        const response = await apiRequest(`${API_URL}/project?user=${encodeURIComponent(search)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

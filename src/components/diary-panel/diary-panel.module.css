@@ -1,6 +1,7 @@
 .content {
     width: 420px;
-    max-height: 80vh;
+    max-height: 670px;
+    min-height: 670px;
     background: #262626;
     border-radius: 10px;
     display: flex;
@@ -8,6 +9,7 @@
     align-items: center;
     gap: 10px;
     z-index: 1;
+    position: relative;
 }
 
 .grid_diary {
@@ -34,10 +36,10 @@
     letter-spacing: 0;
     line-height: 1.25;
     padding: 0px;
-    margin: 20px auto 20px 20px;
+    margin: 20px auto 10px 20px;
     color: var(--main-text-color);
     opacity: 0.8;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .filter {
@@ -45,12 +47,20 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+    position: absolute;
+    bottom: 10px;
 }
 
 
-@media (max-width: 768px) {
+/* Маленькие экраны: до 576px */
+@media (max-width: 576px) {
     .content {
         width: 100%;
-        max-height: 510px;
+        max-height: 430px;
+        min-height: 430px;
+    }
+
+    .grid_diary {
+        max-height: 290px;
     }
 }

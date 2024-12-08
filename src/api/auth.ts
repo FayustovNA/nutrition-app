@@ -24,44 +24,6 @@ export const updateUserRequestApi = async (formData: FormData) => {
         throw new Error('Не удалось обновить данные пользователя');
     }
 };
-// export const updateUserRequestApi = async ({
-//     first_name,
-//     last_name,
-//     username,
-//     email,
-//     image,
-// }: Partial<TGetUserInfo>) => {
-//     try {
-//         const accessToken = getAccessToken();
-//         if (!accessToken) {
-//             throw new Error('Access token not found');
-//         }
-
-//         const formData = new FormData();
-//         if (first_name) formData.append('first_name', first_name);
-//         if (last_name) formData.append('last_name', last_name);
-//         if (username) formData.append('username', username);
-//         if (email) formData.append('email', email);
-//         if (image) formData.append('image', image); // Добавляем файл
-
-//         const response = await apiRequest(`${API_URL}/users/me/`, {
-//             method: 'PATCH',
-//             headers: {
-//                 'Authorization': `Bearer ${accessToken}`,
-//             },
-//             body: formData, // Отправляем FormData
-//         });
-
-//         if (response) {
-//             return response;
-//         } else {
-//             throw new Error('Failed to update user data');
-//         }
-//     } catch (error) {
-//         console.error('Error updating user data:', error);
-//         throw error;
-//     }
-// };
 
 
 // Получение данных пользователя

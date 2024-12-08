@@ -19,10 +19,10 @@ const SignUp = () => {
         last_name: '',
         username: '',
         email: '',
-        role: '',
+        role: '', // храним роль
         password: '',
         confirmPassword: '',
-    })
+    });
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -111,8 +111,7 @@ const SignUp = () => {
                                 label={item.nameValue}
                                 value={item.value}
                                 onChange={handleChange}
-                                checked={item.value === values.role}
-                                required
+                                checked={item.value === values.role} // правильно проверяем, совпадает ли роль
                             />
                         );
                     })}

@@ -27,41 +27,45 @@ export const getFatSecretRequestLink = async () => {
     }
 };
 
-//Запрос дневников за месяц
-export const getFatSecretMonthData = async () => {
-    try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-
-        const response = await apiRequest(`${API_URL}/fooddiary/`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
-
-        if (response) {
-            return response;
-        } else {
-            throw new Error('Data not found in the response');
-        }
-    } catch (error) {
-        console.error('Error fetching FatSecret foods data:', error);
-    }
-};
-
 //Запрос дневника по дате
-export const getFatSecretDiary = async (diaryData: any) => {
+// export const getFatSecretDiary = async (diaryData: any) => {
+//     try {
+//         const accessToken = getAccessToken();
+//         if (!accessToken) {
+//             throw new Error('Access token not found');
+//         }
+
+//         const response = await apiRequest(`${API_URL}/fatsecret/foods_daily/?date=${diaryData}`, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8',
+//                 'Authorization': `Bearer ${accessToken}`,
+//             },
+//         });
+
+//         if (response) {
+//             return response;
+//         } else {
+//             throw new Error('Data not found in the response');
+//         }
+//     } catch (error) {
+//         console.error('Error fetching FatSecret foods data:', error);
+//     }
+// };
+export const getFatSecretDiary = async (diaryData: any, username?: string) => {
     try {
         const accessToken = getAccessToken();
         if (!accessToken) {
             throw new Error('Access token not found');
         }
 
-        const response = await apiRequest(`${API_URL}/fatsecret/foods_daily?=${diaryData}`, {
+        // Формируем URL с учетом необязательного параметра username
+        let url = `${API_URL}/fatsecret/foods_daily/?date=${diaryData}`;
+        if (username) {
+            url += `&user=${encodeURIComponent(username)}`;
+        }
+
+        const response = await apiRequest(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -76,30 +80,5 @@ export const getFatSecretDiary = async (diaryData: any) => {
         }
     } catch (error) {
         console.error('Error fetching FatSecret foods data:', error);
-    }
-};
-
-//Запрос на получение данных по весу
-export const getFatSecretWeights = async () => {
-    try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-
-        const response = await apiRequest(`${API_URL}/fatsecret/weights/`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
-        if (response) {
-            return response;
-        } else {
-            throw new Error('Data not found in the response');
-        }
-    } catch (error) {
-        console.error('Error fetching FatSecret weights data:', error);
     }
 };

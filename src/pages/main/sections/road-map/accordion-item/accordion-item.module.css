@@ -71,7 +71,8 @@
     margin: 5px auto 10px 0px;
 }
 
-@media (max-width: 950px) {
+
+@media (min-width: 320px) and (max-width: 992px) {
     .content {
         display: flex;
         flex-direction: column;

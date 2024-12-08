@@ -65,7 +65,7 @@ export const ApplicationWindow = ({ onClose }: { onClose: () => void }) => {
                     required
                 />
                 <Input
-                    placeholder="Номер WhatsApp или Telegram"
+                    placeholder="Номер Telegram"
                     name="phone"
                     styled="main"
                     onChange={handleChange}
@@ -79,7 +79,7 @@ export const ApplicationWindow = ({ onClose }: { onClose: () => void }) => {
                 <div className={styles.checkbox}>
                     <Checkbox
                         name="agree"
-                        label="Я согласен на обработку моих персональных данных"
+                        label="Согласие на обработку персональных данных"
                         onChange={(e) =>
                             handleChange({
                                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -94,7 +94,7 @@ export const ApplicationWindow = ({ onClose }: { onClose: () => void }) => {
                 <div className={styles.button}>
                     <Button
                         variant="default"
-                        size="large"
+                        size='width'
                         buttonHtmlType="submit"
                         disabled={!values.agree} // Кнопка активна только при согласии
                     >

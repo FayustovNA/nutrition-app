@@ -1,7 +1,6 @@
 import styles from './item.module.css'
 import { NavLink } from 'react-router-dom';
 
-
 interface HeaderItemProps {
     title: string;
     path: string;
@@ -9,7 +8,6 @@ interface HeaderItemProps {
     setSelected: (path: string) => void;
     children?: React.ReactNode;
 }
-
 
 export const HeaderItem: React.FC<HeaderItemProps> = ({
     title,

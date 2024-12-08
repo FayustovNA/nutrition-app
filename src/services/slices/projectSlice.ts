@@ -14,6 +14,7 @@ export type TProjectData = {
     target_protein: number;
     target_sugar: number;
     target_weight: number;
+    start_weight: number;
 }
 
 // Типы для состояния

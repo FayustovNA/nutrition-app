@@ -7,7 +7,7 @@ interface IInput {
     title?: string;
     errorMessage?: string;
     value?: string | number | any;
-    // onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    // onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     onChange: any;
     disabled?: boolean;
     name?: string;
@@ -57,50 +57,80 @@ const Input: FC<IInput> = ({
     const className = classNames[styled];
 
     // Универсальный валидатор для input и select
-    const validate = (input: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    // const validate = (input: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    //     const validityState = input.currentTarget.validity;
+    //     if (validityState.valueMissing) {
+    //         setError({ error: true, textError: 'Это поле обязательно' });
+    //     } else if (validityState.patternMismatch) {
+    //         setError({ error: true, textError: errorMessage });
+    //     } else if (validityState.tooLong) {
+    //         setError({
+    //             error: true,
+    //             textError: `Максимум ${maxLength} символов`,
+    //         });
+    //     } else if (validityState.tooShort) {
+    //         setError({
+    //             error: true,
+    //             textError: `Минимум ${minLength} символа`,
+    //         });
+    //     } else if (validityState.typeMismatch) {
+    //         setError({
+    //             error: true,
+    //             textError: 'Неверный тип данных',
+    //         });
+    //     } else if (isInvalid) {
+    //         setError({
+    //             error: true,
+    //             textError: errorMessage,
+    //         });
+    //     } else {
+    //         setError({ error: false, textError: '' });
+    //     }
+
+    //     if (min && Number(input.target.value) < Number(min)) {
+    //         input.target.value = min;
+    //         if (input.target.value === '0') {
+    //             input.target.value = '';
+    //         }
+    //     }
+
+    //     if (max && Number(input.target.value) > Number(max)) {
+    //         input.target.value = max;
+    //     }
+
+    //     onChange(input); // Вызываем обработчик изменений
+    // };
+    const validate = (input: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const validityState = input.currentTarget.validity;
+
+        // Валидация
         if (validityState.valueMissing) {
             setError({ error: true, textError: 'Это поле обязательно' });
         } else if (validityState.patternMismatch) {
             setError({ error: true, textError: errorMessage });
         } else if (validityState.tooLong) {
-            setError({
-                error: true,
-                textError: `Максимум ${maxLength} символов`,
-            });
+            setError({ error: true, textError: `Максимум ${maxLength} символов` });
         } else if (validityState.tooShort) {
-            setError({
-                error: true,
-                textError: `Минимум ${minLength} символа`,
-            });
+            setError({ error: true, textError: `Минимум ${minLength} символа` });
         } else if (validityState.typeMismatch) {
-            setError({
-                error: true,
-                textError: 'Неверный тип данных',
-            });
+            setError({ error: true, textError: 'Неверный тип данных' });
         } else if (isInvalid) {
-            setError({
-                error: true,
-                textError: errorMessage,
-            });
+            setError({ error: true, textError: errorMessage });
         } else {
             setError({ error: false, textError: '' });
         }
 
+        // Ограничение на min/max для числовых полей
         if (min && Number(input.target.value) < Number(min)) {
             input.target.value = min;
-            if (input.target.value === '0') {
-                input.target.value = '';
-            }
         }
-
         if (max && Number(input.target.value) > Number(max)) {
             input.target.value = max;
         }
 
-        onChange(input); // Вызываем обработчик изменений
+        // Передаем только значение и имя поля
+        onChange({ target: { name: input.target.name, value: input.target.value } });
     };
-
     return (
         <div className={styles.wrapper}>
 
@@ -109,15 +139,15 @@ const Input: FC<IInput> = ({
                 <select
                     className={`${className} ${error.error || isInvalid ? styles.incorrect : ''}`}
                     value={value}
-                    onChange={validate} // Передаем валидатор
+                    onChange={validate} // Обновленный валидатор
                     disabled={disabled}
-                    name={name}
+                    name={name} // Убедитесь, что name передается
                     required={required}
                 >
                     <option value='' disabled>{placeholder}</option>
                     {options.map(option => (
-                        <option key={option.id} value={option.username}>
-                            {option.first_name}     {option.last_name}
+                        <option key={option.username} value={option.username}>
+                            {option.last_name} {option.first_name}
                         </option>
                     ))}
                 </select>

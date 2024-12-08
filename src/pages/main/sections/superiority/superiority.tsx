@@ -50,7 +50,7 @@ export const SectionSuperiority = () => {
             </div>
             {
                 isOpenModal && (<Modal onClose={closeModal}>
-                    <ApplicationWindow />
+                    <ApplicationWindow onClose={closeModal} />
                 </Modal>)
             }
             {

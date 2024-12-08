@@ -12,12 +12,15 @@ export type TState = {
     resetCode?: string
     gender?: string
     genderBMI?: string
+    abdominal?: number | any
     weight?: number
     height?: number
-    waist?: number
-    neck?: number
-    hips?: number
+    waist?: number | any
+    neck?: number | any
+    hips?: number | any
     age?: number
+    chest?: number | any
+    date?: any
     start_date?: any
     target_calories?: number | any
     target_carbohydrate?: number | any
@@ -29,6 +32,7 @@ export type TState = {
     coach?: any
     image?: any
     agree?: boolean;
+    start_weight?: number | any
 }
 
 const useForm = (inputValues: TState) => {

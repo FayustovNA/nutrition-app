@@ -88,23 +88,23 @@
     opacity: 0.5;
 }
 
-@media (max-width: 768px) {
-
+/* Маленькие экраны: до 576px */
+@media (max-width: 576px) {
     .header {
-        height: 80px;
+        height: 60px;
     }
 
     .items {
-        margin-left: 0px;
+        display: flex;
+        justify-content: center;
     }
 
     .panes {
-        width: 60%;
-        margin: auto;
+        width: 45%;
+        display: flex;
+        margin-left: 90px;
+        gap: 40px;
     }
-}
-
-@media (max-width: 950px) {
 
     .header {
         bottom: 0px;
@@ -113,4 +113,35 @@
     .menu {
         margin: 0px 0px 0px 0px;
     }
+}
+
+/* Низкое среднее: от 576px до 768px */
+@media (min-width: 576px) and (max-width: 768px) {
+    /* Стили для низкого среднего диапазона */
+}
+
+/* Средние экраны: от 768px до 992px */
+@media (min-width: 768px) and (max-width: 992px) {
+    .header {
+        bottom: 0px;
+    }
+
+    .menu {
+        margin: 0px 0px 0px 0px;
+    }
+}
+
+/* Высокое среднее: от 992px до 1200px */
+@media (min-width: 992px) and (max-width: 1200px) {
+    /* Стили для высокого среднего диапазона */
+}
+
+/* Большие экраны: от 1200px до 1920px */
+@media (min-width: 1200px) and (max-width: 1920px) {
+    /* Стили для больших экранов */
+}
+
+/* Очень большие экраны: более 1920px */
+@media (min-width: 1921px) {
+    /* Стили для ультрашироких и больших экранов */
 }

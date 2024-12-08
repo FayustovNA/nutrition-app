@@ -6,6 +6,7 @@ interface ClientInfoProps {
         info?: string,
         modal_img?: string,
         text?: string
+        quote?: string
     } & any;
 }
 
@@ -17,6 +18,7 @@ export const ClientInfo = ({ data }: ClientInfoProps) => {
             <p className={styles.info}>{data.info}</p>
             <img className={styles.img} src={data.modal_img}></img>
             <p className={styles.text}>{data.text}</p>
+            <p className={styles.quote}>"{data.quote}"</p>
         </div>
     );
 };

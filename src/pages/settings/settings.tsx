@@ -3,7 +3,6 @@ import styles from './setting.module.css'
 import { useEffect } from 'react'
 import { useDispatch } from '../../services/hooks'
 import { useNavigate } from 'react-router-dom';
-import { fetchFatSecretMonthData } from '../../services/slices/fatSecretSlice'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../services/root-reducer'
 import Button from '../../ui/button/button'
@@ -15,6 +14,8 @@ import SetAvatar from '../../components/modal-action/avatar/avatar';
 import ModalAction from '../../components/modal-action/modal-action';
 import Avatar from '../../images/avatar_def.png'
 import { fetchUserData } from '../../services/slices/userSlice';
+import { getProjectBySearch } from '../../services/slices/projectSlice';
+import { Loader } from '../../components/loader/loader';
 
 interface SettingsProps {
     type?: string;
@@ -30,36 +31,38 @@ export const Settings: React.FC<SettingsProps> = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const User = useSelector((state: RootState) => state.userData);
-    const Project = useSelector((state: RootState) => state.projectData);
+    const Projects = useSelector((state: RootState) => state.projectData);
+    const Project = useSelector((state: RootState) => state.projectData.projectData);
     const FatSecretStatus = useSelector((state: RootState) => state.userData.fatsecret_account);
     const [isAvatarModalOpen, setAvatarModalOpen] = useState(false);
+    const [isOpenModal, setisOpenModal] = useState(false);
 
+
+    // Флаги загрузки и ошибки
+    const isLoading = Projects.getProjectRequest;
+    const hasError = Projects.getProjectFailed;
+
+    // Эффект для загрузки данных пользователя и проекта
     useEffect(() => {
-        dispatch(fetchFatSecretMonthData());
-        dispatch(fetchUserData())
-    }, [dispatch]);
+        if (User.username) {
+            dispatch(fetchUserData());
+            dispatch(getProjectBySearch(User.username));
+        }
+    }, [dispatch, User.username]);
 
+
+    // Обработчики модальных окон
+    const openModal = () => setisOpenModal(true);
+    const closeModal = () => setisOpenModal(false);
+    const openAvatarModal = () => setAvatarModalOpen(true);
+    const closeAvatarModal = () => setAvatarModalOpen(false);
+
+    // Обработчик выхода
     const handleLogout = () => {
         dispatch(logoutUser());
         navigate('/login');
     };
 
-
-    const [isOpenModal, setisOpenModal] = useState(false);
-
-    const openModal = () => {
-        setisOpenModal(true)
-    }
-
-    const closeModal = () => {
-        setisOpenModal(false)
-    }
-
-    const openAvatarModal = () => setAvatarModalOpen(true);
-
-    const closeAvatarModal = () => {
-        setAvatarModalOpen(false);
-    };
 
     return (
         <div className={`${styles.account_settings}`}>
@@ -131,7 +134,6 @@ export const Settings: React.FC<SettingsProps> = () => {
 
                 </div>
 
-
                 <div className={styles.info_block}>
 
                     <h3 className={styles.h3}>
@@ -140,26 +142,31 @@ export const Settings: React.FC<SettingsProps> = () => {
 
                     <div className={styles.main_process}>
 
-                        <div className={styles.process}>
-                            <p className={styles.item}>
-                                <h4 className={styles.h4}>Ваш тренер</h4>
-                                {Project.projectData?.coach || 'не назначен'}
-                            </p>
-                            <p className={styles.item}>
-                                <h4 className={styles.h4}>Дата старта</h4>
-                                {Project.projectData?.start_date || 'не назначена'}
-                            </p>
-                            <p className={styles.item}>
-                                <h4 className={styles.h4}>Стартовый вес</h4>
-                                {Project.projectData?.target_weight || 'не внесен'}
-                            </p>
-                            <p className={styles.item}>
-                                <h4 className={styles.h4}>Целевой вес</h4>
-                                {Project.projectData?.target_weight || 'не внесен'}
-                            </p>
-                        </div>
-
-
+                        {/* Учет состояния загрузки и ошибок */}
+                        {isLoading ? (
+                            <Loader />
+                        ) : hasError ? (
+                            <p className={styles.error}>Ваш проект пока не создан!</p>
+                        ) : (
+                            <div className={styles.process}>
+                                <p className={styles.item}>
+                                    <h4 className={styles.h4}>Ваш тренер</h4>
+                                    {Project?.coach.username || 'Не назначен'}
+                                </p>
+                                <p className={styles.item}>
+                                    <h4 className={styles.h4}>Дата старта</h4>
+                                    {Project?.start_date || 'Не назначена'}
+                                </p>
+                                <p className={styles.item}>
+                                    <h4 className={styles.h4}>Стартовый вес</h4>
+                                    {Project?.start_weight || 'Не внесен'}
+                                </p>
+                                <p className={styles.item}>
+                                    <h4 className={styles.h4}>Целевой вес</h4>
+                                    {Project?.target_weight || 'Не внесен'}
+                                </p>
+                            </div>
+                        )}
 
                         <div className={styles.list}>
 

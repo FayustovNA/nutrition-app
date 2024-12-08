@@ -7,8 +7,7 @@ export interface CheckboxProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   value?: any;
-  required: any;
-  agree?: any;
+  required?: any;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -25,7 +24,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <input
           name={name}
           className={styles.checkmark}
-          type="checkbox"
+          type="radio"  // Если для выбора одного значения
           checked={checked}
           onChange={onChange}
           value={value}

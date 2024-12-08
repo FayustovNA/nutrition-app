@@ -48,7 +48,12 @@
     /* display: none; */
 }
 
-@media (max-width: 768px) {
+/* Маленькие экраны: до 576px */
+@media (max-width: 576px) {
+    .item {
+        margin: auto;
+    }
+
     .title {
         /* display: block; */
         display: none;
@@ -62,13 +67,39 @@
         padding: 0px;
         margin: 0px;
         object-fit: contain;
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
     }
 
     .content {
         display: flex;
         flex-direction: column;
         height: 100%;
+        margin: auto;
     }
+}
+
+/* Низкое среднее: от 576px до 768px */
+@media (min-width: 576px) and (max-width: 768px) {
+    /* Стили для низкого среднего диапазона */
+}
+
+/* Средние экраны: от 768px до 992px */
+@media (min-width: 768px) and (max-width: 992px) {
+    /* Стили для средних экранов */
+}
+
+/* Высокое среднее: от 992px до 1200px */
+@media (min-width: 992px) and (max-width: 1200px) {
+    /* Стили для высокого среднего диапазона */
+}
+
+/* Большие экраны: от 1200px до 1920px */
+@media (min-width: 1200px) and (max-width: 1920px) {
+    /* Стили для больших экранов */
+}
+
+/* Очень большие экраны: более 1920px */
+@media (min-width: 1921px) {
+    /* Стили для ультрашироких и больших экранов */
 }
