@@ -1,0 +1,30 @@
+name: Build and Push Docker image to Docker Hub
+
+on:
+  push:
+    branches:
+      - main  # Запускать на пуш в ветку main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout репозитория
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Логин в Docker Hub
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Построение Docker-образа
+    - name: Build Docker image
+      run: docker build -t fayustovna/nutrition-app:latest .
+
+    # Публикация Docker-образа на Docker Hub
+    - name: Push Docker image to Docker Hub
+      run: docker push fayustovna/nutrition-app:latest
