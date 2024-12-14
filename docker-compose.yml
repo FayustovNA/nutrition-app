@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - PLATFORM=linux/amd64 # Устанавливаем платформу
+    platform: linux/amd64
+    volumes:
+      - .:/app # Подключаем локальную директорию
+      - node_modules:/app/node_modules # Добавляем volume для node_modules
+    ports:
+      - "80:80"
+      - "4173:4173" # Открываем порт 80 для доступа к приложению
+    environment:
+      - GIT_REPO=https://github.com/FayustovNA/nutrition-app.git
+      - GIT_BRANCH=main # Укажите ветку, которую нужно клонировать
+
+volumes:
+  node_modules:
+    driver: local
