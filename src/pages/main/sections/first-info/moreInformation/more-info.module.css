@@ -6,6 +6,17 @@
     align-items: center;
 }
 
+/* Для Chrome, Edge, Safari */
+content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Для Firefox */
+html {
+    scrollbar-width: none;
+    /* Убирает скролл-бар */
+}
+
 .main {
     /* padding-top: 310px; */
     display: flex;

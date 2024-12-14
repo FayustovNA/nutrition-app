@@ -9,12 +9,14 @@
     "deploy": "gh-pages -d dist",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
     "@svgr/plugin-svgo": "^8.1.0",
-    "apexcharts": "^3.49.1",
+    "apexcharts": "^4.2.0",
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "react": "^18.2.0",
@@ -30,6 +32,7 @@
     "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
+    "@types/node": "^22.10.2",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@types/react-slick": "^0.23.13",
@@ -40,7 +43,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "file-loader": "^6.2.0",
+    "rollup": "^4.28.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.28.1"
   }
 }

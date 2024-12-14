@@ -1,4 +1,4 @@
-import { API_URL } from '../utils/config'
+import { BASE_URL as API_URL } from '../utils/config'
 import { apiRequest } from './utils'
 // import { TGetUserInfo } from '../services/slices/userSlice'
 import { getAccessToken } from '../services/auth/authService';
@@ -24,7 +24,6 @@ export const updateUserRequestApi = async (formData: FormData) => {
         throw new Error('Не удалось обновить данные пользователя');
     }
 };
-
 
 // Получение данных пользователя
 export const getUserRequestApi = async () => {

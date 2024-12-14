@@ -1,1 +1,1 @@
-export const API_URL: string = `http://178.208.88.247/api`
+export const BASE_URL = import.meta.env.VITE_BASE_URL;

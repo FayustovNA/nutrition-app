@@ -1,7 +1,7 @@
 import { TUserRegister, TUserRegisterResponse } from '../services/types/user'
 import { TLoginProfile } from '../services/slices/registerSlice'
 import { apiRequest } from './utils'
-import { API_URL } from '../utils/config'
+import { BASE_URL as API_URL } from '../utils/config'
 
 // Запрос на регистрацию пользователя
 export const registerUserRequestApi = ({

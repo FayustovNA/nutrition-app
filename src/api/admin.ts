@@ -1,10 +1,6 @@
-import { API_URL } from '../utils/config'
+import { BASE_URL as API_URL } from '../utils/config'
 import { getAccessToken } from '../services/auth/authService'
 import { apiRequest } from './utils'
-
-// admin@yandex.ru Qwe123!!!
-
-//Fayustov@mail.com Fayustov123
 
 //Запрос листа пользователей
 export const getUsersList = async () => {

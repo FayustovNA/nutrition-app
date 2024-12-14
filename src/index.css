@@ -56,9 +56,21 @@ body {
   place-items: center;
   width: 100vw;
   min-width: 320px;
-  height: 100vh;
+  height:
+    100vh;
+  overflow: auto;
 }
 
+/* Для Chrome, Edge, Safari */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Для Firefox */
+html {
+  scrollbar-width: none;
+  /* Убирает скролл-бар */
+}
 
 .slick-dots li button::before {
   font-size: 6px;

@@ -1,4 +1,4 @@
-import { API_URL } from '../utils/config'
+import { BASE_URL as API_URL } from '../utils/config'
 import { apiRequest } from './utils'
 import { getAccessToken } from '../services/auth/authService';
 
