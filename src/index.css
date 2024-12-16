@@ -67,9 +67,22 @@ body::-webkit-scrollbar {
 }
 
 /* Для Firefox */
-html {
+body {
   scrollbar-width: none;
   /* Убирает скролл-бар */
+}
+
+/* Скрываем скроллбар для WebKit-браузеров (Chrome, Safari) */
+body {
+  scrollbar-width: none;
+  /* Для Firefox */
+  -ms-overflow-style: none;
+  /* Для Internet Explorer */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+  /* Для Chrome, Safari */
 }
 
 .slick-dots li button::before {

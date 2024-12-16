@@ -47,7 +47,7 @@ export const ApplicationWindow = ({ onClose }: { onClose: () => void }) => {
 
     return (
         <div className={styles.content}>
-            <img className={styles.img} src='nutrition-app/images/application/applay.png' alt="Welcome" />
+            <img className={styles.img} src='../../images/application/applay.png' alt="Welcome" />
             <h3 className={styles.h3}>Добро пожаловать в BFN!</h3>
             <p className={styles.text}>
                 Тебя ждет увлекательная работа с питанием, образом жизни и привычками. Результат, который гарантруем - лучшая физическая форма!

@@ -4,5 +4,17 @@
     justify-content: center;
 }
 
+/* Скрываем скроллбар для WebKit-браузеров (Chrome, Safari) */
+content {
+    scrollbar-width: none;
+    /* Для Firefox */
+    -ms-overflow-style: none;
+    /* Для Internet Explorer */
+}
+
+content::-webkit-scrollbar {
+    display: none;
+    /* Для Chrome, Safari */
+}
 
 @media (max-width: 768px) {}
