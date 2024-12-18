@@ -8,6 +8,15 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['js-big-decimal']
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost', // Ваш локальный API
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   plugins: [
     react(),
     svgr({
