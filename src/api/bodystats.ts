@@ -10,7 +10,7 @@ export const getStatisticsBySearch = async (search: string) => {
             throw new Error('Access token not found');
         }
         // Формируем URL с query параметром
-        const response = await apiRequest(`${API_URL}/bodystats?user=${encodeURIComponent(search)}`, {
+        const response = await apiRequest(`${API_URL}/bodystats/?user=${encodeURIComponent(search)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

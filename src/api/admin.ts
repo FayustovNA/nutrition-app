@@ -70,7 +70,7 @@ export const getProjectBySearch = async (search: string) => {
         }
 
         // Добавляем строку поиска как query параметр
-        const response = await apiRequest(`${API_URL}/project?user=${encodeURIComponent(search)}`, {
+        const response = await apiRequest(`${API_URL}/project/?user=${encodeURIComponent(search)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

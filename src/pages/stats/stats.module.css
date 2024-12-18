@@ -76,7 +76,14 @@
 }
 
 .weight_char {
-    width: 95%;
+    width: calc(100% - 2*10px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.weight_char2 {
+    width: calc(100% - 2*10px);
     display: flex;
     flex-direction: column;
     gap: 20px;

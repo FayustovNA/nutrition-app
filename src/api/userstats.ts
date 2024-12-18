@@ -37,7 +37,7 @@ export const getFoodDiaryList = async (user: string) => {
         }
 
         // Добавляем строку поиска как query параметр
-        const response = await apiRequest(`${API_URL}/fooddiary?user=${encodeURIComponent(user)}`, {
+        const response = await apiRequest(`${API_URL}/fooddiary/?user=${encodeURIComponent(user)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
