@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://blackfox.sytes.net/', // Ваш локальный API
+        target: 'http://localhost/', // Ваш локальный API
         changeOrigin: true,
         secure: false,
       },
