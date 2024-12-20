@@ -2,7 +2,7 @@ import style from './avatar-item.module.css';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../services/root-reducer';
-import Avatar from '../../../images/download.jpeg'
+import Avatar from '../../../images/avatar_def.png'
 
 
 const AvatarItem = () => {
@@ -14,7 +14,6 @@ const AvatarItem = () => {
     };
 
     const imageUrl = avatar.image ? avatar.image.replace('http://localhost', '') : Avatar;
-
 
     return (
         <div className={style.content} onClick={handleClick}>
