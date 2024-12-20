@@ -18,7 +18,7 @@ const AvatarItem = () => {
     return (
         <div className={style.content} onClick={handleClick}>
             <img
-                className={style.avatar}
+                className={style.avatarbox}
                 src={imageUrl || Avatar} alt="User Avatar" />
         </div>
 

@@ -3,10 +3,11 @@
     height: 100%;
 }
 
-.avatarbov {
+.avatarbox {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    object-fit: cover;
     height: 30px;
     width: 30px;
     padding: 0;
