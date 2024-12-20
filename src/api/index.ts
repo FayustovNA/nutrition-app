@@ -2,6 +2,7 @@ import { TUserRegister, TUserRegisterResponse } from '../services/types/user'
 import { TLoginProfile } from '../services/slices/registerSlice'
 import { apiRequest } from './utils'
 import { BASE_URL as API_URL } from '../utils/config'
+import { setTokens } from '../services/auth/authService'
 
 // Запрос на регистрацию пользователя
 export const registerUserRequestApi = ({
@@ -56,6 +57,25 @@ export const loginUserRequestApi = async ({ email, password }: TLoginProfile): P
     }
 };
 
+// Функция для обновления токена
+export const refreshToken = async (): Promise<void> => {
+    const refreshToken = localStorage.getItem('refresh');
+    if (!refreshToken) {
+        throw new Error('No refresh token');
+    }
 
+    const response = await fetch(`${API_URL}/refresh/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+    });
 
+    if (!response.ok) {
+        throw new Error('Failed to refresh token');
+    }
 
+    const data = await response.json();
+    setTokens(data.access, data.refresh);
+};

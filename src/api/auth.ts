@@ -1,7 +1,6 @@
 import { BASE_URL as API_URL } from '../utils/config'
 import { apiRequest } from './utils'
-// import { TGetUserInfo } from '../services/slices/userSlice'
-import { getAccessToken } from '../services/auth/authService';
+import { getAccessToken } from '../services/auth/authService'
 
 //Обновление данных пользователя
 export const updateUserRequestApi = async (formData: FormData) => {

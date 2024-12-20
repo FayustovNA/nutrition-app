@@ -59,10 +59,9 @@ export const Settings: React.FC<SettingsProps> = () => {
 
     // Обработчик выхода
     const handleLogout = () => {
-        dispatch(logoutUser());
         navigate('/login');
+        dispatch(logoutUser());
     };
-
 
     return (
         <div className={`${styles.account_settings}`}>

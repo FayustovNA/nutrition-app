@@ -19,9 +19,5 @@ const removeTokens = () => {
     localStorage.removeItem('refresh');
 };
 
-export {
-    getAccessToken,
-    getRefreshToken,
-    removeTokens,
-    setTokens,
-};
+
+export { getAccessToken, getRefreshToken, removeTokens, setTokens };

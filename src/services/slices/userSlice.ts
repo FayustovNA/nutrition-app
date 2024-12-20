@@ -4,6 +4,7 @@ import { TUserRegister } from '../types/user'
 import { setTokens, removeTokens } from '../auth/authService'
 import { updateUserRequestApi } from '../../api/auth'
 import { getUserRequestApi } from '../../api/auth'
+import { refreshToken } from '../../api'
 
 export type TGetUserInfo = {
     id?: number | undefined
@@ -66,15 +67,9 @@ const initialState: IUserSliceState = {
 // Логирование пользователя
 export const loginIn = createAsyncThunk(
     'user/login',
-    async (
-        { email, password }: TUserRegister,
-        { dispatch, rejectWithValue }
-    ) => {
+    async ({ email, password }: TUserRegister, { dispatch, rejectWithValue }) => {
         try {
-            const response = await loginUserRequestApi({
-                email,
-                password,
-            });
+            const response = await loginUserRequestApi({ email, password });
             dispatch(setUserData(response));
             setTokens(response.access, response.refresh);
             return response;
@@ -97,15 +92,24 @@ export const updateUser = createAsyncThunk(
     }
 );
 
-
 // Получение данных пользователя
 export const fetchUserData = createAsyncThunk<TGetUserInfo, void>(
     'user/fetchUserData',
-    async (_, { rejectWithValue }) => {
+    async (_, { dispatch, rejectWithValue }) => {
         try {
-            const response = await getUserRequestApi(); // Запрос к API
-            return response as TGetUserInfo; // Указываем явный тип
+            const accessToken = localStorage.getItem('access');
+            if (!accessToken) {
+                throw new Error('No access token');
+            }
+
+            const response = await getUserRequestApi();
+            return response as TGetUserInfo;
         } catch (error: any) {
+            if (error.message === 'Failed to fetch user data') {
+                await refreshToken();
+                const userData = await getUserRequestApi();
+                dispatch(setUserData(userData));
+            }
             return rejectWithValue(error.response?.data || error.message);
         }
     }

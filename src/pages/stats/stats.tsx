@@ -48,7 +48,7 @@ export const Stats = () => {
     const openModal = () => setisOpenModal(true);
     const closeModal = () => setisOpenModal(false);
 
-    if (!statsData) {
+    if (!statsData || !User) {
         return <Loader />;
     }
 
