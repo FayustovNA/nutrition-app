@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styles from './avatar.module.css';
-import Input from '../../../ui/inputs/input';
+// import Input from '../../../ui/inputs/input';
 import useForm from '../../../hooks/useForm';
 import Button from '../../../ui/button/button';
 import { useDispatch } from '../../../services/hooks';
 import { updateUser } from '../../../services/slices/userSlice';
 import { Loader } from '../../loader/loader';
+import { useRef } from 'react';
+
 
 interface SetAvatarProps {
     image?: any;
@@ -14,27 +16,25 @@ interface SetAvatarProps {
 
 const SetAvatar: React.FC<SetAvatarProps> = ({ onClose }) => {
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+    // Внимание, здесь мы используем useForm для хранения значения изображения
     const { values, setValues } = useForm({
-        image: '',
+        image: null,
     });
 
-    const [isLoading, setIsLoading] = useState(false); // Добавляем состояние загрузки
-
-    // Обработчик изменения файла
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
-
         if (files && files[0]) {
             const file = files[0];
-            setValues((prevValues) => ({
-                ...prevValues,
-                image: file,
-            }));
+            console.log("Selected file:", file);  // Логируем выбранный файл
+            setValues({ ...values, image: file });
+        } else {
+            console.log("No file selected.");  // Логируем отсутствие файла
         }
     };
 
-    // Обработчик сохранения аватарки
     const handleSaveAvatar = async () => {
         if (!values.image) {
             console.error('No file selected');
@@ -44,20 +44,21 @@ const SetAvatar: React.FC<SetAvatarProps> = ({ onClose }) => {
         const formData = new FormData();
         formData.append('image', values.image);
 
-        // Проверяем FormData перед отправкой
+        // Проверка перед отправкой
         for (const pair of formData.entries()) {
             console.log(`${pair[0]}:`, pair[1]);
         }
 
-        setIsLoading(true); // Включаем состояние загрузки
+        setIsLoading(true);
 
         try {
-            await dispatch(updateUser(formData));
-            onClose(); // Закрытие модального окна
+            const response = await dispatch(updateUser(formData));
+            console.log('Avatar update response:', response);
+            onClose();
         } catch (error) {
             console.error('Error updating avatar:', error);
         } finally {
-            setIsLoading(false); // Выключаем состояние загрузки
+            setIsLoading(false);
         }
     };
 
@@ -68,7 +69,13 @@ const SetAvatar: React.FC<SetAvatarProps> = ({ onClose }) => {
                 <Loader />
             ) : (
                 <div className={styles.forms}>
-                    <Input
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleChange}
+                        required
+                    />
+                    {/* <Input
                         title="Добавьте изображение"
                         placeholder={'Добавьте изображение'}
                         name="image"
@@ -76,7 +83,7 @@ const SetAvatar: React.FC<SetAvatarProps> = ({ onClose }) => {
                         styled="main"
                         onChange={handleChange}
                         required
-                    />
+                    /> */}
                     <div className={styles.buttons}>
                         <Button
                             variant="default"

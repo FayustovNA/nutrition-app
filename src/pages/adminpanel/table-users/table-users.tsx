@@ -107,7 +107,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                 </thead>
                 <tbody className={styles.tbody}>
                     {currentRows.map((user, index) => (
-                        <tr key={index} className={styles.rows}>
+                        <div key={index} className={styles.rows}>
                             <div className={styles.item_rows}>
                                 <td className={styles.row}>{user.last_name === '' ? '-' : user.last_name}</td>
                                 <td className={styles.row}>{user.first_name === '' ? '-' : user.first_name}</td>
@@ -132,7 +132,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                 onClick={() => openModal(user)}>
                                 <More />
                             </button>
-                        </tr>
+                        </div>
 
                     ))}
                 </tbody>

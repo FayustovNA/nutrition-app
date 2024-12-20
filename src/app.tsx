@@ -39,25 +39,24 @@ function App() {
     if (accessToken) {
       // Если токен существует, восстанавливаем данные пользователя
       dispatch(fetchUserData()).finally(() => {
-        setIsLoading(false); // Данные загружены
+        setIsLoading(false);
       });
 
       // Сохраняем текущий маршрут для восстановления после перезагрузки
       sessionStorage.setItem('lastRoute', currentRoute);
     } else {
-      // Если токен отсутствует, можно направить на страницу логина
+      // Если токен отсутствует направляем на логирование
       if (currentRoute !== '/login') {
         sessionStorage.setItem('lastRoute', currentRoute); // Сохраняем маршрут для восстановления
       }
-      setIsLoading(false); // Ставим состояние в false даже если токен отсутствует
+      setIsLoading(false); // Ставим состояние в false если токен отсутствует
     }
   }, [dispatch, navigate, location]);
 
-  // Пока идет загрузка данных, можно отображать загрузочный экран или пустую страницу
+  // Пока идет загрузка
   if (isLoading) {
     return <Loader />;
   }
-
 
   return (
     <>
