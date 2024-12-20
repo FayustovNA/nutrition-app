@@ -37,6 +37,8 @@ export const Settings: React.FC<SettingsProps> = () => {
     const [isAvatarModalOpen, setAvatarModalOpen] = useState(false);
     const [isOpenModal, setisOpenModal] = useState(false);
 
+    const imageUrl = User.image ? User.image.replace('http://localhost', '') : Avatar;
+
 
     // Флаги загрузки и ошибки
     const isLoading = Projects.getProjectRequest;
@@ -83,7 +85,7 @@ export const Settings: React.FC<SettingsProps> = () => {
                         <div className={styles.avatar_user}>
                             <div className={styles.avatarbox}>
                                 <img
-                                    src={User.image || Avatar}
+                                    src={imageUrl || Avatar}
                                     alt="Аватар"
                                     className={styles.avatar}
                                     onClick={openAvatarModal}
