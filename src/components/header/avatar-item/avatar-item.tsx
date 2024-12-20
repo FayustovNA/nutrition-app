@@ -2,7 +2,7 @@ import style from './avatar-item.module.css';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../services/root-reducer';
-import Avatar from '../../../images/Banner.png'
+import Avatar from '../../../images/avatar_def.png'
 
 
 const AvatarItem = () => {
@@ -18,7 +18,7 @@ const AvatarItem = () => {
     return (
         <div className={style.content} onClick={handleClick}>
             <img
-                className={style.avatarbox}
+                className={style.avatar}
                 src={imageUrl || Avatar} alt="User Avatar" />
         </div>
 

@@ -16,7 +16,6 @@ import Avatar from '../../images/avatar_def.png'
 import { fetchUserData } from '../../services/slices/userSlice';
 import { getProjectBySearch } from '../../services/slices/projectSlice';
 import { Loader } from '../../components/loader/loader';
-
 interface SettingsProps {
     type?: string;
     image?: any;
@@ -39,7 +38,6 @@ export const Settings: React.FC<SettingsProps> = () => {
 
     const imageUrl = User.image ? User.image.replace('http://localhost', '') : Avatar;
 
-
     // Флаги загрузки и ошибки
     const isLoading = Projects.getProjectRequest;
     const hasError = Projects.getProjectFailed;
@@ -51,7 +49,6 @@ export const Settings: React.FC<SettingsProps> = () => {
             dispatch(getProjectBySearch(User.username));
         }
     }, [dispatch, User.username]);
-
 
     // Обработчики модальных окон
     const openModal = () => setisOpenModal(true);
