@@ -13,6 +13,10 @@ import { deleteUserById } from '../../../api/admin'
 import { useDispatch } from '../../../services/hooks'
 import { fetchUsersList } from '../../../services/slices/adminPanelSlice'
 import SetProject from '../../../components/modal-action/set-project/set-project'
+import { useMediaQuery } from 'react-responsive'
+import DeleteMob from '../../../images/icon-status/delete-mb.svg?react'
+import MoreMob from '../../../images/icon-status/More-mb.svg?react'
+import FrameMob from '../../../images/icon-status/Frame-mb.svg?react'
 
 interface ItemUserProps {
     id?: string | number;
@@ -37,6 +41,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
     const [currentUser, setcurrentUser] = useState<ItemUserProps | null>(null);
     const [filter, setFilter] = useState<'all' | 'clients' | 'coaches'>('all');
     const rowsPerPage = 15; // Количество строк на странице
+    const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -96,46 +101,80 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
 
     return (
         <div className={styles.tablebox}>
-            <table className={styles.table}>
-                <thead className={styles.head}>
-                    <th className={styles.col}>Фамилия</th>
-                    <th className={styles.col}>Имя</th>
-                    <th className={styles.col}>E-mail</th>
-                    <th className={styles.col}>Статус</th>
-                    <th className={styles.col}>Роль</th>
-                    <th className={styles.col}>Тренер</th>
-                </thead>
-                <tbody className={styles.tbody}>
-                    {currentRows.map((user, index) => (
-                        <div key={index} className={styles.rows}>
-                            <div className={styles.item_rows}>
-                                <td className={styles.row}>{user.last_name === '' ? '-' : user.last_name}</td>
-                                <td className={styles.row}>{user.first_name === '' ? '-' : user.first_name}</td>
-                                <td className={styles.row}>{user.email}</td>
-                                <td className={styles.row}>{user.fatsecret_account === false ? <False /> : <True />}</td>
-                                <td className={styles.row}>{user.role}</td>
-                                <td className={styles.row}>{user.coach === null ? '-' : user.coach}</td>
-                            </div>
-                            <button
-                                className={styles.btn_st}
-                                onClick={() => handleOpenStats(user.username || '')}
-                            >
-                                <Frame />
-                            </button>
-                            <button
-                                className={styles.btn_action}
-                                onClick={() => openModalAction(user)}>
-                                <Delete />
-                            </button>
-                            <button
-                                className={styles.btn_action_}
-                                onClick={() => openModal(user)}>
-                                <More />
-                            </button>
+            <div className={styles.table}>
+                {isMobile ? (
+                    <div className={styles.usercards}>
+                        <div className={styles.scrlbx}>
+                            {currentRows.map((user, index) => (
+                                <div key={index} className={styles.card}>
+                                    <div className={styles.fio}>{user.last_name} {user.first_name}</div>
+                                    <p className={styles.role}>{user.role}</p>
+                                    <div className={styles.btnrows}>
+                                        <button
+                                            className={styles.btn_st_mob}
+                                            onClick={() => handleOpenStats(user.username || '')}
+                                        >
+                                            <FrameMob />
+                                        </button>
+                                        <button
+                                            className={styles.btn_action_mob}
+                                            onClick={() => openModalAction(user)}>
+                                            <DeleteMob />
+                                        </button>
+                                        <button
+                                            className={styles.btn_action_mob_}
+                                            onClick={() => openModal(user)}>
+                                            <MoreMob />
+                                        </button>
+                                    </div>
+
+                                </div>
+                            ))}
                         </div>
 
-                    ))}
-                </tbody>
+                    </div>
+                )
+                    : (
+                        <div className={styles.tbody}>
+                            <div className={styles.head}>
+                                <th className={styles.col}>Фамилия</th>
+                                <th className={styles.col}>Имя</th>
+                                <th className={styles.col}>E-mail</th>
+                                <th className={styles.col}>Статус</th>
+                                <th className={styles.col}>Роль</th>
+                                <th className={styles.col}>Тренер</th>
+                            </div>
+                            {currentRows.map((user, index) => (
+                                <div key={index} className={styles.rows}>
+                                    <div className={styles.item_rows}>
+                                        <td className={styles.row}>{user.last_name === '' ? '-' : user.last_name}</td>
+                                        <td className={styles.row}>{user.first_name === '' ? '-' : user.first_name}</td>
+                                        <td className={styles.row}>{user.email}</td>
+                                        <td className={styles.row}>{user.fatsecret_account === false ? <False /> : <True />}</td>
+                                        <td className={styles.row}>{user.role}</td>
+                                        <td className={styles.row}>{user.coach === null ? '-' : user.coach}</td>
+                                    </div>
+                                    <button
+                                        className={styles.btn_st}
+                                        onClick={() => handleOpenStats(user.username || '')}
+                                    >
+                                        <Frame />
+                                    </button>
+                                    <button
+                                        className={styles.btn_action}
+                                        onClick={() => openModalAction(user)}>
+                                        <Delete />
+                                    </button>
+                                    <button
+                                        className={styles.btn_action_}
+                                        onClick={() => openModal(user)}>
+                                        <More />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                 <div className={styles.footer}>
                     <div className={styles.filter}>
                         <button
@@ -172,7 +211,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                     </div>
                 </div>
 
-            </table>
+            </div>
 
             {
                 isOpenModal && (<Modal onClose={closeModal}>
@@ -187,7 +226,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                         onDelete={() => handleDelete(currentUser?.id, () => closeModal)} />
                 </ModalAction>)
             }
-        </div>
+        </div >
     );
 };
 

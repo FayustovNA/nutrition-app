@@ -92,6 +92,7 @@
 @media (max-width: 576px) {
     .header {
         height: 60px;
+        background-color: #252525;
     }
 
     .items {

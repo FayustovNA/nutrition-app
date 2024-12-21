@@ -14,6 +14,7 @@
 .tbody {
     padding: 0;
     margin: 0px;
+    width: 100%;
 }
 
 .head {
@@ -49,6 +50,7 @@
     font-size: 12px;
     height: 35px;
     margin: auto;
+    width: 100%;
     gap: 5px;
     justify-content: center;
     align-items: center;
@@ -59,6 +61,7 @@
 
 .item_rows {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(7, 1fr);
 }
 
@@ -143,6 +146,15 @@
     transform: translate(-50%, -50%);
 }
 
+.btn_action_mob {
+    cursor: pointer;
+    background: none;
+    border-radius: none;
+    border: none;
+    outline: none;
+    z-index: 3;
+}
+
 .btn_action_ {
     cursor: pointer;
     background: none;
@@ -156,6 +168,15 @@
     top: 50%;
     right: 60px;
     transform: translate(-50%, -50%);
+}
+
+.btn_action_mob_ {
+    cursor: pointer;
+    background: none;
+    border-radius: none;
+    border: none;
+    outline: none;
+    z-index: 3;
 }
 
 .btn_st {
@@ -173,7 +194,25 @@
     transform: translate(-50%, -50%);
 }
 
+.btn_st_mob {
+    cursor: pointer;
+    background: none;
+    border-radius: none;
+    border: none;
+    outline: none;
+    z-index: 3;
+}
+
+.btn_st_mob:hover * {
+    fill: var(--hover-blue);
+}
+
 .btn_action_:hover * {
+    fill: var(--hover-blue);
+    /* Замените на нужный цвет */
+}
+
+.btn_action_mob_:hover * {
     fill: var(--hover-blue);
     /* Замените на нужный цвет */
 }
@@ -183,6 +222,11 @@
 }
 
 .btn_action:hover * {
+    fill: #FF453A;
+    /* Замените на нужный цвет */
+}
+
+.btn_action_mob:hover * {
     fill: #FF453A;
     /* Замените на нужный цвет */
 }
@@ -230,4 +274,119 @@
 
 .active {
     background-color: var(--hover-blue);
+}
+
+.scrlbx {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 10px;
+}
+
+.usercards {
+    background-color: #252525;
+    width: 100%;
+    border-radius: 10px;
+    max-height: 590px;
+    min-height: 590px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto 20px auto;
+}
+
+.card {
+    min-height: 70px;
+    max-height: 70px;
+    width: calc(100% - 2*10px);
+    display: flex;
+    font-size: 12px;
+    border-radius: 8px;
+    background: var(--main-background);
+    color: var(--gold);
+    font-size: 14px;
+    margin: 0px auto 0px auto;
+    position: relative;
+    align-items: center;
+}
+
+.card:hover {
+    border: 0.5px solid var(--gray-main);
+}
+
+.fio {
+    padding: 0;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.role {
+    position: absolute;
+    font-size: 8px;
+    top: 5px;
+    left: 15px;
+    color: var(--gray-main);
+}
+
+.btnrows {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Маленькие экраны: до 576px */
+@media (max-width: 576px) {
+    .tablebox {
+        min-width: 100%;
+        padding: 0px;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        max-height: 620px;
+        min-height: 620px;
+    }
+
+    .table {
+        min-width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-height: 620px;
+        min-height: 620px;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        height: 90px;
+        padding-bottom: 0.5px;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: #252525;
+        border-radius: 10px;
+        position: fixed;
+        width: calc(100% - 2*10px);
+        bottom: 80px;
+        margin: auto;
+    }
+
+    .pgn_panel {
+        display: flex;
+        align-items: center;
+        margin: 10px auto 10px auto;
+    }
+
+    .filter {
+        display: flex;
+        margin: 10px auto 0px auto;
+    }
 }

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../services/root-reducer';
 import Avatar from '../../../images/avatar_def.png'
 
-
 const AvatarItem = () => {
     const avatar = useSelector((state: RootState) => state.userData);
     const navigate = useNavigate();
