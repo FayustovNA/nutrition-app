@@ -7,7 +7,7 @@ import { useDispatch } from '../../../services/hooks';
 import { updateUser } from '../../../services/slices/userSlice';
 import { Loader } from '../../loader/loader';
 import { useRef } from 'react';
-
+import { fetchUserData } from '../../../services/slices/userSlice';
 
 interface SetAvatarProps {
     image?: any;
@@ -52,8 +52,10 @@ const SetAvatar: React.FC<SetAvatarProps> = ({ onClose }) => {
         setIsLoading(true);
 
         try {
-            const response = await dispatch(updateUser(formData));
+            const response = await dispatch(updateUser(formData)).unwrap();
             console.log('Avatar update response:', response);
+            // После успешного обновления, обновляем данные пользователя
+            dispatch(fetchUserData());
             onClose();
         } catch (error) {
             console.error('Error updating avatar:', error);
