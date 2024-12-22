@@ -17,6 +17,9 @@ import { useMediaQuery } from 'react-responsive'
 import DeleteMob from '../../../images/icon-status/delete-mb.svg?react'
 import MoreMob from '../../../images/icon-status/More-mb.svg?react'
 import FrameMob from '../../../images/icon-status/Frame-mb.svg?react'
+import { RootState } from '../../../services/root-reducer';
+import { useSelector } from 'react-redux'
+
 
 interface ItemUserProps {
     id?: string | number;
@@ -44,6 +47,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const currenUserRole = useSelector((state: RootState) => state.userData.role);
 
     // Фильтрация данных на основе фильтра
     const filteredData = data.filter(user => {
@@ -177,26 +181,28 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                     )}
 
                 <div className={styles.footer}>
-                    <div className={styles.filter}>
-                        <button
-                            className={`${styles.btn_filter} ${filter === 'all' ? styles.active : ''}`}
-                            onClick={() => setFilter('all')}
-                        >
-                            Все
-                        </button>
-                        <button
-                            className={`${styles.btn_filter} ${filter === 'clients' ? styles.active : ''}`}
-                            onClick={() => setFilter('clients')}
-                        >
-                            Клиенты
-                        </button>
-                        <button
-                            className={`${styles.btn_filter} ${filter === 'coaches' ? styles.active : ''}`}
-                            onClick={() => setFilter('coaches')}
-                        >
-                            Тренеры
-                        </button>
-                    </div>
+                    {currenUserRole !== 'coach' && (
+                        <div className={styles.filter}>
+                            <button
+                                className={`${styles.btn_filter} ${filter === 'all' ? styles.active : ''}`}
+                                onClick={() => setFilter('all')}
+                            >
+                                Все
+                            </button>
+                            <button
+                                className={`${styles.btn_filter} ${filter === 'clients' ? styles.active : ''}`}
+                                onClick={() => setFilter('clients')}
+                            >
+                                Клиенты
+                            </button>
+                            <button
+                                className={`${styles.btn_filter} ${filter === 'coaches' ? styles.active : ''}`}
+                                onClick={() => setFilter('coaches')}
+                            >
+                                Тренеры
+                            </button>
+                        </div>
+                    )}
                     <div className={styles.pgn_panel}>
                         <p className={styles.info}>Всего пользователей: <p className={styles.count}>{filteredData.length}</p></p>
                         {Array.from({ length: totalPages }, (_, index) => (
