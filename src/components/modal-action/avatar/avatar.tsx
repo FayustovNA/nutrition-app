@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './avatar.module.css';
-// import Input from '../../../ui/inputs/input';
 import useForm from '../../../hooks/useForm';
 import Button from '../../../ui/button/button';
 import { useDispatch } from '../../../services/hooks';
@@ -77,15 +76,6 @@ const SetAvatar: React.FC<SetAvatarProps> = ({ onClose }) => {
                         onChange={handleChange}
                         required
                     />
-                    {/* <Input
-                        title="Добавьте изображение"
-                        placeholder={'Добавьте изображение'}
-                        name="image"
-                        type="file"
-                        styled="main"
-                        onChange={handleChange}
-                        required
-                    /> */}
                     <div className={styles.buttons}>
                         <Button
                             variant="default"
