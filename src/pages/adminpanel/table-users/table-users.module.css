@@ -377,7 +377,7 @@
         width: 100%;
         bottom: 80px;
         margin: 10px auto 10px auto;
-        z-index: 10;
+        /* z-index: 10; */
     }
 
     .pgn_panel {
