@@ -9,7 +9,7 @@ export const SectionBenefits = () => {
         <div className={styles.section} >
             <div className={styles.section_titles}>
                 <h3 className={styles.title}>
-                    Что ты получить по итогу работы?
+                    Что ты получишь по итогу работы?
                 </h3>
             </div>
             <div className={styles.content}>

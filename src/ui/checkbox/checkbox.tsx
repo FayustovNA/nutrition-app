@@ -24,7 +24,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <input
           name={name}
           className={styles.checkmark}
-          type="radio"  // Если для выбора одного значения
+          type="checkbox"// Если для выбора одного значения
           checked={checked}
           onChange={onChange}
           value={value}
