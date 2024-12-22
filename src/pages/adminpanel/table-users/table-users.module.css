@@ -342,7 +342,6 @@
     /* transform: translate(-50%, -50%); */
 }
 
-
 /* Маленькие экраны: до 576px */
 @media (max-width: 576px) {
     .tablebox {
@@ -351,7 +350,7 @@
         margin: auto;
         display: flex;
         justify-content: center;
-        max-height: 620px;
+        /* max-height: 620px; */
         /* min-height: 620px; */
     }
 
@@ -361,7 +360,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        max-height: 620px;
+        /* max-height: 620px; */
         /* min-height: 620px; */
     }
 
