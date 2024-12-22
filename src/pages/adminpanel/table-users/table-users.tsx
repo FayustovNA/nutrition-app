@@ -108,7 +108,8 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                             {currentRows.map((user, index) => (
                                 <div key={index} className={styles.card}>
                                     <div className={styles.fio}>{user.last_name} {user.first_name}</div>
-                                    <p className={styles.role}>{user.role}</p>
+                                    <td className={styles.role}>{user.fatsecret_account === false ? <False /> : <True />}</td>
+                                    {/* <p className={styles.role}>{user.role}</p> */}
                                     <div className={styles.btnrows}>
                                         <button
                                             className={styles.btn_st_mob}
@@ -117,14 +118,14 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                             <FrameMob />
                                         </button>
                                         <button
-                                            className={styles.btn_action_mob}
-                                            onClick={() => openModalAction(user)}>
-                                            <DeleteMob />
-                                        </button>
-                                        <button
                                             className={styles.btn_action_mob_}
                                             onClick={() => openModal(user)}>
                                             <MoreMob />
+                                        </button>
+                                        <button
+                                            className={styles.btn_action_mob}
+                                            onClick={() => openModalAction(user)}>
+                                            <DeleteMob />
                                         </button>
                                     </div>
 

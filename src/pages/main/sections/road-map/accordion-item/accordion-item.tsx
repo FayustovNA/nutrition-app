@@ -23,7 +23,9 @@ export const AccordionItem = ({ title, text, img, index, isOpen, toggleAccordion
                 <div className={styles.contents}>
                     <p className={styles.text}>{text}
                     </p >
-                    <img className={styles.img} src={img}
+                    <img
+                        loading="lazy"
+                        className={styles.img} src={img}
                     />
                 </div>
             }
