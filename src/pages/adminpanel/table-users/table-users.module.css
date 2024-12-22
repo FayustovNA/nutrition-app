@@ -361,7 +361,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        max-height: 620px;
+        /* max-height: 620px; */
         min-height: 620px;
     }
 
@@ -374,10 +374,10 @@
         justify-content: flex-end;
         background-color: #252525;
         border-radius: 10px;
-        position: fixed;
-        width: calc(100% - 2*10px);
+        /* position: fixed; */
+        width: 100%;
         bottom: 80px;
-        margin: auto;
+        margin: 10px auto 10px auto;
         z-index: 10;
     }
 
