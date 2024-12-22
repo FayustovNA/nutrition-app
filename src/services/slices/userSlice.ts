@@ -7,13 +7,14 @@ import { getUserRequestApi } from '../../api/auth'
 import { refreshToken } from '../../api'
 
 export type TGetUserInfo = {
-    id?: number | undefined
+    coach?: string | null
+    id?: any
     email: string | undefined
     username: string | undefined
     role: string | undefined
-    first_name?: string | undefined,
-    last_name?: string | undefined,
-    fatsecret_account?: string | undefined
+    first_name?: string | undefined
+    last_name?: string | undefined
+    fatsecret_account?: any
     image?: string
 }
 

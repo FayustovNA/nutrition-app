@@ -20,15 +20,14 @@ import FrameMob from '../../../images/icon-status/Frame-mb.svg?react'
 import { RootState } from '../../../services/root-reducer';
 import { useSelector } from 'react-redux'
 
-
 interface ItemUserProps {
-    id?: string | number;
+    id?: any;
     username?: string;
-    last_name?: string;
-    first_name?: string;
+    last_name?: string | undefined;
+    first_name?: string | undefined;
     role?: string;
-    email?: string;
-    coach?: string;
+    email?: string | undefined;
+    coach?: string | null;
     fatsecret_account?: any;
     onclick?: () => void;
 }
