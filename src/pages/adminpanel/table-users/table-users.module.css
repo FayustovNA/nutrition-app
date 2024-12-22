@@ -378,6 +378,7 @@
         width: calc(100% - 2*10px);
         bottom: 80px;
         margin: auto;
+        z-index: 10;
     }
 
     .pgn_panel {
