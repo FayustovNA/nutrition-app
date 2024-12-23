@@ -1,1 +1,1 @@
-export const BASE_URL = 'htpp://localhost/api';
+export const BASE_URL = 'http://localhost/api';
