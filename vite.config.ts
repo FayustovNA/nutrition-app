@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://blackfoxnutrition.ru', // Ваш локальный API
+        target: 'http://www.blackfoxnutrition.ru', // Ваш локальный API
         changeOrigin: true,
         secure: false,
       },
