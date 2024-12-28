@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://www.blackfoxnutrition.ru/api';
+export const BASE_URL = 'https://www.blackfoxnutrition.ru/api';
