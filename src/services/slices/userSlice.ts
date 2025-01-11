@@ -74,8 +74,9 @@ export const loginIn = createAsyncThunk(
             dispatch(setUserData(response));
             setTokens(response.access, response.refresh);
             return response;
-        } catch (error) {
-            return rejectWithValue(error as LoginError);
+        } catch (error: any) {
+            const errorResponse = await error.response?.json(); // Попытка получить JSON
+            return rejectWithValue(errorResponse || { detail: error.message });
         }
     }
 );

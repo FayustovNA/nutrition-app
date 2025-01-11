@@ -47,7 +47,7 @@ export const loginUserRequestApi = async ({ email, password }: TLoginProfile): P
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Login failed');
+            throw new Error(errorData.detail || 'Login failed');
         }
 
         const data: TUserRegisterResponse = await response.json();

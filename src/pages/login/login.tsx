@@ -10,6 +10,7 @@ import Button from '../../ui/button/button'
 import Login from '../../images/login.svg?react'
 // import { useAppSelector } from '../../services/store'
 
+
 const LogIn = () => {
     const [error, setError] = useState('');
     const { values, handleChange } = useForm({
@@ -20,6 +21,20 @@ const LogIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     try {
+    //         const result = await dispatch(loginIn(values)).unwrap();
+    //         if (result) {
+    //             navigate('/settings');
+    //         }
+    //     } catch (error) {
+    //         const serverError = error as ServerError;
+    //         const serverMessage = serverError.detail || '';
+    //         setError(`Ошибка входа: проверьте ваши данные и попробуйте снова. ${serverMessage}`);
+    //     }
+    // };
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -27,11 +42,18 @@ const LogIn = () => {
             if (result) {
                 navigate('/settings');
             }
-        } catch (error) {
-            setError('Ошибка входа: проверьте ваши данные и попробуйте снова.');
+        } catch (error: any) {
+            let serverMessage = 'Неизвестная ошибка. Попробуйте позже.';
+
+            if (error && typeof error === 'object' && 'detail' in error) {
+                serverMessage = error.detail;
+            } else if (typeof error === 'string') {
+                serverMessage = error;
+            }
+
+            setError(`Ошибка входа: проверьте ваши данные и попробуйте снова. ${serverMessage}`);
         }
     };
-
 
     return (
         <div className={styles.content}>
@@ -64,7 +86,7 @@ const LogIn = () => {
                     maxLength={30}
                     required
                 />
-                <div className={styles.error}>{error}</div>
+                {error && <div className={styles.error}>{error}</div>}
                 <div className={styles.button}>
                     <Button
                         variant='default'
