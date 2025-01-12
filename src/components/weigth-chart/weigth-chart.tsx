@@ -52,7 +52,7 @@ class WeigthChart extends React.Component<WeigthChartChartProps, WeigthChartStat
                         autoScaleYaxis: true,
                     },
                     toolbar: {
-                        show: false,
+                        show: true,
                         autoSelected: 'zoom',
                     },
                 },

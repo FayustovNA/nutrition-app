@@ -12,6 +12,29 @@
     position: relative;
 }
 
+.refresh {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 100px;
+    height: 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #34C759;
+    color: #FFFFFF;
+    font-size: 10px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.refresh:hover {
+    opacity: 0.9;
+}
+
 .grid_diary {
     width: 100%;
     padding: 0px;

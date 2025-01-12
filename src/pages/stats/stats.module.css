@@ -123,6 +123,14 @@
     background-color: var(--hover-blue);
 }
 
+.text {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 12px;
+    color: var(--hover-blue);
+}
+
 /* Маленькие экраны: до 576px */
 @media (max-width: 576px) {
     .content {

@@ -89,7 +89,7 @@ export const Stats = () => {
                         {bodyStats && bodyStats.length > 0 ? (
                             <MeasurementsChart statsData={bodyStats} />
                         ) : (
-                            <div>Данные отсутствуют</div>
+                            <div className={styles.text}>Данные по антропометрии отсутствуют</div>
                         )}
                     </div>
                     <button className={styles.btn}

@@ -41,6 +41,7 @@ export const Settings: React.FC<SettingsProps> = () => {
     // Флаги загрузки и ошибки
     const isLoading = Projects.getProjectRequest;
     const hasError = Projects.getProjectFailed;
+    const isUserRole = User.role === 'user';
 
     // Эффект для загрузки данных пользователя и проекта
     useEffect(() => {
@@ -132,68 +133,69 @@ export const Settings: React.FC<SettingsProps> = () => {
 
                 </div>
 
-                <div className={styles.info_block}>
+                {isUserRole && (
+                    <div className={styles.info_block}>
 
-                    <h3 className={styles.h3}>
-                        Информация процесса
-                    </h3>
+                        <h3 className={styles.h3}>
+                            Информация процесса
+                        </h3>
 
-                    <div className={styles.main_process}>
+                        <div className={styles.main_process}>
 
-                        {/* Учет состояния загрузки и ошибок */}
-                        {isLoading ? (
-                            <Loader />
-                        ) : hasError ? (
-                            <p className={styles.error}>Ваш проект пока не создан!</p>
-                        ) : (
-                            <div className={styles.process}>
-                                <p className={styles.item}>
-                                    <h4 className={styles.h4}>Ваш тренер</h4>
-                                    {Project?.coach.username || 'Не назначен'}
-                                </p>
-                                <p className={styles.item}>
-                                    <h4 className={styles.h4}>Дата старта</h4>
-                                    {Project?.start_date || 'Не назначена'}
-                                </p>
-                                <p className={styles.item}>
-                                    <h4 className={styles.h4}>Стартовый вес</h4>
-                                    {Project?.start_weight || 'Не внесен'}
-                                </p>
-                                <p className={styles.item}>
-                                    <h4 className={styles.h4}>Целевой вес</h4>
-                                    {Project?.target_weight || 'Не внесен'}
-                                </p>
-                            </div>
-                        )}
+                            {/* Учет состояния загрузки и ошибок */}
+                            {isLoading ? (
+                                <Loader />
+                            ) : hasError ? (
+                                <p className={styles.error}>Ваш проект пока не создан!</p>
+                            ) : (
+                                <div className={styles.process}>
+                                    <p className={styles.item}>
+                                        <h4 className={styles.h4}>Ваш тренер</h4>
+                                        {Project?.coach.username || 'Не назначен'}
+                                    </p>
+                                    <p className={styles.item}>
+                                        <h4 className={styles.h4}>Дата старта</h4>
+                                        {Project?.start_date || 'Не назначена'}
+                                    </p>
+                                    <p className={styles.item}>
+                                        <h4 className={styles.h4}>Стартовый вес</h4>
+                                        {Project?.start_weight || 'Не внесен'}
+                                    </p>
+                                    <p className={styles.item}>
+                                        <h4 className={styles.h4}>Целевой вес</h4>
+                                        {Project?.target_weight || 'Не внесен'}
+                                    </p>
+                                </div>
+                            )}
 
-                        <div className={styles.list}>
+                            <div className={styles.list}>
 
-                            <div className={styles.nutrition}>
-                                <div className={styles.buttons}>
-                                    {FatSecretStatus === false ?
-                                        <Button
-                                            variant='default'
-                                            size='width'
-                                            color='green-blue'
-                                            buttonHtmlType='submit'
-                                            onClick={getFatSecretRequestLink}
-                                        ><p>Связать FatSecret</p>
-                                        </Button> :
-                                        <Button
-                                            variant='default'
-                                            color='green'
-                                            disabled
-                                            size='width'
-                                            buttonHtmlType='submit'
-                                        ><p>FatSecret связан</p>
-                                        </Button>}
+                                <div className={styles.nutrition}>
+                                    <div className={styles.buttons}>
+                                        {FatSecretStatus === false ?
+                                            <Button
+                                                variant='default'
+                                                size='width'
+                                                color='green-blue'
+                                                buttonHtmlType='submit'
+                                                onClick={getFatSecretRequestLink}
+                                            ><p>Связать FatSecret</p>
+                                            </Button> :
+                                            <Button
+                                                variant='default'
+                                                color='green'
+                                                disabled
+                                                size='width'
+                                                buttonHtmlType='submit'
+                                            ><p>FatSecret связан</p>
+                                            </Button>}
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
-                    </div>
-
-                </div>
+                    </div>)}
 
                 <div className={styles.exit_btn}>
                     <Button

@@ -19,7 +19,6 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
     // const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
     const [weeklyData, setWeeklyData] = useState<{ week: string; avgWeight: number | null; deltaWeight: number }[]>([]);
 
-    console.log(statsData)
     // Функция для вычисления изменения веса по неделям
     const getWeeklyWeightDeltas = () => {
         const start = new Date(startDate).getTime();
@@ -63,24 +62,6 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
         });
 
         // Рассчитываем разницу веса между неделями
-        //     const weightDeltas = fullWeeks.map((currentWeek, index) => {
-        //         if (index === 0) {
-        //             return { ...currentWeek, deltaWeight: 0 }; // Для первой недели разница 0
-        //         }
-
-        //         const prevWeek = fullWeeks[index - 1];
-
-        //         // Если текущая или предыдущая неделя не имеют данных, deltaWeight = 0
-        //         if (currentWeek.avgWeight === null || prevWeek.avgWeight === null) {
-        //             return { ...currentWeek, deltaWeight: 0 };
-        //         }
-
-        //         const deltaWeight = currentWeek.avgWeight - prevWeek.avgWeight;
-        //         return { ...currentWeek, deltaWeight: parseFloat(deltaWeight.toFixed(2)) };
-        //     });
-
-        //     return weightDeltas;
-        // };
         const weightDeltas = fullWeeks.map((currentWeek, index) => {
             if (index === 0 || currentWeek.avgWeight === null) {
                 // Первая неделя или неделя без данных
@@ -104,10 +85,7 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
     // Вызываем функцию, когда statsData или startDate изменяются
     useEffect(() => {
         if (statsData.length > 0 && startDate) {
-            console.log("Start date:", startDate);
-            console.log("Stats data:", statsData);
             const calculatedData = getWeeklyWeightDeltas();
-            console.log("Calculated weekly data:", calculatedData);
             setWeeklyData(calculatedData);
         }
     }, [statsData, startDate]);

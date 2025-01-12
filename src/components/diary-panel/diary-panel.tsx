@@ -6,6 +6,7 @@ import Modal from '../modal/modal'
 import ModalDiary from './modal/modal-diary'
 import { getFatSecretDiary } from '../../api/fatsecret'
 import { Loader } from '../loader/loader'
+import Refresh from '../../images/icon-status/Refresh.svg?react'
 interface StatsDataItem {
     id?: any;
     date: any;
@@ -80,6 +81,7 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user }) => {
     return (
         <div className={styles.content}>
             <h3 className={styles.title}>Последние дневники</h3>
+            <button className={styles.refresh}><Refresh />Обновить</button>
             <div className={styles.grid_diary}>
                 {filteredData.map((item: any) => {
                     return (

@@ -84,7 +84,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
     const handleDelete = async (id: any, onClose: () => void): Promise<string | void> => {
         try {
             await deleteUserById(id.toString());
-            console.log(`Удалить пользователя с id: ${id}`);
+            // console.log(`Удалить пользователя с id: ${id}`);
             dispatch(fetchUsersList());
             onClose(); // Закрываем модальное окно или выполняем другое действие
         } catch (error: any) {
