@@ -1,11 +1,36 @@
 import { TUserRegister, TUserRegisterResponse } from '../services/types/user'
 import { TLoginProfile } from '../services/slices/registerSlice'
-import { apiRequest } from './utils'
+// import { apiRequest } from './utils'
 import { BASE_URL as API_URL } from '../utils/config'
 import { setTokens } from '../services/auth/authService'
 
 // Запрос на регистрацию пользователя
-export const registerUserRequestApi = ({
+// export const registerUserRequestApi = ({
+//     first_name,
+//     last_name,
+//     username,
+//     email,
+//     role,
+//     password,
+//     confirmPassword,
+// }: TUserRegister) => {
+//     return apiRequest<TUserRegisterResponse>(`${API_URL}/signup/`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charger=utf-8',
+//         },
+//         body: JSON.stringify({
+//             first_name: first_name,
+//             last_name: last_name,
+//             username: username,
+//             email: email,
+//             role: role,
+//             password: password,
+//             confirm_password: confirmPassword,
+//         }),
+//     });
+// }
+export const registerUserRequestApi = async ({
     first_name,
     last_name,
     username,
@@ -13,11 +38,11 @@ export const registerUserRequestApi = ({
     role,
     password,
     confirmPassword,
-}: TUserRegister) => {
-    return apiRequest<TUserRegisterResponse>(`${API_URL}/signup/`, {
+}: TUserRegister): Promise<TUserRegisterResponse> => {
+    const response = await fetch(`${API_URL}/signup/`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json;charger=utf-8',
+            'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify({
             first_name: first_name,
@@ -28,8 +53,17 @@ export const registerUserRequestApi = ({
             password: password,
             confirm_password: confirmPassword,
         }),
-    })
-}
+    });
+
+    if (!response.ok) {
+        // Если сервер вернул ошибку, читаем тело ответа и выбрасываем исключение
+        const errorData = await response.json();
+        throw errorData;
+    }
+
+    // Если запрос успешен, возвращаем данные
+    return response.json();
+};
 
 // Запрос на логирование
 export const loginUserRequestApi = async ({ email, password }: TLoginProfile): Promise<TUserRegisterResponse> => {

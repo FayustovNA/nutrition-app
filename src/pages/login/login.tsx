@@ -21,20 +21,6 @@ const LogIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     try {
-    //         const result = await dispatch(loginIn(values)).unwrap();
-    //         if (result) {
-    //             navigate('/settings');
-    //         }
-    //     } catch (error) {
-    //         const serverError = error as ServerError;
-    //         const serverMessage = serverError.detail || '';
-    //         setError(`Ошибка входа: проверьте ваши данные и попробуйте снова. ${serverMessage}`);
-    //     }
-    // };
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
