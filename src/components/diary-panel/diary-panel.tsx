@@ -19,9 +19,10 @@ interface StatsDataItem {
 interface DiaryPanelProps {
     statsData: StatsDataItem[];
     user: any; // Данные приходят через пропс
+    onRefresh: () => void;
 }
 
-export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user }) => {
+export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefresh }) => {
     const [activeTab, setActiveTab] = useState("Н");
     const [selectedItem, setSelectedItem] = useState(null);
     const [diaryData, setDiaryData] = useState(null);
@@ -31,7 +32,6 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user }) => {
         setSelectedItem(item);
         setLoading(true); // Устанавливаем состояние загрузки в true
         try {
-            console.log(item.date_int)
             const response: any = await getFatSecretDiary(item.date, user);
             const data = response.food_entries.food_entry
             setDiaryData(data);
@@ -81,7 +81,7 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user }) => {
     return (
         <div className={styles.content}>
             <h3 className={styles.title}>Последние дневники</h3>
-            <button className={styles.refresh}><Refresh />Обновить</button>
+            <button className={styles.refresh} onClick={onRefresh}><Refresh />Обновить</button>
             <div className={styles.grid_diary}>
                 {filteredData.map((item: any) => {
                     return (

@@ -27,31 +27,6 @@ export const getFatSecretRequestLink = async () => {
     }
 };
 
-//Запрос дневника по дате
-// export const getFatSecretDiary = async (diaryData: any) => {
-//     try {
-//         const accessToken = getAccessToken();
-//         if (!accessToken) {
-//             throw new Error('Access token not found');
-//         }
-
-//         const response = await apiRequest(`${API_URL}/fatsecret/foods_daily/?date=${diaryData}`, {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json;charset=utf-8',
-//                 'Authorization': `Bearer ${accessToken}`,
-//             },
-//         });
-
-//         if (response) {
-//             return response;
-//         } else {
-//             throw new Error('Data not found in the response');
-//         }
-//     } catch (error) {
-//         console.error('Error fetching FatSecret foods data:', error);
-//     }
-// };
 export const getFatSecretDiary = async (diaryData: any, username?: string) => {
     try {
         const accessToken = getAccessToken();
@@ -80,5 +55,36 @@ export const getFatSecretDiary = async (diaryData: any, username?: string) => {
         }
     } catch (error) {
         console.error('Error fetching FatSecret foods data:', error);
+    }
+};
+
+// POST запрос обновления статистики по строке поиска (query)
+export const refreshStatisticsBySearch = async (username: string) => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+        // Формируем URL с параметром запроса
+        const url = `${API_URL}/fooddiary/?user=${encodeURIComponent(username)}`;
+
+        // Выполняем POST запрос
+        const response = await apiRequest(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        // Проверяем успешность запроса
+        if (response) {
+            return response; // Возвращаем ответ, если он есть
+        } else {
+            throw new Error('Data not found in the response');
+        }
+    } catch (error) {
+        console.error('Error fetching statistics data with POST request:', error);
+        throw error; // Пробрасываем ошибку выше
     }
 };

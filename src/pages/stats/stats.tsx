@@ -19,6 +19,7 @@ import SetBodyStatistics from '../../components/modal-action/set-bodystats/set-b
 import MeasurementsChart from '../../components/body-stats-chart/body-stats-chart'
 import { getStatisticsBySearch } from '../../services/slices/bodyStatsSlice'
 import { getProjectBySearch } from '../../services/slices/projectSlice'
+import { refreshStatisticsBySearch } from '../../api/fatsecret'
 
 export const Stats = () => {
     const dispatch = useDispatch();
@@ -36,6 +37,19 @@ export const Stats = () => {
         User.role === 'user' && !usernameParam // Если user, игнорируем параметры
             ? User.username
             : usernameParam; // Если admin/coach, используем параметр
+
+    // Функция для обновления статистики
+    const handleRefresh = async () => {
+        try {
+            if (usernameToFetch) {
+                await refreshStatisticsBySearch(usernameToFetch); // Вызываем API обновления
+                dispatch(getFoodDiaryBySearch(usernameToFetch)); // Обновляем данные в Redux
+                dispatch(getStatisticsBySearch(usernameToFetch)); // Обновляем статистику
+            }
+        } catch (error) {
+            console.error('Error refreshing statistics:', error);
+        }
+    };
 
     useEffect(() => {
         if (usernameToFetch) {
@@ -59,7 +73,7 @@ export const Stats = () => {
             </h1>
 
             <div className={styles.grid}>
-                <DiaryPanel statsData={statsData} user={usernameToFetch} />
+                <DiaryPanel statsData={statsData} user={usernameToFetch} onRefresh={handleRefresh} />
 
                 <div className={styles.grid_nutrition}>
                     <FoodTargetPanel statsData={statsData} />
