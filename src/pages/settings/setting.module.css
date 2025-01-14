@@ -2,6 +2,7 @@
     margin: 0px auto 0px;
     justify-content: center;
     max-width: 1920px;
+    width: calc(100% - 2*20px);
 }
 
 .title {
