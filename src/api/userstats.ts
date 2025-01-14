@@ -54,27 +54,3 @@ export const getFoodDiaryList = async (user: string) => {
         console.error('Error fetching FoodDiary data:', error);
     }
 };
-// export const getFoodDiaryList = async () => {
-//     try {
-//         const accessToken = getAccessToken();
-//         if (!accessToken) {
-//             throw new Error('Access token not found');
-//         }
-//         // Выполняем GET запрос без параметров
-//         const response = await apiRequest(`${API_URL}/fooddiary/`, {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json;charset=utf-8',
-//                 'Authorization': `Bearer ${accessToken}`,
-//             },
-//         });
-
-//         if (response) {
-//             return response;
-//         } else {
-//             throw new Error('Data not found in the response');
-//         }
-//     } catch (error) {
-//         console.error('Error fetching FoodDiary data:', error);
-//     }
-// };

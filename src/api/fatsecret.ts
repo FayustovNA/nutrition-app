@@ -76,7 +76,6 @@ export const refreshStatisticsBySearch = async (username: string) => {
                 'Authorization': `Bearer ${accessToken}`,
             },
         });
-
         // Проверяем успешность запроса
         if (response) {
             return response; // Возвращаем ответ, если он есть

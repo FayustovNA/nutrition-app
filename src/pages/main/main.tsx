@@ -7,9 +7,7 @@ import { SectionSuperiority } from './sections/superiority/superiority';
 import { SectionMainAboutUs } from './sections/main-about-us/main-about-us';
 import { SectionBenefits } from './sections/benefits/benefits';
 
-
 interface MainPageProps {
-
 }
 
 export const MainPage: React.FC<MainPageProps> = () => {

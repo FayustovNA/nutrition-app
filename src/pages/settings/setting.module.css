@@ -1,6 +1,7 @@
 .account_settings {
-    margin: 0px 20px 0px 20px;
+    margin: 0px auto 0px;
     justify-content: center;
+    max-width: 1920px;
 }
 
 .title {

@@ -35,13 +35,11 @@ function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem('access');
     const currentRoute = location.pathname;
-
     if (accessToken) {
       // Если токен существует, восстанавливаем данные пользователя
       dispatch(fetchUserData()).finally(() => {
         setIsLoading(false);
       });
-
       // Сохраняем текущий маршрут для восстановления после перезагрузки
       sessionStorage.setItem('lastRoute', currentRoute);
     } else {

@@ -5,31 +5,6 @@ import { BASE_URL as API_URL } from '../utils/config'
 import { setTokens } from '../services/auth/authService'
 
 // Запрос на регистрацию пользователя
-// export const registerUserRequestApi = ({
-//     first_name,
-//     last_name,
-//     username,
-//     email,
-//     role,
-//     password,
-//     confirmPassword,
-// }: TUserRegister) => {
-//     return apiRequest<TUserRegisterResponse>(`${API_URL}/signup/`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json;charger=utf-8',
-//         },
-//         body: JSON.stringify({
-//             first_name: first_name,
-//             last_name: last_name,
-//             username: username,
-//             email: email,
-//             role: role,
-//             password: password,
-//             confirm_password: confirmPassword,
-//         }),
-//     });
-// }
 export const registerUserRequestApi = async ({
     first_name,
     last_name,
@@ -83,7 +58,6 @@ export const loginUserRequestApi = async ({ email, password }: TLoginProfile): P
             const errorData = await response.json();
             throw new Error(errorData.detail || 'Login failed');
         }
-
         const data: TUserRegisterResponse = await response.json();
         return data;
     } catch (error: any) {

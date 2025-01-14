@@ -47,4 +47,3 @@ export type TUserRegisterResponse = {
 };
 
 export type TLoginProfile = Pick<TUserRegister, 'email' | 'password'>
-

@@ -69,25 +69,6 @@ export const getFoodDiaryBySearch = createAsyncThunk(
     }
 );
 
-// export const getFoodDiaryBySearch = createAsyncThunk(
-//     'foodDiary/getBySearch',
-//     async (_, { dispatch, rejectWithValue }) => {
-//         try {
-//             // Вызываем функцию API без передачи параметра поиска
-//             const response = await getFoodDiaryListApi();
-//             if (response && Array.isArray(response)) {
-//                 dispatch(setFoodDiaryData(response)); // Сохраняем весь массив данных
-//                 return response;
-//             } else {
-//                 return rejectWithValue('No food diary found');
-//             }
-//         } catch (error) {
-//             const message = error instanceof Error ? error.message : 'Failed to fetch food diary';
-//             return rejectWithValue(message);
-//         }
-//     }
-// );
-
 // Slice для управления дневниками
 const foodDiarySlice = createSlice({
     name: 'foodDiary',
