@@ -21,7 +21,7 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    background: #34C759;
+    background: var(--hover-blue);
     color: #FFFFFF;
     font-size: 10px;
     display: flex;
@@ -32,7 +32,7 @@
 }
 
 .refresh:hover {
-    opacity: 0.9;
+    background: var(--gold);
 }
 
 .grid_diary {

@@ -63,7 +63,7 @@ const SignUp = () => {
             console.log('Регистрация успешна:', result);
 
             // Перенаправление на страницу логина
-            navigate('/settings');
+            navigate('/login');
         } catch (error: any) {
             // Лог ошибки для отладки
             console.error('Ошибка регистрации:', error);

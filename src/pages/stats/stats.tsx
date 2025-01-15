@@ -30,6 +30,7 @@ export const Stats = () => {
     const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
     const bodyStats = useSelector((state: RootState) => state.bodyStats.statisticsData);
     const [isOpenModal, setisOpenModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // Эффект для загрузки данных пользователя и проекта
     // Определяем, чьи данные загружать
@@ -40,6 +41,7 @@ export const Stats = () => {
 
     // Функция для обновления статистики
     const handleRefresh = async () => {
+        setLoading(true);
         try {
             if (usernameToFetch) {
                 await refreshStatisticsBySearch(usernameToFetch); // Вызываем API обновления
@@ -48,6 +50,8 @@ export const Stats = () => {
             }
         } catch (error) {
             console.error('Error refreshing statistics:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -61,6 +65,10 @@ export const Stats = () => {
 
     const openModal = () => setisOpenModal(true);
     const closeModal = () => setisOpenModal(false);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     if (!statsData || !User) {
         return <Loader />;

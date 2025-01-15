@@ -32,8 +32,9 @@
 .icon {
     border: none;
     display: none;
-    margin: 0px;
-    padding: 0px;
+    margin: auto;
+    /* margin: 0px;
+    padding: 0px; */
     justify-content: center;
     align-items: center;
     object-fit: contain;
@@ -51,7 +52,10 @@
 /* Маленькие экраны: до 576px */
 @media (max-width: 576px) {
     .item {
+        display: flex;
         margin: auto;
+        justify-content: center;
+        align-items: center;
     }
 
     .title {
@@ -64,18 +68,22 @@
 
     .icon {
         display: flex;
-        padding: 0px;
-        margin: 0px;
-        object-fit: contain;
-        width: 25px;
-        height: 25px;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        /* padding: 0px;
+        margin: 0px; */
+        /* object-fit: contain; */
+        /* width: 25px;
+        height: 25px; */
     }
 
     .content {
         display: flex;
         flex-direction: column;
-        height: 100%;
         margin: auto;
+        justify-content: center;
+        align-items: center;
     }
 }
 

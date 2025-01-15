@@ -11,6 +11,7 @@ import Telegram from '../../images/social/telegram.svg';
 import Calculations from '../../images/header/Calc.svg?react';
 import Stats from '../../images/header/Stats.svg?react';
 import Lib from '../../images/header/Lib.svg?react';
+import Pip from '../../images/header/People.svg?react'
 
 export const Header = () => {
     const [selected, setSelected] = useState('');
@@ -75,6 +76,7 @@ export const Header = () => {
                                 path="/clients"
                                 selected={selected}
                                 setSelected={setSelected}
+                                children={<Pip />}
                             />
                         )}
                     </div>

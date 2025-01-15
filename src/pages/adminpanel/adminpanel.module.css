@@ -20,7 +20,6 @@
     gap: 20px;
     margin-bottom: 20px;
     height: 100%;
-    ;
 }
 
 @media (max-width: 576px) {
@@ -37,7 +36,8 @@
     }
 
     .content {
-        margin: 0px 10px 90px 10px;
+        /* margin: 0px 10px 90px 10px; */
+        width: calc(100% - 2*10px);
         justify-content: center;
     }
 

@@ -30,7 +30,8 @@
     }
 
     .content {
-        margin: 0px 10px 90px 10px;
+        width: calc(100% - 2*10px);
+        margin-bottom: 80px;
         justify-content: center;
     }
 
