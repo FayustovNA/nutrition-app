@@ -171,6 +171,7 @@
 
     .charts {
         gap: 10px;
+        width: 95%;
     }
 
     .weight_char {

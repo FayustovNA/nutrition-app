@@ -7,7 +7,7 @@
     min-height: 150px;
     transform: translate(-50%, -50%);
     position: fixed;
-    z-index: 5;
+    z-index: 900;
     border-radius: 12px;
 }
 
@@ -27,7 +27,6 @@
 .modal_content::-webkit-scrollbar {
     display: none;
 }
-
 
 
 

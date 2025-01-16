@@ -126,6 +126,7 @@ const WeekAverWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, startD
                         return y.toFixed(1);
                     }, style: {
                         colors: '#A7A7A7',
+                        fontSize: '10px',
                     }
                 },
 

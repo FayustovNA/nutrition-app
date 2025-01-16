@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 850;
 }
 
 /* Для Chrome, Edge, Safari */

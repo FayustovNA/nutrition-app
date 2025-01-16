@@ -70,7 +70,7 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
             });
 
         // Добавляем пустые недели до 16
-        const fullWeeks = Array.from({ length: 16 }, (_, index) => {
+        const fullWeeks = Array.from({ length: 9 }, (_, index) => {
             const weekKey = `W ${index + 1}`;
             const existingWeek = weeksWithData.find((weekData) => weekData.week === weekKey);
             return {

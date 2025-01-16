@@ -141,9 +141,9 @@
     margin: auto;
     gap: 10px;
     position: absolute;
-    right: 0px;
-    bottom: 30px;
     width: 200px;
+    right: 0px;
+    top: 100px;
 }
 
 .exit_btn {

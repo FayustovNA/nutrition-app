@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import style from './weigth-chart.module.css'
 
 interface StatsDataItem {
     id: any;
@@ -174,6 +175,7 @@ class WeigthChart extends React.Component<WeigthChartChartProps, WeigthChartStat
                         series={this.state.series}
                         type="area"
                         height={220}
+                        className={style.chart}
                     />
                 </div>
             </div>
