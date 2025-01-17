@@ -22,6 +22,7 @@ import { useEffect } from 'react'
 import { fetchUserData } from './services/slices/userSlice'
 import { useState } from 'react'
 import { Loader } from './components/loader/loader'
+import UserActivate from './pages/user-activate/user-activate'
 
 function App() {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ function App() {
             <Route path='/reset-password' element={<ResetPassword />}></Route>
             <Route path='/forgot-password' element={<ForgotPassword />}></Route>
             <Route path='/calculators' element={<Сalculators />}></Route>
+            <Route path='auth/activate' element={<UserActivate />}></Route>
 
             <Route path='/library'
               element={

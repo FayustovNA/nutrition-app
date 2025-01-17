@@ -14,12 +14,15 @@ export const Footer = () => {
     const openModal = () => setisOpenModal(true);
     const closeModal = () => setisOpenModal(false);
 
+    // Получаем текущий год
+    const currentYear = new Date().getFullYear();
+
     return (
         <div className={styles.footer}>
             <div className={styles.content}>
                 <div className={styles.line}></div>
                 <p className={styles.footer_legal_copyright}>
-                    © BlackFox Nutrition, 2024 г. Все права защищены.
+                    © BlackFox Nutrition,  {currentYear} г.  Все права защищены.
                 </p>
                 <div className={styles.footer_legal_links}>
                     <a className={styles.link} onClick={openModal}>Политика конфиденциальности</a>

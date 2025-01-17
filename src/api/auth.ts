@@ -49,3 +49,19 @@ export const getUserRequestApi = async () => {
         throw error;
     }
 };
+
+//Активация пользователя
+export const activateUser = async (uid: string, token: string): Promise<void> => {
+    const response = await fetch(`${API_URL}/users/activation/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uid, token }),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.detail || 'Ошибка при активации аккаунта.');
+    }
+};
