@@ -41,7 +41,7 @@ const UserActivate = () => {
 
     return (
         <div className={styles.content}>
-            <div>
+            <div className={styles.position}>
                 <h2 className={styles.title}>
                     <span>Активация аккаунта</span>
                     <span>BlackFox Nutrition</span>

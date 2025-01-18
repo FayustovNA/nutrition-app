@@ -24,6 +24,7 @@ import { useState } from 'react'
 import { Loader } from './components/loader/loader'
 import UserActivate from './pages/user-activate/user-activate'
 import ResetPasswordActive from './pages/reset-password_active/reset-password_acttive'
+import SucessSignup from './pages/sucess-signup/sucess-signup'
 
 function App() {
   const dispatch = useDispatch();
@@ -72,7 +73,8 @@ function App() {
             <Route path='/auth/reset_password' element={<ResetPasswordActive />}></Route>
             <Route path='/forgot-password' element={<ForgotPassword />}></Route>
             <Route path='/calculators' element={<Сalculators />}></Route>
-            <Route path='auth/activate' element={<UserActivate />}></Route>
+            <Route path='/auth/activate' element={<UserActivate />}></Route>
+            <Route path='/auth/sucess_signup' element={<SucessSignup />} />
 
             <Route path='/library'
               element={

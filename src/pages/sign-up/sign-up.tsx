@@ -11,9 +11,11 @@ import { registerUser } from '../../services/slices/registerSlice'
 import Checkbox from '../../ui/checkbox/checkbox'
 import { statusList } from '../../utils/mock-user-status'
 import { useState } from 'react'
+import { Loader } from '../../components/loader/loader'
 
 const SignUp = () => {
     const [error, setError] = useState<Record<string, string[]>>({});
+    const [isLoading, setIsLoading] = useState(false); // Состояние для отслеживания загрузки
 
     const { values, handleChange } = useForm({
         first_name: '',
@@ -55,6 +57,7 @@ const SignUp = () => {
             return;
         }
 
+        setIsLoading(true); // Включаем загрузку
         try {
             // Отправка данных на сервер
             const result = await dispatch(registerUser(values)).unwrap();
@@ -62,8 +65,8 @@ const SignUp = () => {
             // Лог для отладки успешного результата
             console.log('Регистрация успешна:', result);
 
-            // Перенаправление на страницу логина
-            navigate('/login');
+            // Перенаправление на SucessSignup с сообщением
+            navigate('/auth/sucess_signup');
         } catch (error: any) {
             // Лог ошибки для отладки
             console.error('Ошибка регистрации:', error);
@@ -74,6 +77,8 @@ const SignUp = () => {
             } else {
                 setError({ form: ['Неизвестная ошибка. Попробуйте позже.'] });
             }
+        } finally {
+            setIsLoading(false); // Выключаем загрузку
         }
     };
 
@@ -87,6 +92,11 @@ const SignUp = () => {
         }
         return null;
     };
+
+
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <div className={styles.content}>

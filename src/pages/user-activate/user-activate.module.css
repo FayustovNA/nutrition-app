@@ -9,7 +9,7 @@
 .title {
     font-size: 24px;
     padding: 0;
-    margin: 150px auto 50px auto;
+    margin: 200px auto 50px auto;
     align-items: center;
     line-height: 1.08349;
     font-weight: 300;
@@ -38,9 +38,8 @@
 }
 
 
-@media (max-width: 380px) {
+@media (max-width: 768px) {
     .title {
-        margin-top: 80px;
-        font-size: 16px;
+        margin-top: 200px;
     }
 }
