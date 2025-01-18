@@ -87,3 +87,33 @@ export const refreshStatisticsBySearch = async (username: string) => {
         throw error; // Пробрасываем ошибку выше
     }
 };
+
+// POST запрос обновления статистики по строке поиска (query)
+export const resetStatisticsBySearch = async (username: string) => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+        // Формируем URL с параметром запроса
+        const url = `${API_URL}/fooddiary/?user=${encodeURIComponent(username)}&reload=true`;
+
+        // Выполняем POST запрос
+        const response = await apiRequest(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+        // Проверяем успешность запроса
+        if (response) {
+            return response; // Возвращаем ответ, если он есть
+        } else {
+            throw new Error('Data not found in the response');
+        }
+    } catch (error) {
+        console.error('Error fetching statistics data with POST request:', error);
+        throw error; // Пробрасываем ошибку выше
+    }
+};

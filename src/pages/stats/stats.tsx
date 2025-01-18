@@ -20,6 +20,7 @@ import MeasurementsChart from '../../components/body-stats-chart/body-stats-char
 import { getStatisticsBySearch } from '../../services/slices/bodyStatsSlice'
 import { getProjectBySearch } from '../../services/slices/projectSlice'
 import { refreshStatisticsBySearch } from '../../api/fatsecret'
+import { resetStatisticsBySearch } from '../../api/fatsecret'
 
 export const Stats = () => {
     const dispatch = useDispatch();
@@ -38,6 +39,21 @@ export const Stats = () => {
         User.role === 'user' && !usernameParam // Если user, игнорируем параметры
             ? User.username
             : usernameParam; // Если admin/coach, используем параметр
+
+    // Функция для сброса статистики
+    const handleReset = async () => {
+        setLoading(true);
+        try {
+            if (usernameToFetch) {
+                await resetStatisticsBySearch(usernameToFetch); // Вызываем API обновления
+                // dispatch(getStatisticsBySearch(usernameToFetch)); // Обновляем статистику
+            }
+        } catch (error) {
+            console.error('Error refreshing statistics:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Функция для обновления статистики
     const handleRefresh = async () => {
@@ -81,7 +97,7 @@ export const Stats = () => {
             </h1>
 
             <div className={styles.grid}>
-                <DiaryPanel statsData={statsData} user={usernameToFetch} onRefresh={handleRefresh} />
+                <DiaryPanel statsData={statsData} user={usernameToFetch} onRefresh={handleRefresh} onReset={handleReset} />
 
                 <div className={styles.grid_nutrition}>
                     <FoodTargetPanel statsData={statsData} />

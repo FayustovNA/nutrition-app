@@ -24,9 +24,10 @@ interface DiaryPanelProps {
     statsData: StatsDataItem[];
     user: any; // Данные приходят через пропс
     onRefresh: () => void;
+    onReset: () => void;
 }
 
-export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefresh }) => {
+export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefresh, onReset }) => {
     const UserRole = useSelector((state: RootState) => state.userData.role);
     const [activeTab, setActiveTab] = useState("Н");
     const [selectedItem, setSelectedItem] = useState(null);
@@ -86,7 +87,7 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefre
     return (
         <div className={styles.content}>
             <h3 className={styles.title}>Дневники</h3>
-            {UserRole === 'admin' ? <button className={styles.reset}><Reset /></button> : null}
+            {UserRole === 'admin' ? <button className={styles.reset} onClick={onReset}><Reset /></button> : null}
             <button className={styles.refresh} onClick={onRefresh}><Refresh />Обновить</button>
             <div className={styles.grid_diary}>
                 {filteredData.map((item: any) => {
