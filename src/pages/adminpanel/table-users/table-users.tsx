@@ -104,6 +104,10 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
+    const getAvatarUrl = (image?: string) => {
+        return image ? image.replace('http://localhost', '') : Avatar;
+    };
+
     return (
         <div className={styles.tablebox}>
             <div className={styles.table}>
@@ -116,7 +120,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                     <div className={styles.avatar_user}>
                                         <div className={styles.avatarbox}>
                                             <img
-                                                src={user.image ? user.image : Avatar}
+                                                src={getAvatarUrl(user.image)}
                                                 className={styles.avatar}
                                             />
                                         </div>
