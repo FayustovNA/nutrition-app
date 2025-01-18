@@ -75,6 +75,10 @@
     cursor: pointer;
 }
 
+.avatar {
+    object-fit: cover;
+}
+
 
 .avatarbox:hover {
     opacity: 0.7;
