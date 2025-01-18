@@ -1,15 +1,15 @@
 import { FormEvent } from 'react'
-import styles from './reset-password.module.css'
+import styles from './reset-password_active.module.css'
 import useForm from '../../hooks/useForm'
 import { Link } from 'react-router-dom'
 import { Footer } from '../../components/footer/footer'
-// import { useDispatch } from '../../services/hooks'
 import Input from '../../ui/inputs/input'
 import Button from '../../ui/button/button'
 
-const ResetPassword = () => {
+const ResetPasswordActive = () => {
 
     const { values, handleChange } = useForm({
+        password: '',
         new_password: '',
         re_new_password: '',
     })
@@ -27,8 +27,19 @@ const ResetPassword = () => {
 
             <form className={styles.form} onSubmit={handleSubmit}>
                 <Input
-                    placeholder="Введите новый пароль"
+                    placeholder="Введите старый пароль"
                     name="new_password"
+                    styled="main"
+                    onChange={handleChange}
+                    value={values.password}
+                    type="password"
+                    minLength={8}
+                    maxLength={30}
+                    required
+                />
+                <Input
+                    placeholder="Введите новый пароль"
+                    name="re_new_password"
                     styled="main"
                     onChange={handleChange}
                     value={values.new_password}
@@ -73,4 +84,4 @@ const ResetPassword = () => {
     )
 }
 
-export default ResetPassword
+export default ResetPasswordActive

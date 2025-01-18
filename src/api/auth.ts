@@ -65,3 +65,19 @@ export const activateUser = async (uid: string, token: string): Promise<void> =>
         throw new Error(errorData?.detail || 'Ошибка при активации аккаунта.');
     }
 };
+
+// Восстановление пароля
+export const resetPassword = async (email: any): Promise<void> => {
+    const response = await fetch(`${API_URL}/users/reset_password/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.detail || 'Ошибка при отправке запроса на восстановление пароля.');
+    }
+};

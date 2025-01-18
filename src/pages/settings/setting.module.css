@@ -146,6 +146,20 @@
     top: 100px;
 }
 
+.buttons2 {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    gap: 10px;
+    position: absolute;
+    width: 200px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+}
+
 .exit_btn {
     margin: 25px auto auto auto;
     justify-content: center;

@@ -23,6 +23,7 @@ import { fetchUserData } from './services/slices/userSlice'
 import { useState } from 'react'
 import { Loader } from './components/loader/loader'
 import UserActivate from './pages/user-activate/user-activate'
+import ResetPasswordActive from './pages/reset-password_active/reset-password_acttive'
 
 function App() {
   const dispatch = useDispatch();
@@ -67,7 +68,8 @@ function App() {
             <Route path='/' element={<MainPage />}></Route>
             <Route path='/login' element={<LogIn />}></Route>
             <Route path='/signup' element={<SignUp />}></Route>
-            <Route path='/reset-password' element={<ResetPassword />}></Route>
+            <Route path='/auth/set_password' element={<ResetPassword />}></Route>
+            <Route path='/auth/reset_password' element={<ResetPasswordActive />}></Route>
             <Route path='/forgot-password' element={<ForgotPassword />}></Route>
             <Route path='/calculators' element={<Сalculators />}></Route>
             <Route path='auth/activate' element={<UserActivate />}></Route>

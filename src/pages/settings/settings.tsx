@@ -125,7 +125,7 @@ export const Settings: React.FC<SettingsProps> = () => {
                             variant='default'
                             size='width'
                             buttonHtmlType='submit'
-                            onClick={() => navigate('/reset-password')}
+                            onClick={() => navigate('/auth/reset_password')}
                         >
                             < p className={styles.btntxt}>Изменить пароль</p>
                         </Button>
@@ -151,7 +151,9 @@ export const Settings: React.FC<SettingsProps> = () => {
                                 <div className={styles.process}>
                                     <p className={styles.item}>
                                         <h4 className={styles.h4}>Ваш тренер</h4>
-                                        {Project?.coach.username || 'Не назначен'}
+                                        {Project?.coach?.first_name && Project?.coach?.last_name
+                                            ? `${Project.coach.first_name} ${Project.coach.last_name}`
+                                            : 'Не назначен'}
                                     </p>
                                     <p className={styles.item}>
                                         <h4 className={styles.h4}>Дата старта</h4>
@@ -171,7 +173,7 @@ export const Settings: React.FC<SettingsProps> = () => {
                             <div className={styles.list}>
 
                                 <div className={styles.nutrition}>
-                                    <div className={styles.buttons}>
+                                    <div className={styles.buttons2}>
                                         {FatSecretStatus === false ?
                                             <Button
                                                 variant='default'
