@@ -7,6 +7,10 @@ import ModalDiary from './modal/modal-diary'
 import { getFatSecretDiary } from '../../api/fatsecret'
 import { Loader } from '../loader/loader'
 import Refresh from '../../images/icon-status/Refresh.svg?react'
+import Reset from '../../images/icon-status/Circular.svg?react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../services/root-reducer'
+
 interface StatsDataItem {
     id?: any;
     date: any;
@@ -23,6 +27,7 @@ interface DiaryPanelProps {
 }
 
 export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefresh }) => {
+    const UserRole = useSelector((state: RootState) => state.userData.role);
     const [activeTab, setActiveTab] = useState("Н");
     const [selectedItem, setSelectedItem] = useState(null);
     const [diaryData, setDiaryData] = useState(null);
@@ -80,7 +85,8 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefre
 
     return (
         <div className={styles.content}>
-            <h3 className={styles.title}>Последние дневники</h3>
+            <h3 className={styles.title}>Дневники</h3>
+            {UserRole === 'admin' ? <button className={styles.reset}><Reset /></button> : null}
             <button className={styles.refresh} onClick={onRefresh}><Refresh />Обновить</button>
             <div className={styles.grid_diary}>
                 {filteredData.map((item: any) => {
