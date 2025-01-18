@@ -16,6 +16,7 @@ import Avatar from '../../images/avatar_def.png'
 import { fetchUserData } from '../../services/slices/userSlice';
 import { getProjectBySearch } from '../../services/slices/projectSlice';
 import { Loader } from '../../components/loader/loader';
+
 interface SettingsProps {
     type?: string;
     image?: any;
@@ -191,7 +192,18 @@ export const Settings: React.FC<SettingsProps> = () => {
                                                 buttonHtmlType='submit'
                                             ><p>FatSecret связан</p>
                                             </Button>}
+                                        <p className={styles.text}>
+                                            <a
+                                                className={styles.link}
+                                                href="https://telegra.ph/Kak-privyazat-akkaunt-FatSecret-k-platforme-BlackFox-Nutrition-01-18-2"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {' '} Как привязать FatSecret?
+                                            </a>
+                                        </p>
                                     </div>
+
                                 </div>
                             </div>
 

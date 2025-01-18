@@ -21,10 +21,16 @@ interface ModalDiaryProps {
 }
 
 const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
+
     function convertDateIntToDate(dateInt: string): string {
         const baseDate = new Date(1970, 0, 1); // 01.01.1970
         baseDate.setDate(baseDate.getDate() + parseInt(dateInt, 10));
-        return baseDate.toLocaleDateString(); // Преобразуем в локальный формат даты
+
+        const day = baseDate.getDate(); // Получаем день (1-31)
+        const month = (baseDate.getMonth() + 1).toString().padStart(2, '0'); // Получаем месяц (добавляем 1, чтобы получить 1-12)
+        const year = baseDate.getFullYear(); // Получаем год (4 цифры)
+
+        return `${day}-${month}-${year}`; // Формируем строку в нужном формате
     }
 
     const mealTranslations: { [key: string]: string } = {
@@ -65,8 +71,8 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
     return (
         <div className={styles.content}>
             <div className={styles.h3}>
-                Дневник FatSecret
-                <p className={styles.date}>{date}</p>
+                Дневной отчет FatSecret
+                <p className={styles.date}>|| {date}</p>
             </div>
             <div className={styles.list}>
                 {Object.entries(groupedData).map(([meal, group]: any) => (
