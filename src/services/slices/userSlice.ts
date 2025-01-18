@@ -15,7 +15,7 @@ export type TGetUserInfo = {
     first_name?: string | undefined
     last_name?: string | undefined
     fatsecret_account?: any
-    image?: string
+    image?: any
 }
 
 export type LoginError = {

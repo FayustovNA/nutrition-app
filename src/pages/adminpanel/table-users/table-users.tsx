@@ -19,6 +19,7 @@ import MoreMob from '../../../images/icon-status/More-mb.svg?react'
 import FrameMob from '../../../images/icon-status/Frame-mb.svg?react'
 import { RootState } from '../../../services/root-reducer';
 import { useSelector } from 'react-redux'
+import Avatar from '../../../images/avatar_def.png'
 
 interface ItemUserProps {
     id?: any;
@@ -30,6 +31,7 @@ interface ItemUserProps {
     coach?: string | null;
     fatsecret_account?: any;
     onclick?: () => void;
+    image?: any;
 }
 
 interface TableUsersProps {
@@ -110,7 +112,18 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                         <div className={styles.scrlbx}>
                             {currentRows.map((user, index) => (
                                 <div key={index} className={styles.card}>
-                                    <div className={styles.fio}>{user.last_name} {user.first_name}</div>
+
+                                    <div className={styles.avatar_user}>
+                                        <div className={styles.avatarbox}>
+                                            <img
+                                                src={user.image ? user.image : Avatar}
+                                                className={styles.avatar}
+                                            />
+                                        </div>
+                                        <div className={styles.fio}>{user.last_name} {user.first_name}</div>
+                                    </div>
+
+
                                     <td className={styles.role}>{user.fatsecret_account === false ? <False /> : <True />}</td>
                                     {/* <p className={styles.role}>{user.role}</p> */}
                                     <div className={styles.btnrows}>
