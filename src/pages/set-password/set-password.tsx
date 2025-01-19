@@ -1,23 +1,68 @@
 import { FormEvent } from 'react'
-import styles from './reset-password.module.css'
+import styles from './set-password.module.css'
 import useForm from '../../hooks/useForm'
 import { Link } from 'react-router-dom'
 import { Footer } from '../../components/footer/footer'
-// import { useDispatch } from '../../services/hooks'
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Input from '../../ui/inputs/input'
 import Button from '../../ui/button/button'
+import { useState } from 'react'
+import { Loader } from '../../components/loader/loader'
+import { setNewPassword } from '../../api/auth'
 
-const ResetPassword = () => {
+const SetPassword = () => {
+    const [searchParams] = useSearchParams(); // Для получения параметров из URL
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate(); // Для перенаправления пользователя
+
+    // Извлечение uid и token из URL
+    const uid = searchParams.get('uid');
+    const token = searchParams.get('token');
 
     const { values, handleChange } = useForm({
         new_password: '',
         re_new_password: '',
     })
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
 
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!uid || !token) {
+            setError('Не удалось извлечь параметры активации из URL.');
+            return;
+        }
+
+        if (values.new_password !== values.re_new_password) {
+            setError('Пароли не совпадают. Пожалуйста, проверьте и повторите ввод.');
+            return;
+        }
+
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            await setNewPassword({
+                uid,
+                token,
+                new_password: values.new_password,
+                re_new_password: values.re_new_password,
+            });
+            alert('Пароль успешно изменён!');
+            navigate('/login'); // Перенаправление при успешной активации
+        } catch (error: any) {
+            setError(error.message || 'Произошла ошибка при изменении пароля.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    if (isLoading) {
+        return <Loader />;
     }
+
 
     return (
         <div className={styles.content}>
@@ -48,6 +93,7 @@ const ResetPassword = () => {
                     maxLength={30}
                     required
                 />
+                {error && <p className={styles.error}>{error}</p>}
                 <div className={styles.button}>
                     <Button
                         variant='default'
@@ -73,4 +119,4 @@ const ResetPassword = () => {
     )
 }
 
-export default ResetPassword
+export default SetPassword

@@ -6,7 +6,7 @@ import LogIn from './pages/login/login'
 import SignUp from './pages/sign-up/sign-up'
 import { Settings } from './pages/settings/settings'
 import ForgotPassword from './pages/forgot-password/forgot-password'
-import ResetPassword from './pages/reset-password/reset-password'
+import SetPassword from './pages/set-password/set-password'
 import { Library } from './pages/library/library'
 import { Сalculators } from './pages/сalculators/сalculators'
 import { Stats } from './pages/stats/stats'
@@ -23,7 +23,7 @@ import { fetchUserData } from './services/slices/userSlice'
 import { useState } from 'react'
 import { Loader } from './components/loader/loader'
 import UserActivate from './pages/user-activate/user-activate'
-import ResetPasswordActive from './pages/reset-password_active/reset-password_acttive'
+// import ResetPasswordActive from './pages/reset-password_active/reset-password_acttive'
 import SucessSignup from './pages/sucess-signup/sucess-signup'
 
 function App() {
@@ -69,8 +69,8 @@ function App() {
             <Route path='/' element={<MainPage />}></Route>
             <Route path='/login' element={<LogIn />}></Route>
             <Route path='/signup' element={<SignUp />}></Route>
-            <Route path='/auth/set_password' element={<ResetPassword />}></Route>
-            <Route path='/auth/reset_password' element={<ResetPasswordActive />}></Route>
+            <Route path='/auth/set_password' element={<SetPassword />}></Route>
+            {/* <Route path='/auth/reset_password' element={<ResetPasswordActive />}></Route> */}
             <Route path='/forgot-password' element={<ForgotPassword />}></Route>
             <Route path='/calculators' element={<Сalculators />}></Route>
             <Route path='/auth/activate' element={<UserActivate />}></Route>

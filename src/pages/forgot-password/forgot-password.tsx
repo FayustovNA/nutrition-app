@@ -7,6 +7,7 @@ import { resetPassword } from '../../api/auth'
 import Input from '../../ui/inputs/input'
 import Button from '../../ui/button/button'
 import { useState } from 'react'
+import { Loader } from '../../components/loader/loader'
 
 const ForgotPassword = () => {
     const { values, handleChange } = useForm({
@@ -24,13 +25,17 @@ const ForgotPassword = () => {
 
         try {
             await resetPassword(values.email);
-            setMessage('Проверьте почту для подтверждения изменения пароля.');
+            setMessage('Запрос успешен! Проверьте почту для подтверждения изменения пароля.');
         } catch (err: any) {
             setError(err.message || 'Произошла ошибка. Попробуйте позже.');
         } finally {
             setIsLoading(false);
         }
     };
+
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <div className={styles.content}>
@@ -61,7 +66,7 @@ const ForgotPassword = () => {
                         buttonHtmlType='submit'
                     >
                         <p className={styles.btntxt}>
-                            {isLoading ? 'Отправка...' : 'Восстановить'}
+                            Восстановить
                         </p>
                     </Button>
                 </div>

@@ -81,3 +81,26 @@ export const resetPassword = async (email: any): Promise<void> => {
         throw new Error(errorData?.detail || 'Ошибка при отправке запроса на восстановление пароля.');
     }
 };
+
+//Установка нового пароля
+interface SetNewPasswordPayload {
+    uid: string;
+    token: string;
+    new_password: string;
+    re_new_password: string;
+}
+
+export const setNewPassword = async (payload: SetNewPasswordPayload): Promise<void> => {
+    const response = await fetch(`${API_URL}/users/reset_password_confirm/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.detail || 'Ошибка при изменении пароля.');
+    }
+};
