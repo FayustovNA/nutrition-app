@@ -104,3 +104,28 @@ export const setNewPassword = async (payload: SetNewPasswordPayload): Promise<vo
         throw new Error(errorData?.detail || 'Ошибка при изменении пароля.');
     }
 };
+
+//Обновление пароля
+export const updatePassword = async (data: {
+    current_password: string;
+    new_password: string;
+    re_new_password: string;
+}): Promise<void> => {
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+        throw new Error('Access token not found');
+    }
+    const response = await fetch(`${API_URL}/users/set_password/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.detail || 'Ошибка при изменении пароля.');
+    }
+};

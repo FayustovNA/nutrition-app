@@ -35,6 +35,7 @@ export type TState = {
     start_weight?: number | any
     re_new_password?: any
     new_password?: any
+    current_password?: any
 }
 
 const useForm = (inputValues: TState) => {

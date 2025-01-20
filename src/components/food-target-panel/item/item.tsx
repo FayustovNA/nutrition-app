@@ -1,5 +1,7 @@
 import React from 'react'
 import styles from './item.module.css'
+import Up from '../../../images/icon-status/Up.svg?react'
+import Down from '../../../images/icon-status/Down.svg?react'
 // import Activity from '../../../../src/images/stats/Variant=Activity.svg';
 
 interface ItemTargetProps {
@@ -31,7 +33,8 @@ const TargetItem: React.FC<ItemTargetProps> = ({ title, fact, target }) => {
     return (
         <div className={styles.item}>
             {/* <img src={Activity} alt="" className={styles.icon} /> */}
-            <h4 className={styles.title}>{translatedTitle}</h4>
+            <h4 className={styles.title}>{translatedTitle}
+            </h4>
             <div className={styles.units}>
                 <div className={styles.fact}>{fact}</div>
 
@@ -43,6 +46,7 @@ const TargetItem: React.FC<ItemTargetProps> = ({ title, fact, target }) => {
                     </div>
                 </div>
             </div>
+            {Number(target || 0) > Number(fact || 0) ? <p className={styles.stat}><Down /></p> : <p className={styles.stat}><Up /></p>}
         </div >
     );
 };

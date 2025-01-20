@@ -25,8 +25,6 @@ const SetPassword = () => {
         re_new_password: '',
     })
 
-
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -62,7 +60,6 @@ const SetPassword = () => {
     if (isLoading) {
         return <Loader />;
     }
-
 
     return (
         <div className={styles.content}>

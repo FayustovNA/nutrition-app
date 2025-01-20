@@ -1,22 +1,68 @@
 import { FormEvent } from 'react'
-import styles from './reset-password_active.module.css'
+import styles from './set-newpassword.module.css'
 import useForm from '../../hooks/useForm'
 import { Link } from 'react-router-dom'
 import { Footer } from '../../components/footer/footer'
 import Input from '../../ui/inputs/input'
 import Button from '../../ui/button/button'
+import { useState } from 'react'
+import { Loader } from '../../components/loader/loader'
+import { updatePassword } from '../../api/auth'
+import { useNavigate } from 'react-router-dom'
 
-const ResetPasswordActive = () => {
+const SetNewPasswordActive = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const { values, handleChange } = useForm({
-        password: '',
+        current_password: '',
         new_password: '',
         re_new_password: '',
     })
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
 
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        setError(null);
+        setSuccessMessage(null);
+
+        if (values.new_password !== values.re_new_password) {
+            setError('Пароли не совпадают. Пожалуйста, проверьте и повторите ввод.');
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            await updatePassword({
+                current_password: values.current_password,
+                new_password: values.new_password,
+                re_new_password: values.re_new_password,
+            });
+
+            setSuccessMessage('Ваш пароль успешно изменён!');
+            // Перенаправление на страницу настроек через 2 секунды
+            setTimeout(() => navigate('/settings'), 2000);
+        } catch (error: any) {
+            setError(error.message || 'Произошла ошибка при изменении пароля.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    if (successMessage) {
+        return (
+            <div className={styles.content}>
+                <p className={styles.success}>{successMessage}</p>
+            </div>
+        );
     }
 
     return (
@@ -28,7 +74,7 @@ const ResetPasswordActive = () => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <Input
                     placeholder="Введите старый пароль"
-                    name="new_password"
+                    name="current_password"
                     styled="main"
                     onChange={handleChange}
                     value={values.password}
@@ -39,7 +85,7 @@ const ResetPasswordActive = () => {
                 />
                 <Input
                     placeholder="Введите новый пароль"
-                    name="re_new_password"
+                    name="new_password"
                     styled="main"
                     onChange={handleChange}
                     value={values.new_password}
@@ -69,6 +115,7 @@ const ResetPasswordActive = () => {
                     </Button>
                 </div>
             </form >
+            {error && <p className={styles.error}>{error}</p>}
 
             <div className={styles.links_block}>
                 <p className={styles.text}>
@@ -84,4 +131,4 @@ const ResetPasswordActive = () => {
     )
 }
 
-export default ResetPasswordActive
+export default SetNewPasswordActive

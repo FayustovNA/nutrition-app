@@ -126,7 +126,7 @@ export const Settings: React.FC<SettingsProps> = () => {
                             variant='default'
                             size='width'
                             buttonHtmlType='submit'
-                            onClick={() => navigate('/auth/reset_password')}
+                            onClick={() => navigate('/auth/set_newpassword')}
                         >
                             < p className={styles.btntxt}>Изменить пароль</p>
                         </Button>
