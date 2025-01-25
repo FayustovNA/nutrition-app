@@ -44,18 +44,21 @@ export const Stats = () => {
 
     // Перемещение вычисления latestWeight в основной блок
     let latestWeight = null;
-
     if (statsData && statsData.length > 0) {
-        // Находим самый последний объект по дате
-        const latestStats = statsData.reduce((latest, current) => {
-            return new Date(current.date) > new Date(latest.date) ? current : latest;
-        });
+        // Находим первый элемент, где weight_actual не равен 0 и дата меньше или равна текущей
+        const validStats = statsData.filter(stat => stat.weight_actual !== 0 && new Date(stat.date) <= new Date());
 
-        // Забираем последний weight_actual
-        latestWeight = latestStats.weight_actual;
+        if (validStats.length > 0) {
+            // Забираем первый такой элемент
+            const firstValidStats = validStats[0];
+            latestWeight = firstValidStats.weight_actual;
+        } else {
+            console.log('Нет данных о весе до текущей даты');
+        }
     } else {
         console.log('Данные отсутствуют или массив пуст');
     }
+
     // Эффект для загрузки данных пользователя и проекта
     // Определяем, чьи данные загружать
     const usernameToFetch =
