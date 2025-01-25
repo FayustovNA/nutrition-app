@@ -14,6 +14,7 @@ interface FoodEntry {
     sugar?: string;
     meal: string;
     food_entry_name: string;
+    number_of_units?: string;
 }
 
 interface ModalDiaryProps {
@@ -52,7 +53,7 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
         if (!groups[meal]) {
             groups[meal] = {
                 items: [],
-                totals: { calories: 0, protein: 0, fat: 0, carbohydrate: 0 },
+                totals: { calories: 0, protein: 0, fat: 0, carbohydrate: 0, sugar: 0 },
             };
         }
 
@@ -64,6 +65,7 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
         groups[meal].totals.protein += parseFloat(item.protein || "0");
         groups[meal].totals.fat += parseFloat(item.fat || "0");
         groups[meal].totals.carbohydrate += parseFloat(item.carbohydrate || "0");
+        groups[meal].totals.sugar += parseFloat(item.sugar || "0");
 
         return groups;
     }, {});
@@ -86,6 +88,7 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
                                 <div>Б: {group.totals.protein.toFixed(1)} g</div>
                                 <div>Ж: {group.totals.fat.toFixed(1)} g</div>
                                 <div>У: {group.totals.carbohydrate.toFixed(1)} g</div>
+                                <div>C: {group.totals.sugar.toFixed(1)} g</div>
                             </div>
                         </div>
 
@@ -97,23 +100,23 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
                                     <div className={styles.components}>
                                         <div className={styles.kcal}>{item.calories} kcal</div>
                                         <div className={styles.comp_item}>
-                                            <p className={styles.comp_h5}>Б</p>
+                                            <p className={styles.comp_h5}>Белки</p>
                                             <div className={styles.comp_value}>{item.protein || '-'} g</div>
                                         </div>
                                         <div className={styles.comp_item}>
-                                            <p className={styles.comp_h5}>Ж</p>
+                                            <p className={styles.comp_h5}>Жиры</p>
                                             <div className={styles.comp_value}>{item.fat || '-'} g</div>
                                         </div>
                                         <div className={styles.comp_item}>
-                                            <p className={styles.comp_h5}>У</p>
+                                            <p className={styles.comp_h5}>Угл-ды</p>
                                             <div className={styles.comp_value}>{item.carbohydrate} g</div>
                                         </div>
                                         <div className={styles.comp_item}>
-                                            <p className={styles.comp_h5}>К</p>
+                                            <p className={styles.comp_h5}>Клет-ка</p>
                                             <div className={styles.comp_value}>{item.fiber || '-'} g</div>
                                         </div>
                                         <div className={styles.comp_item}>
-                                            <p className={styles.comp_h5}>С</p>
+                                            <p className={styles.comp_h5}>Сахар</p>
                                             <div className={styles.comp_value}>{item.sugar || '-'} g</div>
                                         </div>
                                     </div>

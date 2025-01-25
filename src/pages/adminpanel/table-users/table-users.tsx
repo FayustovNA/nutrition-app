@@ -95,8 +95,10 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
         }
     };
 
-    const handleOpenStats = (username: string) => {
-        navigate(`/stats?username=${username}`); // Навигация на страницу Stats с параметром username
+    const handleOpenStats = (username: string, firstName?: string, lastName?: string) => {
+        navigate(`/stats?username=${username}`, {
+            state: { firstName, lastName }, // Передаем данные через state
+        });
     };
 
     // Вычисляем текущие строки для отображения
@@ -133,7 +135,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                     <div className={styles.btnrows}>
                                         <button
                                             className={styles.btn_st_mob}
-                                            onClick={() => handleOpenStats(user.username || '')}
+                                            onClick={() => handleOpenStats(user.username || '', user.first_name, user.last_name)}
                                         >
                                             <FrameMob />
                                         </button>
@@ -177,7 +179,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                     </div>
                                     <button
                                         className={styles.btn_st}
-                                        onClick={() => handleOpenStats(user.username || '')}
+                                        onClick={() => handleOpenStats(user.username || '', user.first_name, user.last_name)}
                                     >
                                         <Frame />
                                     </button>

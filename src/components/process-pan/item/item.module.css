@@ -1,0 +1,24 @@
+.item {
+    background: var(--main-background);
+    border-radius: 8px;
+    position: relative;
+    margin: auto;
+    min-width: 100%;
+    min-height: 55px;
+    position: relative;
+}
+
+.title {
+    color: var(--gold);
+    font-size: 9px;
+    margin: 7px auto 5px 20px;
+}
+
+.units {
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    gap: 20px;
+    margin: auto;
+    align-items: start;
+}

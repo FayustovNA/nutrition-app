@@ -21,6 +21,8 @@ import { getStatisticsBySearch } from '../../services/slices/bodyStatsSlice'
 import { getProjectBySearch } from '../../services/slices/projectSlice'
 import { refreshStatisticsBySearch } from '../../api/fatsecret'
 import { resetStatisticsBySearch } from '../../api/fatsecret'
+import { useLocation } from 'react-router-dom'
+import { ProcessPan } from '../../components/process-pan/process-pan'
 
 export const Stats = () => {
     const dispatch = useDispatch();
@@ -29,10 +31,31 @@ export const Stats = () => {
     const User = useSelector((state: RootState) => state.userData);
     const statsData = useSelector((state: RootState) => state.userStats.foodDiaryData);
     const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
+    const startWeight = useSelector((state: RootState) => state.projectData.projectData?.start_weight);
+    const targetWeight = useSelector((state: RootState) => state.projectData.projectData?.target_weight);
+    const CoachDate = useSelector((state: RootState) => state.projectData.projectData?.coach);
     const bodyStats = useSelector((state: RootState) => state.bodyStats.statisticsData);
     const [isOpenModal, setisOpenModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const location = useLocation();
+    const { state } = location as { state: { firstName?: string; lastName?: string } };
+    const firstNameParam = state?.firstName || '';
+    const lastNameParam = state?.lastName || '';
 
+    // Перемещение вычисления latestWeight в основной блок
+    let latestWeight = null;
+
+    if (statsData && statsData.length > 0) {
+        // Находим самый последний объект по дате
+        const latestStats = statsData.reduce((latest, current) => {
+            return new Date(current.date) > new Date(latest.date) ? current : latest;
+        });
+
+        // Забираем последний weight_actual
+        latestWeight = latestStats.weight_actual;
+    } else {
+        console.log('Данные отсутствуют или массив пуст');
+    }
     // Эффект для загрузки данных пользователя и проекта
     // Определяем, чьи данные загружать
     const usernameToFetch =
@@ -90,17 +113,31 @@ export const Stats = () => {
         return <Loader />;
     }
 
+    const title =
+        User.role === 'user'
+            ? 'Моя статистика'
+            : `Статистика ${firstNameParam || ''} ${lastNameParam || ''}`;
+
     return (
         <div className={styles.content}>
             <h1 className={styles.title}>
-                Моя статистика
+                {title}
             </h1>
+            <ProcessPan
+                startDate={startDate}
+                coach={CoachDate}
+                startWeight={startWeight}
+                latestWeight={latestWeight}
+                targetWeight={targetWeight}
+            />
 
             <div className={styles.grid}>
                 <DiaryPanel statsData={statsData} user={usernameToFetch} onRefresh={handleRefresh} onReset={handleReset} />
 
                 <div className={styles.grid_nutrition}>
-                    <FoodTargetPanel statsData={statsData} />
+                    <FoodTargetPanel
+                        user={usernameToFetch}
+                        statsData={statsData} />
                     <div className={styles.dynamic_nutr}>
                         <h3 className={styles.subtitle}>Динамика целевых показателей</h3>
                         <div className={styles.charts}>

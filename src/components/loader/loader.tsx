@@ -8,7 +8,7 @@ export const Loader = () => {
     return (
         <div className={styles.loader_main}>
             <ModalOverlay />
-            <p className={styles.logo}>
+            <p className={styles.logoL}>
                 <div className={styles.item}>
                     <Logo />
                     <div className={styles.loader}></div>

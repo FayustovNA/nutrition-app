@@ -32,7 +32,7 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefre
     const [activeTab, setActiveTab] = useState("Н");
     const [selectedItem, setSelectedItem] = useState(null);
     const [diaryData, setDiaryData] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loadData, setLoading] = useState(false);
 
     const handleItemClick = async (item: any) => {
         setSelectedItem(item);
@@ -108,7 +108,7 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefre
                 <TabsFilter activeTab={activeTab} onTabChange={handleTabChange} />
             </div>
             {selectedItem && (
-                loading ? (
+                loadData ? (
                     <Loader />
                 ) : (
                     <Modal onClose={handleCloseModal}>

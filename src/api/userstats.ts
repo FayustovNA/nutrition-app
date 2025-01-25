@@ -54,3 +54,32 @@ export const getFoodDiaryList = async (user: string) => {
         console.error('Error fetching FoodDiary data:', error);
     }
 };
+
+// Запрос списка top продуктов
+export const getTopFoodListWeek = async (user: string) => {
+    try {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            throw new Error('Access token not found');
+        }
+
+        // Добавляем строку поиска как query параметр
+        const response = await apiRequest(`${API_URL}/fatsecret/foods_weekly/?user=${encodeURIComponent(user)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        // Возвращаем пустой объект, если данных нет
+        if (response && Object.keys(response).length > 0) {
+            return response;
+        } else {
+            return {};  // Пустой объект, соответствующий типу TopFoodListResponse
+        }
+    } catch (error) {
+        console.error('Error fetching FoodDiary data:', error);
+        return {};  // Пустой объект в случае ошибки
+    }
+};

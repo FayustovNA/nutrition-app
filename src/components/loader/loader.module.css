@@ -1,19 +1,27 @@
 .loader_main {
-    min-width: 100vw;
-    min-height: 100vh;
-    margin: auto;
-    position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    /* Зафиксировать на экране */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Полная ширина экрана */
+    height: 100vh;
+    /* Полная высота экрана */
+    z-index: 1000;
+    /* Поверх всех элементов */
+    /* Фон для затемнения */
 }
 
-.logo {
-    z-index: 100;
+.logoL {
+    z-index: 1010;
     position: absolute;
-    top: 30%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 
 .item {
     display: flex;

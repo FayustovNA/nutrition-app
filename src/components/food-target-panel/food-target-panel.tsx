@@ -2,6 +2,10 @@ import styles from './food-target-panel.module.css'
 import TabsFilter from '../tab-filter/tab-filter'
 import { useState } from 'react'
 import TargetItem from './item/item'
+import { getTopFoodListWeek } from '../../api/userstats'
+import { Loader } from '../loader/loader'
+import Modal from '../modal/modal'
+import TopFoodList from './modal/top-foodlist'
 
 interface StatsDataItem {
     date: string;
@@ -20,15 +24,109 @@ interface StatsDataItem {
 }
 
 interface FoodTargetPanelProps {
-    statsData: StatsDataItem[]; // Переданный массив данных
+    statsData: StatsDataItem[]
+    user: any; // Переданный массив данных
 }
 
-export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData }) => {
+interface FoodStats {
+    calories: number;
+    protein: number;
+    fiber: number;
+    carbohydrate: number;
+    fat: number;
+    sugar: number;
+}
+
+
+export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, user }) => {
     const [activeTab, setActiveTab] = useState('Н');
+    const [loading, setLoading] = useState(false);
+    const [isOpenModal, setisOpenModal] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [listData, setListData] = useState(null);
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab);
     };
+
+    const handleCloseModal = () => {
+        setisOpenModal(false)
+        setListData(null);
+        setSelectedCategory(null);
+    };
+
+    // Обработчик клика по фактическому значению
+    const handleFactClick = async (title: string | undefined) => {
+        setLoading(true);
+        setisOpenModal(true)// Show loading spinner
+        if (!title || !user) return;
+
+        setSelectedCategory(title);
+        console.log(title)
+
+        try {
+            const response: any = await getTopFoodListWeek(user);  // Fetch top food data
+
+
+            if (!response || Object.keys(response).length === 0) {
+                console.error('No data found');
+                setLoading(false); // Скрыть загрузчик
+                return;
+            }
+            let filteredData: any; // Initialize filteredData as an array of tuples
+
+            // Filter top 10 foods based on the selected category
+            if (title === 'calories') {
+                filteredData = Object.entries(response)
+                    .sort((a: any, b: any) => b[1].calories - a[1].calories)
+                    .slice(0, 10);  // Top 10 highest calorie foods
+            } else if (title === 'protein') {
+                filteredData = Object.entries(response)
+                    .sort((a: any, b: any) => b[1].protein - a[1].protein)
+                    .slice(0, 10);  // Top 10 highest protein foods
+            }
+            else if (title === 'fiber') {
+                filteredData = Object.entries(response)
+                    .sort((a: any, b: any) => b[1].fiber - a[1].fiber)
+                    .slice(0, 10);  // Top 10 highest protein foods
+            }
+            else if (title === 'carbohydrate') {
+                filteredData = Object.entries(response)
+                    .sort((a: any, b: any) => b[1].carbohydrate - a[1].carbohydrate)
+                    .slice(0, 10);  // Top 10 highest protein foods
+            }
+            else if (title === 'fat') {
+                filteredData = Object.entries(response)
+                    .sort((a: any, b: any) => b[1].fat - a[1].fat)
+                    .slice(0, 10);  // Top 10 highest protein foods
+            }
+            else if (title === 'sugar') {
+                filteredData = Object.entries(response)
+                    .sort((a: any, b: any) => b[1].sugar - a[1].sugar)
+                    .slice(0, 10);  // Top 10 highest protein foods
+            }
+
+            // Transform the data for TopFoodList component
+            const transformedData = filteredData.reduce((acc: any, [name, data]: [string, FoodStats]) => {
+                acc[name] = {
+                    calories: data.calories,
+                    carbohydrate: data.carbohydrate,
+                    fat: data.fat,
+                    fiber: data.fiber,
+                    protein: data.protein,
+                    sugar: data.sugar,
+                };
+                return acc;
+            }, {});
+
+            setListData(transformedData);  // Set transformed data for modal
+        } catch (error) {
+            console.error('Error fetching top food data:', error);
+        } finally {
+            setLoading(false);  // Hide loader after fetching data
+        }
+    };
+
 
     const getFilteredData = () => {
         const daysLimit = {
@@ -85,9 +183,6 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData }) =
         };
     };
 
-
-
-
     const averageData = getFilteredData();
     type NutrientKey = keyof typeof averageData;
 
@@ -104,6 +199,7 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData }) =
                             title={nutrientKey}
                             fact={item.fact}
                             target={item.target}
+                            onFactClick={() => handleFactClick(nutrientKey)}
                         />
                     );
                 })}
@@ -111,6 +207,16 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData }) =
             <div className={styles.filter}>
                 <TabsFilter activeTab={activeTab} onTabChange={handleTabChange} />
             </div>
+
+            {isOpenModal && (loading ? (
+                <Loader />
+            ) : (
+                listData && (
+                    <Modal onClose={handleCloseModal}>
+                        <TopFoodList data={listData} category={selectedCategory} />
+                    </Modal>
+                )
+            ))}
         </div>
     );
 };
