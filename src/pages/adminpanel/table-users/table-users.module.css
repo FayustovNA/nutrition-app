@@ -21,7 +21,7 @@
     height: 50px;
     border-radius: 10px 10px 0 0;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     /* color: var(--gold); */
     margin: 0px;
     justify-content: center;
@@ -52,7 +52,6 @@
     margin: auto;
     width: 100%;
     gap: 5px;
-    justify-content: center;
     align-items: center;
     border-bottom: 1px solid var(--main-background);
     position: relative;
@@ -62,7 +61,7 @@
 .item_rows {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .rows:hover {
@@ -85,6 +84,16 @@
     height: 35px;
     width: 100%;
     padding: 0px;
+}
+
+.row_f {
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    margin: auto auto auto 30px;
+    height: 35px;
+    padding: 0px;
+    gap: 40px;
 }
 
 .footer {
@@ -354,6 +363,17 @@
 .avatarbox {
     width: 30px;
     height: 30px;
+    padding: 0;
+    border-radius: 100%;
+    margin: auto;
+    border: var(--border-light);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.avatarbox_t {
+    width: 25px;
+    height: 25px;
     padding: 0;
     border-radius: 100%;
     margin: auto;

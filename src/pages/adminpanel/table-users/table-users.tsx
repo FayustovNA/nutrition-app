@@ -160,8 +160,8 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                     : (
                         <div className={styles.tbody}>
                             <div className={styles.head}>
-                                <th className={styles.col}>Фамилия</th>
-                                <th className={styles.col}>Имя</th>
+
+                                <th className={styles.col}>Пользователь</th>
                                 <th className={styles.col}>E-mail</th>
                                 <th className={styles.col}>Статус</th>
                                 <th className={styles.col}>Роль</th>
@@ -170,8 +170,15 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                             {currentRows.map((user, index) => (
                                 <div key={index} className={styles.rows}>
                                     <div className={styles.item_rows}>
-                                        <td className={styles.row}>{user.last_name === '' ? '-' : user.last_name}</td>
-                                        <td className={styles.row}>{user.first_name === '' ? '-' : user.first_name}</td>
+                                        <td className={styles.row_f}>
+                                            <div className={styles.avatarbox_t}>
+                                                <img
+                                                    src={getAvatarUrl(user.image)}
+                                                    className={styles.avatar}
+                                                />
+                                            </div>
+                                            {user.last_name || user.first_name ? `${user.last_name} ${user.first_name}`.trim() : '-'}
+                                        </td>
                                         <td className={styles.row}>{user.email}</td>
                                         <td className={styles.row}>{user.fatsecret_account === false ? <False /> : <True />}</td>
                                         <td className={styles.row}>{user.role}</td>
