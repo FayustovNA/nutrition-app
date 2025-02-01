@@ -6,9 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../services/root-reducer';
 import { fetchUsersList } from '../../services/slices/adminPanelSlice';
 import { Loader } from '../../components/loader/loader';
-// import ItemUser from './item-user/item-user';
 import TableUsers from './table-users/table-users';
-
 
 export const AdminPanel = () => {
     const dispatch = useDispatch();

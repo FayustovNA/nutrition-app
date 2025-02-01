@@ -39,33 +39,40 @@ interface TableUsersProps {
 }
 
 const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
-    const [currentPage, setCurrentPage] = useState(1);
     const [isOpenModal, setisOpenModal] = useState(false);
     const [isOpenModalAction, setisOpenModalAction] = useState(false);
     const [currentUser, setcurrentUser] = useState<ItemUserProps | null>(null);
     const [filter, setFilter] = useState<'all' | 'clients' | 'coaches'>('all');
-    const rowsPerPage = 15; // Количество строк на странице
     const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currenUserRole = useSelector((state: RootState) => state.userData.role);
+    const [selectedCoach, setSelectedCoach] = useState<string | null>(null); // Фильтр по тренеру
+
+    // Собираем список уникальных тренеров
+    const uniqueCoaches = Array.from(
+        new Set(data.map((user) => user.coach).filter(Boolean))
+    );
+
 
     // Фильтрация данных на основе фильтра
-    const filteredData = data.filter(user => {
-        if (filter === 'clients') {
-            return user.role !== 'coach' && user.role !== 'admin';
-        } else if (filter === 'coaches') {
-            return user.role === 'coach';
-        }
-        return true;
-    });
-
-    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
+    const filteredData = data
+        .filter(user => {
+            // Apply role-based filtering
+            if (filter === 'clients') {
+                return user.role !== 'coach' && user.role !== 'admin';
+            } else if (filter === 'coaches') {
+                return user.role === 'coach';
+            }
+            return true;
+        })
+        .filter(user => {
+            // Apply coach filter if selected
+            if (selectedCoach) {
+                return user.coach === selectedCoach;
+            }
+            return true;
+        });
 
     const openModal = (user: ItemUserProps) => {
         setcurrentUser(user);
@@ -101,22 +108,23 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
         });
     };
 
-    // Вычисляем текущие строки для отображения
-    const indexOfLastRow = currentPage * rowsPerPage;
-    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
 
     const getAvatarUrl = (image?: string) => {
         return image ? image.replace('http://localhost', '') : Avatar;
     };
 
+    const handleCoachFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCoach(event.target.value || null);
+    };
+
     return (
         <div className={styles.tablebox}>
+
             <div className={styles.table}>
                 {isMobile ? (
                     <div className={styles.usercards}>
                         <div className={styles.scrlbx}>
-                            {currentRows.map((user, index) => (
+                            {filteredData.map((user, index) => (
                                 <div key={index} className={styles.card}>
 
                                     <div className={styles.avatar_user}>
@@ -167,41 +175,44 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                 <th className={styles.col}>Роль</th>
                                 <th className={styles.col}>Тренер</th>
                             </div>
-                            {currentRows.map((user, index) => (
-                                <div key={index} className={styles.rows}>
-                                    <div className={styles.item_rows}>
-                                        <td className={styles.row_f}>
-                                            <div className={styles.avatarbox_t}>
-                                                <img
-                                                    src={getAvatarUrl(user.image)}
-                                                    className={styles.avatar}
-                                                />
-                                            </div>
-                                            {user.last_name || user.first_name ? `${user.last_name} ${user.first_name}`.trim() : '-'}
-                                        </td>
-                                        <td className={styles.row}>{user.email}</td>
-                                        <td className={styles.row}>{user.fatsecret_account === false ? <False /> : <True />}</td>
-                                        <td className={styles.row}>{user.role}</td>
-                                        <td className={styles.row}>{user.coach === null ? '-' : user.coach}</td>
+
+                            <div className={styles.bodyrows}>
+                                {filteredData.map((user, index) => (
+                                    <div key={index} className={styles.rows}>
+                                        <div className={styles.item_rows}>
+                                            <td className={styles.row_f}>
+                                                <div className={styles.avatarbox_t}>
+                                                    <img
+                                                        src={getAvatarUrl(user.image)}
+                                                        className={styles.avatar}
+                                                    />
+                                                </div>
+                                                {user.last_name || user.first_name ? `${user.last_name} ${user.first_name}`.trim() : '-'}
+                                            </td>
+                                            <td className={styles.row}>{user.email}</td>
+                                            <td className={styles.row}>{user.fatsecret_account === false ? <False /> : <True />}</td>
+                                            <td className={styles.row}>{user.role}</td>
+                                            <td className={styles.row}>{user.coach === null ? '-' : user.coach}</td>
+                                        </div>
+                                        <button
+                                            className={styles.btn_st}
+                                            onClick={() => handleOpenStats(user.username || '', user.first_name, user.last_name)}
+                                        >
+                                            <Frame />
+                                        </button>
+                                        <button
+                                            className={styles.btn_action}
+                                            onClick={() => openModalAction(user)}>
+                                            <Delete />
+                                        </button>
+                                        <button
+                                            className={styles.btn_action_}
+                                            onClick={() => openModal(user)}>
+                                            <More />
+                                        </button>
                                     </div>
-                                    <button
-                                        className={styles.btn_st}
-                                        onClick={() => handleOpenStats(user.username || '', user.first_name, user.last_name)}
-                                    >
-                                        <Frame />
-                                    </button>
-                                    <button
-                                        className={styles.btn_action}
-                                        onClick={() => openModalAction(user)}>
-                                        <Delete />
-                                    </button>
-                                    <button
-                                        className={styles.btn_action_}
-                                        onClick={() => openModal(user)}>
-                                        <More />
-                                    </button>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     )}
 
@@ -226,19 +237,22 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                             >
                                 Тренеры
                             </button>
+                            <select
+                                id="coach-filter"
+                                className={`${styles.btn_filter} ${selectedCoach ? styles.active : ''} ${styles.customSelect}`}
+                                onChange={handleCoachFilter}
+                                value={selectedCoach || ''}
+                            >
+                                <option value="">Все тренеры</option>
+                                {uniqueCoaches.map((coach, index) => (
+                                    <option key={index} value={coach || ''}>
+                                        {coach}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div className={styles.pgn_panel}>
                             <div className={styles.info}>Всего пользователей: <p className={styles.count}>{filteredData.length}</p></div>
-                            {Array.from({ length: totalPages }, (_, index) => (
-                                <button
-                                    className={`${styles.btn} ${currentPage === index + 1 ? styles.active : ''}`}
-                                    key={index + 1}
-                                    onClick={() => handlePageChange(index + 1)}
-                                    disabled={currentPage === index + 1}
-                                >
-                                    {index + 1}
-                                </button>
-                            ))}
                         </div>
                     </div>) : (
                     <div className={styles.footer}>
