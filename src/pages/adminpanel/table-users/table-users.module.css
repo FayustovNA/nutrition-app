@@ -283,7 +283,11 @@
 
 .btn_filter {
     cursor: pointer;
+    display: flex;
+    margin: auto;
+    justify-content: center;
     border-radius: none;
+    align-items: center;
     border: none;
     outline: none;
     width: 120px;
@@ -424,9 +428,9 @@
     height: 22px;
     border: 1px solid var(--main-background);
     border-radius: 9px;
-    /* padding: 0 10px; */
     color: var(--main-background);
     cursor: pointer;
+    padding: 0px 15px 0px 15px;
 }
 
 .customSelect:hover {
@@ -436,6 +440,20 @@
 .customSelect::after {
     content: '';
     /* Убираем стандартную стрелку */
+}
+
+.options {
+    width: 100%;
+    text-align: center;
+}
+
+select {
+    padding: 5px 10px;
+    /* Add padding to the select box to visually center */
+}
+
+.option {
+    text-align: center;
 }
 
 /* Маленькие экраны: до 576px */
@@ -496,11 +514,11 @@
 
     .btn_filter {
         font-size: 8px;
+        font-weight: 700;
         width: 80px;
     }
 
     .info {
-
         margin: auto;
 
     }

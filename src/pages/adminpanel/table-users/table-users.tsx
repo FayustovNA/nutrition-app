@@ -243,7 +243,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                 onChange={handleCoachFilter}
                                 value={selectedCoach || ''}
                             >
-                                <option value="">Все тренеры</option>
+                                <option value="" className={styles.options}>По тренеру</option>
                                 {uniqueCoaches.map((coach, index) => (
                                     <option key={index} value={coach || ''}>
                                         {coach}
