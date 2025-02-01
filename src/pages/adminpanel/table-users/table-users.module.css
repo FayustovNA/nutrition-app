@@ -286,7 +286,7 @@
     border-radius: none;
     border: none;
     outline: none;
-    width: 100px;
+    width: 120px;
     font-size: 12px;
     height: 22px;
     border: none;
@@ -414,13 +414,17 @@
     -moz-appearance: none;
     appearance: none;
     background-color: var(--gold);
-    width: 150px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
     text-align: center;
     font-size: 12px;
     height: 22px;
     border: 1px solid var(--main-background);
     border-radius: 9px;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     color: var(--main-background);
     cursor: pointer;
 }
