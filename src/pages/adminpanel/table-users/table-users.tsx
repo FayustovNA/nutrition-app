@@ -205,8 +205,8 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                         </div>
                     )}
 
-                <div className={styles.footer}>
-                    {currenUserRole !== 'coach' && (
+                {currenUserRole !== 'coach' ? (
+                    <div className={styles.footer}>
                         <div className={styles.filter}>
                             <button
                                 className={`${styles.btn_filter} ${filter === 'all' ? styles.active : ''}`}
@@ -227,22 +227,24 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
                                 Тренеры
                             </button>
                         </div>
-                    )}
-                    <div className={styles.pgn_panel}>
-                        <p className={styles.info}>Всего пользователей: <p className={styles.count}>{filteredData.length}</p></p>
-                        {Array.from({ length: totalPages }, (_, index) => (
-                            <button
-                                className={`${styles.btn} ${currentPage === index + 1 ? styles.active : ''}`}
-                                key={index + 1}
-                                onClick={() => handlePageChange(index + 1)}
-                                disabled={currentPage === index + 1}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
+                        <div className={styles.pgn_panel}>
+                            <div className={styles.info}>Всего пользователей: <p className={styles.count}>{filteredData.length}</p></div>
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <button
+                                    className={`${styles.btn} ${currentPage === index + 1 ? styles.active : ''}`}
+                                    key={index + 1}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    disabled={currentPage === index + 1}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+                        </div>
+                    </div>) : (
+                    <div className={styles.footer}>
+                        <div className={styles.mobinfo}>Всего пользователей: <p className={styles.count}>{filteredData.length}</p></div>
                     </div>
-                </div>
-
+                )}
             </div>
 
             {

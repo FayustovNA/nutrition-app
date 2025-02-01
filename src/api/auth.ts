@@ -26,28 +26,23 @@ export const updateUserRequestApi = async (formData: FormData) => {
 
 // Получение данных пользователя
 export const getUserRequestApi = async () => {
-    try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-
-        const response = await apiRequest(`${API_URL}/users/me/`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
-
-        if (response) {
-            return response;
-        } else {
-            throw new Error('Failed to fetch user data');
-        }
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        throw error;
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+        throw new Error('Access token not found');
     }
+
+    const response = await apiRequest(`${API_URL}/users/me/`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        },
+    });
+
+    if (!response) {
+        throw new Error('Failed to fetch user data');
+    }
+
+    return response;
 };
 
 //Активация пользователя

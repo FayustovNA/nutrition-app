@@ -62,7 +62,6 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
         if (!title || !user) return;
 
         setSelectedCategory(title);
-        console.log(title)
 
         try {
             const response: any = await getTopFoodListWeek(user);  // Fetch top food data

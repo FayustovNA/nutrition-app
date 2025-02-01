@@ -247,6 +247,15 @@
     color: var(--gray-main);
 }
 
+.mobinfo {
+    display: flex;
+    margin: auto;
+    font-size: 14px;
+    color: var(--gray-main);
+}
+
+
+
 .count {
     display: flex;
     font-weight: 500;

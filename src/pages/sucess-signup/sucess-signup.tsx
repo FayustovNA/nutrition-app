@@ -8,13 +8,13 @@ const SucessSignup: React.FC = () => {
     return (
         <div className={styles.content}>
             <div className={styles.body}>
-                <p className={styles.title}>
+                <div className={styles.title}>
                     <span>Вы успешно зарегестрированы на</span>
                     <span> BlackFox Nutrition</span>
-                </p>
-                <p className={styles.message}>
+                </div>
+                <div className={styles.message}>
                     Для дальнейшего входа в аккаунт проверьте почту и подтвердите email!
-                </p>
+                </div>
             </div>
             <Footer />
         </div >

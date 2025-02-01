@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { registerUserRequestApi } from '../../api'
 import { TUserRegister } from '../types/user'
-import { setUserData } from './userSlice'
 
 export type TRegisterState = {
     registerRequest: boolean
@@ -21,10 +20,10 @@ export const registerUser = createAsyncThunk(
     'registration/register',
     async (
         { first_name, last_name, username, email, role, password, confirmPassword }: TUserRegister,
-        { dispatch, rejectWithValue }
+        { rejectWithValue }
     ) => {
         try {
-            const response = await registerUserRequestApi({
+            return await registerUserRequestApi({
                 first_name,
                 last_name,
                 username,
@@ -32,13 +31,12 @@ export const registerUser = createAsyncThunk(
                 role,
                 password,
                 confirmPassword,
-            })
-            dispatch(setUserData(response))
+            });
         } catch (error) {
-            return rejectWithValue(error)
+            return rejectWithValue(error);
         }
     }
-)
+);
 
 export const registerSlice = createSlice({
     name: 'registration',

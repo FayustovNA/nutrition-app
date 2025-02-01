@@ -19,7 +19,6 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(user.username)
         dispatch(getProjectBySearch(user.username));
     }, [dispatch]);
 
@@ -49,7 +48,7 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
 
     // Обработка сохранения/обновления проекта
     const handleSaveProject = () => {
-        console.log(values.coach)
+
         const projectData = {
             coach: values.coach,  // Уже выбранный тренер передается как строка
             start_date: values.start_date,

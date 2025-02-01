@@ -93,7 +93,6 @@ const SignUp = () => {
         return null;
     };
 
-
     if (isLoading) {
         return <Loader />;
     }

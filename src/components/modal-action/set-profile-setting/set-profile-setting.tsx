@@ -17,22 +17,31 @@ const SetProfileSetting: React.FC<SetProfileSettingProps> = ({ onClose }) => {
     const dispatch = useDispatch();
     const User = useSelector((state: RootState) => state.userData);
 
-    //Обработка формы
-    const { values, handleChange } = useForm({
+
+    // Изначальные значения
+    const initialValues = {
         first_name: User.first_name,
         last_name: User.last_name,
         username: User.username,
         email: User.email,
-    })
+    };
 
+    // Обработка формы
+    const { values, handleChange } = useForm(initialValues);
     const handleSave = async () => {
         const formData = new FormData();
+
+        // Добавляем только измененные поля
         Object.entries(values).forEach(([key, value]) => {
-            formData.append(key, value || '');
+            if (value !== initialValues[key as keyof typeof initialValues]) {
+                formData.append(key, value || '');
+            }
         });
 
-        await dispatch(updateUser(formData));
-        await dispatch(fetchUserData()); // Обновление данных из API
+        if (formData.has('first_name') || formData.has('last_name') || formData.has('username') || formData.has('email')) {
+            await dispatch(updateUser(formData));
+            await dispatch(fetchUserData()); // Обновление данных из API
+        }
         onClose(); // Закрыть модальное окно
     };
 

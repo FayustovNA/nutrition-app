@@ -133,3 +133,42 @@ input[type="date"]::-webkit-clear-button {
     display: none;
     /* Скрываем элементы управления для числовых полей и сброса */
 }
+
+
+
+
+.wrapper {
+    position: relative;
+}
+
+.inputContainer {
+    position: relative;
+    width: 100%;
+}
+
+.placeholder {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #999;
+    transition: all 0.2s;
+    pointer-events: none;
+}
+
+.activePlaceholder {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.incorrect {
+    border-color: red;
+}
+
+.incorrect_text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}

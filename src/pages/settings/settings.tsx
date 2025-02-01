@@ -93,23 +93,23 @@ export const Settings: React.FC<SettingsProps> = () => {
                         </div>
 
                         <div className={styles.item_grid}>
-                            <p className={styles.id}>
+                            <div className={styles.id}>
                                 <h4 className={styles.h4}>BlackFox ID</h4>
                                 {User.username}
-                            </p>
+                            </div>
                             <div className={styles.list}>
-                                <p className={styles.item}>
+                                <div className={styles.item}>
                                     <h4 className={styles.h4}>Фамилия</h4>
                                     {User.last_name}
-                                </p>
-                                <p className={styles.item}>
+                                </div>
+                                <div className={styles.item}>
                                     <h4 className={styles.h4}>Имя</h4>
                                     {User.first_name}
-                                </p>
-                                <p className={styles.item}>
+                                </div>
+                                <div className={styles.item}>
                                     <h4 className={styles.h4}>E-mail</h4>
                                     {User.email}
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -150,24 +150,24 @@ export const Settings: React.FC<SettingsProps> = () => {
                                 <p className={styles.error}>Ваш проект пока не создан!</p>
                             ) : (
                                 <div className={styles.process}>
-                                    <p className={styles.item}>
+                                    <div className={styles.item}>
                                         <h4 className={styles.h4}>Ваш тренер</h4>
                                         {Project?.coach?.first_name && Project?.coach?.last_name
                                             ? `${Project.coach.first_name} ${Project.coach.last_name}`
                                             : 'Не назначен'}
-                                    </p>
-                                    <p className={styles.item}>
+                                    </div>
+                                    <div className={styles.item}>
                                         <h4 className={styles.h4}>Дата старта</h4>
                                         {Project?.start_date || 'Не назначена'}
-                                    </p>
-                                    <p className={styles.item}>
+                                    </div>
+                                    <div className={styles.item}>
                                         <h4 className={styles.h4}>Стартовый вес</h4>
                                         {Project?.start_weight || 'Не внесен'}
-                                    </p>
-                                    <p className={styles.item}>
+                                    </div>
+                                    <div className={styles.item}>
                                         <h4 className={styles.h4}>Целевой вес</h4>
                                         {Project?.target_weight || 'Не внесен'}
-                                    </p>
+                                    </div>
                                 </div>
                             )}
 

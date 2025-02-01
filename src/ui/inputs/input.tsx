@@ -20,6 +20,7 @@ interface IInput {
     min?: string;
     max?: string;
     options?: { first_name?: string; last_name?: string, id?: any, username?: string }[] | undefined; // Опции для select
+    floatLabel?: boolean; // Опция для плавающего текста
 }
 
 const classNames = {
@@ -56,50 +57,6 @@ const Input: FC<IInput> = ({
 
     const className = classNames[styled];
 
-    // Универсальный валидатор для input и select
-    // const validate = (input: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    //     const validityState = input.currentTarget.validity;
-    //     if (validityState.valueMissing) {
-    //         setError({ error: true, textError: 'Это поле обязательно' });
-    //     } else if (validityState.patternMismatch) {
-    //         setError({ error: true, textError: errorMessage });
-    //     } else if (validityState.tooLong) {
-    //         setError({
-    //             error: true,
-    //             textError: `Максимум ${maxLength} символов`,
-    //         });
-    //     } else if (validityState.tooShort) {
-    //         setError({
-    //             error: true,
-    //             textError: `Минимум ${minLength} символа`,
-    //         });
-    //     } else if (validityState.typeMismatch) {
-    //         setError({
-    //             error: true,
-    //             textError: 'Неверный тип данных',
-    //         });
-    //     } else if (isInvalid) {
-    //         setError({
-    //             error: true,
-    //             textError: errorMessage,
-    //         });
-    //     } else {
-    //         setError({ error: false, textError: '' });
-    //     }
-
-    //     if (min && Number(input.target.value) < Number(min)) {
-    //         input.target.value = min;
-    //         if (input.target.value === '0') {
-    //             input.target.value = '';
-    //         }
-    //     }
-
-    //     if (max && Number(input.target.value) > Number(max)) {
-    //         input.target.value = max;
-    //     }
-
-    //     onChange(input); // Вызываем обработчик изменений
-    // };
     const validate = (input: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const validityState = input.currentTarget.validity;
 
