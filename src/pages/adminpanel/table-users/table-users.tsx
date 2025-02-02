@@ -263,7 +263,7 @@ const TableUsers: React.FC<TableUsersProps> = ({ data }) => {
 
             {
                 isOpenModal && (<Modal onClose={closeModal}>
-                    <SetProject user={currentUser} onClose={closeModal} />
+                    <SetProject user={currentUser} onClose={closeModal} key={currentUser?.username} />
                 </Modal>)
             }
             {

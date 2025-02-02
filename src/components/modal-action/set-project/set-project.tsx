@@ -6,14 +6,29 @@ import { RootState } from '../../../services/root-reducer'
 import { useSelector } from 'react-redux'
 import { useDispatch } from '../../../services/hooks'
 import { useEffect } from 'react'
-import { createProject, getProjectBySearch, updateProject } from '../../../services/slices/projectSlice'
+import { createProject, updateProject } from '../../../services/slices/projectSlice'
 import { useState } from 'react'
 import { Loader } from '../../loader/loader'
 import { useMemo } from 'react'
+import { getProjectBySearch } from '../../../api/admin'
 
 interface SetProjectProps {
     user?: any;
     onClose: (() => void);
+}
+
+interface ProjectData {
+    id: any;
+    coach: { username: string } | null;
+    start_date: string;
+    start_weight: number;
+    target_calories: number;
+    target_carbohydrate: number;
+    target_fat: number;
+    target_fiber: number;
+    target_protein: number;
+    target_sugar: number;
+    target_weight: number;
 }
 
 const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
@@ -21,14 +36,25 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
     const userProject = useSelector((state: RootState) => state.projectData.projectData);
     const [loading, setLoading] = useState(true); // Флаг загрузки
     const dispatch = useDispatch();
+    const [projectData, setProjectData] = useState<ProjectData[] | null>(null);  // Состояние для хранения данных проекта
 
-    // Загрузка данных о проекте
+    // Получение данных о проекте
     useEffect(() => {
         setLoading(true);
-        dispatch(getProjectBySearch(user.username))
-            .then(() => setLoading(false))
-            .catch(() => setLoading(false));
-    }, [dispatch, user.username]);
+        getProjectBySearch(user.username)
+            .then((data) => {
+                if (data && Array.isArray(data) && data.length > 0) {
+                    setProjectData(data); // Если данные есть, сохраняем их
+                } else {
+                    setProjectData(null); // Если данных нет, устанавливаем null
+                }
+                setLoading(false);
+            })
+            .catch(() => {
+                setProjectData(null);
+                setLoading(false);
+            });
+    }, [user.username]);
 
     //Список для выбора тренеров под проект
     const coachList = useMemo(() => {
@@ -42,42 +68,56 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
             }));
     }, [usersList]);
 
-    // Инициализация формы
+
+    // Инициализация формы с данными, если они доступны
     const { values, handleChange, setValues } = useForm({
-        coach: userProject?.coach?.username || coachList[0]?.username || '',
-        start_date: userProject?.start_date || '',
-        start_weight: userProject?.start_weight || '',
-        target_calories: userProject?.target_calories || '',
-        target_carbohydrate: userProject?.target_carbohydrate || '',
-        target_fat: userProject?.target_fat || '',
-        target_fiber: userProject?.target_fiber || '',
-        target_protein: userProject?.target_protein || '',
-        target_sugar: userProject?.target_sugar || '',
-        target_weight: userProject?.target_weight || '',
+        coach: projectData?.[0]?.coach?.username || coachList[0]?.username || '',
+        start_date: projectData?.[0]?.start_date || '',
+        start_weight: projectData?.[0]?.start_weight || '',
+        target_calories: projectData?.[0]?.target_calories || '',
+        target_carbohydrate: projectData?.[0]?.target_carbohydrate || '',
+        target_fat: projectData?.[0]?.target_fat || '',
+        target_fiber: projectData?.[0]?.target_fiber || '',
+        target_protein: projectData?.[0]?.target_protein || '',
+        target_sugar: projectData?.[0]?.target_sugar || '',
+        target_weight: projectData?.[0]?.target_weight || '',
     });
 
-    // Обновление значений формы при изменении userProject
+    // Обновление значений формы при изменении projectData
     useEffect(() => {
-        if (userProject && values.coach !== userProject.coach?.username) {
+        if (projectData && projectData.length > 0) {
             setValues({
-                coach: userProject.coach?.username || coachList[0]?.username || '',
-                start_date: userProject.start_date || '',
-                start_weight: userProject.start_weight || '',
-                target_calories: userProject.target_calories || '',
-                target_carbohydrate: userProject.target_carbohydrate || '',
-                target_fat: userProject.target_fat || '',
-                target_fiber: userProject.target_fiber || '',
-                target_protein: userProject.target_protein || '',
-                target_sugar: userProject.target_sugar || '',
-                target_weight: userProject.target_weight || '',
+                coach: projectData[0].coach?.username || coachList[0]?.username || '',
+                start_date: projectData[0].start_date || '',
+                start_weight: projectData[0].start_weight || '',
+                target_calories: projectData[0].target_calories || '',
+                target_carbohydrate: projectData[0].target_carbohydrate || '',
+                target_fat: projectData[0].target_fat || '',
+                target_fiber: projectData[0].target_fiber || '',
+                target_protein: projectData[0].target_protein || '',
+                target_sugar: projectData[0].target_sugar || '',
+                target_weight: projectData[0].target_weight || '',
+            });
+        } else {
+            setValues({
+                coach: '',
+                start_date: '',
+                start_weight: '',
+                target_calories: '',
+                target_carbohydrate: '',
+                target_fat: '',
+                target_fiber: '',
+                target_protein: '',
+                target_sugar: '',
+                target_weight: '',
             });
         }
-    }, [userProject, values.coach, coachList, setValues]);
+    }, [projectData, coachList, setValues]);
+
 
     // Обработка сохранения/обновления проекта
     const handleSaveProject = () => {
-
-        const projectData = {
+        const projectDataToSave = {
             coach: values.coach,  // Уже выбранный тренер передается как строка
             start_date: values.start_date,
             target_calories: parseInt(values.target_calories, 10),
@@ -90,9 +130,8 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
             start_weight: parseInt(values.start_weight, 10),
         };
 
-        // Если проект уже существует, то обновляем его, иначе создаем новый
-        if (userProject) {
-            dispatch(updateProject({ projectId: userProject.id, updateData: projectData }))
+        if (projectData && projectData.length > 0) {
+            dispatch(updateProject({ projectId: projectData[0].id, updateData: projectDataToSave }))
                 .then(() => {
                     onClose();
                 })
@@ -100,7 +139,7 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                     console.error('Failed to update project:', error);
                 });
         } else {
-            dispatch(createProject({ ...projectData, user: user.username }))
+            dispatch(createProject({ ...projectDataToSave, user: user.username }))
                 .then(() => {
                     onClose();
                 })
