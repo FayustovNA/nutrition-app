@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from '../../../services/hooks'
 import { useEffect } from 'react'
 import { createProject, getProjectBySearch, updateProject } from '../../../services/slices/projectSlice'
+import { useState } from 'react'
+import { Loader } from '../../loader/loader'
+import { useMemo } from 'react'
 
 interface SetProjectProps {
     user?: any;
@@ -16,35 +19,60 @@ interface SetProjectProps {
 const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
     const usersList = useSelector((state: RootState) => state.usersList.users);
     const userProject = useSelector((state: RootState) => state.projectData.projectData);
+    const [loading, setLoading] = useState(true); // Флаг загрузки
     const dispatch = useDispatch();
 
+    // Загрузка данных о проекте
     useEffect(() => {
-        dispatch(getProjectBySearch(user.username));
-    }, [dispatch]);
+        setLoading(true);
+        dispatch(getProjectBySearch(user.username))
+            .then(() => setLoading(false))
+            .catch(() => setLoading(false));
+    }, [dispatch, user.username]);
 
     //Список для выбора тренеров под проект
-    const coachList = usersList
-        .filter(user => user.role === 'coach')
-        .map(coach => ({
-            ...coach,
-            first_name: coach.first_name || '',
-            last_name: coach.last_name || '',
-            username: coach.username || '',
-        }));
+    const coachList = useMemo(() => {
+        return usersList
+            .filter(user => user.role === 'coach')
+            .map(coach => ({
+                ...coach,
+                first_name: coach.first_name || '',
+                last_name: coach.last_name || '',
+                username: coach.username || '',
+            }));
+    }, [usersList]);
 
-    //Обработка формы
-    const { values, handleChange } = useForm({
-        coach: userProject?.coach?.username || coachList[0]?.username,
-        start_date: userProject?.start_date,
-        start_weight: userProject?.start_weight,
-        target_calories: userProject?.target_calories,
-        target_carbohydrate: userProject?.target_carbohydrate,
-        target_fat: userProject?.target_fat,
-        target_fiber: userProject?.target_fiber,
-        target_protein: userProject?.target_protein,
-        target_sugar: userProject?.target_sugar,
-        target_weight: userProject?.target_weight,
-    })
+    // Инициализация формы
+    const { values, handleChange, setValues } = useForm({
+        coach: userProject?.coach?.username || coachList[0]?.username || '',
+        start_date: userProject?.start_date || '',
+        start_weight: userProject?.start_weight || '',
+        target_calories: userProject?.target_calories || '',
+        target_carbohydrate: userProject?.target_carbohydrate || '',
+        target_fat: userProject?.target_fat || '',
+        target_fiber: userProject?.target_fiber || '',
+        target_protein: userProject?.target_protein || '',
+        target_sugar: userProject?.target_sugar || '',
+        target_weight: userProject?.target_weight || '',
+    });
+
+    // Обновление значений формы при изменении userProject
+    useEffect(() => {
+        if (userProject && values.coach !== userProject.coach?.username) {
+            setValues({
+                coach: userProject.coach?.username || coachList[0]?.username || '',
+                start_date: userProject.start_date || '',
+                start_weight: userProject.start_weight || '',
+                target_calories: userProject.target_calories || '',
+                target_carbohydrate: userProject.target_carbohydrate || '',
+                target_fat: userProject.target_fat || '',
+                target_fiber: userProject.target_fiber || '',
+                target_protein: userProject.target_protein || '',
+                target_sugar: userProject.target_sugar || '',
+                target_weight: userProject.target_weight || '',
+            });
+        }
+    }, [userProject, values.coach, coachList, setValues]);
 
     // Обработка сохранения/обновления проекта
     const handleSaveProject = () => {
@@ -81,6 +109,10 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                 });
         }
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className={styles.content}>
