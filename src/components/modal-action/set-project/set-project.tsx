@@ -33,7 +33,6 @@ interface ProjectData {
 
 const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
     const usersList = useSelector((state: RootState) => state.usersList.users);
-    const userProject = useSelector((state: RootState) => state.projectData.projectData);
     const [loading, setLoading] = useState(true); // Флаг загрузки
     const dispatch = useDispatch();
     const [projectData, setProjectData] = useState<ProjectData[] | null>(null);  // Состояние для хранения данных проекта
@@ -67,7 +66,6 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                 username: coach.username || '',
             }));
     }, [usersList]);
-
 
     // Инициализация формы с данными, если они доступны
     const { values, handleChange, setValues } = useForm({
@@ -269,7 +267,7 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
                         onClick={handleSaveProject}
                     >
                         <p className={styles.btntxt}>
-                            {userProject ? 'Сохранить' : 'Создать'}
+                            {projectData && projectData.length > 0 ? 'Сохранить' : 'Создать'}
                         </p>
                     </Button>
                 </div>
