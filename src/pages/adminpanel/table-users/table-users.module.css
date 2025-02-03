@@ -56,6 +56,17 @@
     overflow: scroll;
 }
 
+/* Для Chrome, Edge, Safari */
+.bodyrows::-webkit-scrollbar {
+    display: none;
+}
+
+/* Для Firefox */
+html {
+    scrollbar-width: none;
+    /* Убирает скролл-бар */
+}
+
 
 .rows {
     font-size: 12px;
