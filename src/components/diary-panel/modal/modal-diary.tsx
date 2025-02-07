@@ -95,7 +95,9 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
                         <div className={styles.groupItems}>
                             {group.items.map((item: FoodEntry, index: number) => (
                                 <div key={index} className={styles.item}>
-                                    <h4 className={styles.h4}>{item.food_entry_name}</h4>
+                                    <h4 className={styles.h4}>
+                                        {`${item.food_entry_name} [${Number(item.number_of_units).toFixed(2)}]`}
+                                    </h4>
 
                                     <div className={styles.components}>
                                         <div className={styles.kcal}>{item.calories} kcal</div>

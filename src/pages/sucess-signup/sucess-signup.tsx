@@ -9,7 +9,7 @@ const SucessSignup: React.FC = () => {
         <div className={styles.content}>
             <div className={styles.body}>
                 <div className={styles.title}>
-                    <span>Вы успешно зарегестрированы на</span>
+                    <span>Вы успешно зарегистрированы на</span>
                     <span> BlackFox Nutrition</span>
                 </div>
                 <div className={styles.message}>
