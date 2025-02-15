@@ -47,34 +47,51 @@ const ModalDiary: React.FC<ModalDiaryProps> = ({ data }) => {
 
     const date = convertDateIntToDate(data[0].date_int);
 
-    // Группировка данных по категориям
-    const groupedData = data.reduce((groups: any, item: FoodEntry) => {
+    // Группировка данных по категориям и вычисление общих итогов
+    const { groupedData, totalDay } = data.reduce((acc, item: FoodEntry) => {
         const meal = item.meal;
-        if (!groups[meal]) {
-            groups[meal] = {
+        if (!acc.groupedData[meal]) {
+            acc.groupedData[meal] = {
                 items: [],
                 totals: { calories: 0, protein: 0, fat: 0, carbohydrate: 0, sugar: 0 },
             };
         }
 
         // Добавляем текущий элемент в группу
-        groups[meal].items.push(item);
+        acc.groupedData[meal].items.push(item);
 
         // Считаем итоговые значения для группы
-        groups[meal].totals.calories += parseFloat(item.calories || "0");
-        groups[meal].totals.protein += parseFloat(item.protein || "0");
-        groups[meal].totals.fat += parseFloat(item.fat || "0");
-        groups[meal].totals.carbohydrate += parseFloat(item.carbohydrate || "0");
-        groups[meal].totals.sugar += parseFloat(item.sugar || "0");
+        acc.groupedData[meal].totals.calories += parseFloat(item.calories || "0");
+        acc.groupedData[meal].totals.protein += parseFloat(item.protein || "0");
+        acc.groupedData[meal].totals.fat += parseFloat(item.fat || "0");
+        acc.groupedData[meal].totals.carbohydrate += parseFloat(item.carbohydrate || "0");
+        acc.groupedData[meal].totals.sugar += parseFloat(item.sugar || "0");
 
-        return groups;
-    }, {});
+        // Считаем общие итоги за день
+        acc.totalDay.calories += parseFloat(item.calories || "0");
+        acc.totalDay.protein += parseFloat(item.protein || "0");
+        acc.totalDay.fat += parseFloat(item.fat || "0");
+        acc.totalDay.carbohydrate += parseFloat(item.carbohydrate || "0");
+        acc.totalDay.sugar += parseFloat(item.sugar || "0");
+
+        return acc;
+    }, { groupedData: {} as any, totalDay: { calories: 0, protein: 0, fat: 0, carbohydrate: 0, sugar: 0 } });
 
     return (
         <div className={styles.content}>
             <div className={styles.h3}>
                 Дневной отчет FatSecret
                 <p className={styles.date}>|| {date}</p>
+            </div>
+            <div className={styles.itemtotal}>
+                <div className={styles.totaldaylist}>
+                    <h3 className={styles.totaltitles}>Итог</h3>
+                    <div>К: {totalDay.calories.toFixed(1)} kcal</div>
+                    <div>Б: {totalDay.protein.toFixed(1)} g</div>
+                    <div>Ж: {totalDay.fat.toFixed(1)} g</div>
+                    <div>У: {totalDay.carbohydrate.toFixed(1)} g</div>
+                    <div>C: {totalDay.sugar.toFixed(1)} g</div>
+                </div>
             </div>
             <div className={styles.list}>
                 {Object.entries(groupedData).map(([meal, group]: any) => (

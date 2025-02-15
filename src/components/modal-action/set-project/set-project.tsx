@@ -124,8 +124,8 @@ const SetProject: React.FC<SetProjectProps> = ({ user, onClose }) => {
             target_fiber: parseInt(values.target_fiber, 10),
             target_protein: parseInt(values.target_protein, 10),
             target_sugar: parseInt(values.target_sugar, 10),
-            target_weight: parseInt(values.target_weight, 10),
-            start_weight: parseInt(values.start_weight, 10),
+            start_weight: parseFloat(values.start_weight),
+            target_weight: parseFloat(values.target_weight),
         };
 
         if (projectData && projectData.length > 0) {

@@ -37,6 +37,15 @@
     position: relative;
 }
 
+.itemtotal {
+    display: flex;
+    flex-direction: column;
+    background: var(--main-background);
+    border-radius: 5px;
+    position: relative;
+    min-height: 30px;
+}
+
 .h4 {
     font-size: 12px;
     margin: 5px auto 5px 10px;
@@ -75,10 +84,29 @@
     text-align: center;
 }
 
+.totaltitles {
+    border-right: 1px solid var(--gold);
+    font-size: 14px;
+    padding-right: 20px;
+    justify-content: center;
+    text-align: center;
+    margin-left: 20px;
+}
+
 .totallist {
     display: flex;
     flex-direction: row;
     margin: auto auto auto 0px;
+    gap: 10px;
+    justify-content: left;
+    padding: 0px;
+}
+
+.totaldaylist {
+    display: flex;
+    flex-direction: row;
+    margin: auto auto auto 0px;
+    align-items: center;
     gap: 10px;
     justify-content: left;
     padding: 0px;
@@ -151,7 +179,20 @@
         margin: auto 0px auto 0px;
     }
 
+    .totaltitles {
+        font-size: 10px;
+        margin: auto 0px auto 10px;
+    }
+
     .totallist {
+        font-size: 8px;
+        margin: auto auto auto 0px;
+        padding: 0px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .totaldaylist {
         font-size: 8px;
         margin: auto auto auto 0px;
         padding: 0px;
