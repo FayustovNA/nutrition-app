@@ -1,6 +1,7 @@
-import React from 'react';
-import ReactApexChart from 'react-apexcharts';
-import './chart.css';
+import React from "react";
+import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from "apexcharts"; // ✅ Импортируем типизацию
+import "./chart.css";
 
 interface StatsDataItem {
     date: string;
@@ -10,18 +11,15 @@ interface StatsDataItem {
 
 interface FoodTargetPanelProps {
     statsData: StatsDataItem[];
-    startDate?: any;
+    startDate?: string;
 }
 
 const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, startDate }) => {
-
-    // Группируем данные по неделям
     const getWeeklyAverageProteins = () => {
-        const start = new Date(startDate).getTime();
+        if (!startDate) return [];
 
-        const groupedByWeek: {
-            [week: string]: { actual: number[]; target: number[] };
-        } = {};
+        const start = new Date(startDate).getTime();
+        const groupedByWeek: { [week: string]: { actual: number[]; target: number[] } } = {};
 
         statsData.forEach((item) => {
             const currentDate = new Date(item.date).getTime();
@@ -32,173 +30,85 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
                 groupedByWeek[weekKey] = { actual: [], target: [] };
             }
 
-            // Учитываем только значения больше 0
-            if (item.protein_actual && item.protein_actual > 0) {
-                groupedByWeek[weekKey].actual.push(item.protein_actual);
-            }
-            if (item.protein_target && item.protein_target > 0) {
-                groupedByWeek[weekKey].target.push(item.protein_target);
-            }
+            if (item.protein_actual > 0) groupedByWeek[weekKey].actual.push(item.protein_actual);
+            if (item.protein_target > 0) groupedByWeek[weekKey].target.push(item.protein_target);
         });
 
-        // Рассчитываем средние значения по неделям
-        const weeksWithData = Object.keys(groupedByWeek)
-            .sort((a, b) => {
-                const weekA = parseInt(a.split(' ')[1], 16);
-                const weekB = parseInt(b.split(' ')[1], 16);
-                return weekA - weekB;
-            })
-            .map((week) => {
-                const actualProteins = groupedByWeek[week].actual;
-                const targetProteins = groupedByWeek[week].target;
+        // Создаем массив с сохранением оригинальной нумерации
+        const sortedWeeks = Object.keys(groupedByWeek)
+            .map((week) => ({
+                week,
+                avgActual: groupedByWeek[week].actual.length
+                    ? Math.round(groupedByWeek[week].actual.reduce((sum, v) => sum + v, 0) / groupedByWeek[week].actual.length)
+                    : 0,
+                avgTarget: groupedByWeek[week].target.length
+                    ? Math.round(groupedByWeek[week].target.reduce((sum, v) => sum + v, 0) / groupedByWeek[week].target.length)
+                    : 0,
+            }))
+            .sort((a, b) => parseInt(a.week.split(" ")[1], 10) - parseInt(b.week.split(" ")[1], 10));
 
-                const avgActual =
-                    actualProteins.length > 0
-                        ? actualProteins.reduce((sum, value) => sum + value, 0) / actualProteins.length
-                        : 0;
-
-                const avgTarget =
-                    targetProteins.length > 0
-                        ? targetProteins.reduce((sum, value) => sum + value, 0) / targetProteins.length
-                        : 0;
-
-                return {
-                    week,
-                    avgActual: parseFloat(avgActual.toFixed(0)),
-                    avgTarget: parseFloat(avgTarget.toFixed(0)),
-                };
-            });
-
-        // Добавляем пустые недели до 16
-        const fullWeeks = Array.from({ length: 9 }, (_, index) => {
-            const weekKey = `W ${index + 1}`;
-            const existingWeek = weeksWithData.find((weekData) => weekData.week === weekKey);
-            return {
-                week: weekKey,
-                avgActual: existingWeek ? existingWeek.avgActual : 0,
-                avgTarget: existingWeek ? existingWeek.avgTarget : 0,
-            };
-        });
-
-        return fullWeeks;
+        // Оставляем последние 9 недель
+        return sortedWeeks.slice(-9);
     };
 
     const weeklyData = getWeeklyAverageProteins();
 
-    const chartData: any = {
-        series: [
-            {
-                name: 'Факт',
-                data: weeklyData.map((data) => data.avgActual),
+    const chartOptions: ApexOptions = {
+        chart: {
+            type: "bar", // ✅ Строгий тип
+            toolbar: { show: false },
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 3,
+                columnWidth: "80%",
+                dataLabels: { position: "top" },
             },
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: (val: number) => val.toFixed(0), // ✅ Только целые значения
+            style: { fontSize: "8px", fontWeight: "bold", fontFamily: "Montserrat", colors: ["#E5E5EA"] },
+        },
+        yaxis: {
+            title: { text: "Потребление белка (g)" },
+            labels: {
+                formatter: (y: number) => y.toFixed(0),
+                style: { colors: "#A7A7A7", fontSize: "10px", fontFamily: "Montserrat", fontWeight: 600 },
+            },
+        },
+        xaxis: {
+            categories: weeklyData.map((data) => data.week),
+            labels: {
+                rotate: -90,
+                style: { colors: "#A7A7A7", fontSize: "10px", fontFamily: "Montserrat", fontWeight: 600 },
+            },
+        },
+        grid: {
+            show: false,
+            yaxis: {
+                lines: { show: true },
+            }
+        },
+        legend: { show: false },
+        colors: ["#007AFF", "#C8AB58"],
+        responsive: [
             {
-                name: 'План',
-                data: weeklyData.map((data) => data.avgTarget),
+                breakpoint: 576,
+                options: {
+                    dataLabels: { enabled: true, rotate: -90, style: { fontSize: "5px" } },
+                    yaxis: { labels: { style: { fontSize: "8px" } } },
+                },
             },
         ],
-        options: {
-            chart: {
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 3,
-                    columnWidth: '80%',
-                    dataLabels: {
-                        position: 'top',
-                    },
-                },
-            },
-            dataLabels: {
-                enabled: true,
-                style: {
-                    fontSize: '8px',
-                    fontWeight: 'bold',
-                    fontFamily: 'Montserrat',
-                    colors: ['#E5E5EA'],
-                },
-            },
-            yaxis: {
-                title: {
-                    text: 'Потребление белка (g)',
-                },
-                labels: {
-                    formatter: function (y: number) {
-                        return y.toFixed(0);
-                    },
-                    style: {
-                        colors: '#A7A7A7',
-                        fontSize: '10px',
-                        fontFamily: 'Montserrat',
-                        fontWeight: 600,
-                    },
-                },
-            },
-            xaxis: {
-                categories: weeklyData.map((data) => data.week),
-                labels: {
-                    rotate: -90,
-                    style: {
-                        colors: '#A7A7A7',
-                        fontSize: '10px',
-                        fontFamily: 'Montserrat',
-                        fontWeight: 600,
-                    },
-                },
-            },
-            grid: {
-                show: false,
-                yaxis: {
-                    lines: {
-                        show: true,
-                    },
-                    row: {
-                        opacity: 0.1
-                    },
-                },
-            },
-            legend: {
-                show: false,
-                position: 'top',
-                horizontalAlign: 'center',
-                colors: '#A7A7A7',
-                fontSize: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: 600,
-            },
-            colors: ['#007AFF', '#C8AB58'], // Цвета столбцов для фактических и целевых значений
-            responsive: [
-                {
-                    breakpoint: 576,
-                    options: {
-                        dataLabels: {
-                            enabled: true,
-                            rotate: -90,
-                            style: {
-                                cssClass: 'vertical-data-label',
-                                fontSize: '5px', // Меняем размер шрифта для экранов до 576px
-                            },
-                        },
-                        yaxis: {
-                            labels: {
-                                style: {
-                                    fontSize: '8px',
-                                },
-                            },
-                        },
-
-                    },
-                },
-            ],
-        },
     };
 
     return (
         <div id="chart">
-            <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={160} />
+            <ReactApexChart options={chartOptions} series={[
+                { name: "Факт", data: weeklyData.map((data) => data.avgActual) },
+                { name: "План", data: weeklyData.map((data) => data.avgTarget) }
+            ]} type="bar" height={160} />
         </div>
     );
 };

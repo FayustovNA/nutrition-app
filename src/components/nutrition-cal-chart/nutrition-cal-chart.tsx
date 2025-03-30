@@ -14,15 +14,10 @@ interface FoodTargetPanelProps {
 }
 
 const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, startDate }) => {
-    // const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
-
-    // Группируем данные по неделям
     const getWeeklyAverageCalories = () => {
         const start = new Date(startDate).getTime();
 
-        const groupedByWeek: {
-            [week: string]: { actual: number[]; target: number[] };
-        } = {};
+        const groupedByWeek: { [week: string]: { actual: number[]; target: number[] } } = {};
 
         statsData.forEach((item) => {
             const currentDate = new Date(item.date).getTime();
@@ -33,7 +28,6 @@ const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, star
                 groupedByWeek[weekKey] = { actual: [], target: [] };
             }
 
-            // Учитываем только значения больше 0
             if (item.calories_actual && item.calories_actual > 0) {
                 groupedByWeek[weekKey].actual.push(item.calories_actual);
             }
@@ -42,7 +36,6 @@ const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, star
             }
         });
 
-        // Рассчитываем средние значения по неделям
         const weeksWithData = Object.keys(groupedByWeek)
             .sort((a, b) => {
                 const weekA = parseInt(a.split(' ')[1], 10);
@@ -53,15 +46,8 @@ const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, star
                 const actualCalories = groupedByWeek[week].actual;
                 const targetCalories = groupedByWeek[week].target;
 
-                const avgActual =
-                    actualCalories.length > 0
-                        ? actualCalories.reduce((sum, value) => sum + value, 0) / actualCalories.length
-                        : 0;
-
-                const avgTarget =
-                    targetCalories.length > 0
-                        ? targetCalories.reduce((sum, value) => sum + value, 0) / targetCalories.length
-                        : 0;
+                const avgActual = actualCalories.length > 0 ? actualCalories.reduce((sum, value) => sum + value, 0) / actualCalories.length : 0;
+                const avgTarget = targetCalories.length > 0 ? targetCalories.reduce((sum, value) => sum + value, 0) / targetCalories.length : 0;
 
                 return {
                     week,
@@ -70,18 +56,7 @@ const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, star
                 };
             });
 
-        // Добавляем пустые недели до 16
-        const fullWeeks = Array.from({ length: 9 }, (_, index) => {
-            const weekKey = `W ${index + 1}`;
-            const existingWeek = weeksWithData.find((weekData) => weekData.week === weekKey);
-            return {
-                week: weekKey,
-                avgActual: existingWeek ? existingWeek.avgActual : 0,
-                avgTarget: existingWeek ? existingWeek.avgTarget : 0,
-            };
-        });
-
-        return fullWeeks;
+        return weeksWithData.slice(-9); // Оставляем только последние 9 недель
     };
 
     const weeklyData = getWeeklyAverageCalories();
@@ -98,100 +73,31 @@ const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, star
             },
         ],
         options: {
-            chart: {
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-            },
+            chart: { type: 'bar', toolbar: { show: false } },
             plotOptions: {
-                bar: {
-                    borderRadius: 3,
-                    columnWidth: '80%',
-                    dataLabels: {
-                        position: 'top',
-                    },
-                },
+                bar: { borderRadius: 3, columnWidth: '80%', dataLabels: { position: 'top' } },
             },
             dataLabels: {
                 enabled: true,
-                style: {
-                    fontSize: '7px',
-                    fontFamily: 'Montserrat',
-                    fontWeight: 'bold',
-                    colors: ['#E5E5EA'],
-                },
+                style: { fontSize: '7px', fontFamily: 'Montserrat', fontWeight: 'bold', colors: ['#E5E5EA'] },
             },
             yaxis: {
-                title: {
-                    text: 'Калории (kcal)',
-                },
-                labels: {
-                    formatter: function (y: number) {
-                        return y.toFixed(0);
-                    },
-                    style: {
-                        colors: '#A7A7A7',
-                        fontSize: '10px',
-                        fontFamily: 'Montserrat',
-                        fontWeight: 600,
-                    },
-                },
+                title: { text: 'Калории (kcal)' },
+                labels: { formatter: (y: number) => y.toFixed(0), style: { colors: '#A7A7A7', fontSize: '10px', fontFamily: 'Montserrat', fontWeight: 600 } },
             },
             xaxis: {
                 categories: weeklyData.map((data) => data.week),
-                labels: {
-                    rotate: -90,
-                    style: {
-                        cssClass: 'vertical-data-label',
-                        colors: '#A7A7A7',
-                        fontSize: '10px',
-                        fontFamily: 'Montserrat',
-                        fontWeight: 600,
-                    },
-                },
+                labels: { rotate: -90, style: { cssClass: 'vertical-data-label', colors: '#A7A7A7', fontSize: '10px', fontFamily: 'Montserrat', fontWeight: 600 } },
             },
-            grid: {
-                show: false,
-                yaxis: {
-                    lines: {
-                        show: true,
-                    },
-                    row: {
-                        opacity: 0.1
-                    },
-                },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'center',
-                colors: '#A7A7A7',
-                fontSize: '10px',
-                fontFamily: 'Montserrat',
-                fontWeight: 600,
-            },
-            colors: ['#007AFF', '#C8AB58'], // Цвета столбцов для фактических и целевых значений
-
+            grid: { show: false, yaxis: { lines: { show: true }, row: { opacity: 0.1 } } },
+            legend: { position: 'top', horizontalAlign: 'center', colors: '#A7A7A7', fontSize: '10px', fontFamily: 'Montserrat', fontWeight: 600 },
+            colors: ['#007AFF', '#C8AB58'],
             responsive: [
                 {
                     breakpoint: 576,
                     options: {
-                        dataLabels: {
-                            enabled: true,
-                            rotate: -90,
-                            style: {
-                                cssClass: 'vertical-data-label',
-                                fontSize: '5px', // Меняем размер шрифта для экранов до 576px
-                            },
-                        },
-                        yaxis: {
-                            labels: {
-                                style: {
-                                    fontSize: '8px',
-                                },
-                            },
-                        },
-
+                        dataLabels: { enabled: true, rotate: -90, style: { cssClass: 'vertical-data-label', fontSize: '5px' } },
+                        yaxis: { labels: { style: { fontSize: '8px' } } },
                     },
                 },
             ],

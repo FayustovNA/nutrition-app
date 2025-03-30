@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    position: relative;
 }
 
 .grid {
@@ -39,10 +40,38 @@
     margin-bottom: 10px;
 }
 
+.gpt {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    width: 100px;
+    height: 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: var(--hover-blue);
+    color: #FFFFFF;
+    font-size: 10px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.gpt:hover {
+    background: var(--gold);
+}
+
 /* Маленькие экраны: до 576px */
 @media (max-width: 576px) {
     .content {
         max-height: 500px;
+    }
+
+    .title {
+        font-size: 17px;
+        width: 70%;
     }
 
     .grid {
@@ -50,5 +79,9 @@
         width: calc(100% - 2*10px);
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 1fr);
+    }
+
+    .gpt {
+        right: 20px;
     }
 }
