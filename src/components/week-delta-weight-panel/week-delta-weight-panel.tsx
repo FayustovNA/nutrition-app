@@ -19,67 +19,59 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
     // const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
     const [weeklyData, setWeeklyData] = useState<{ week: string; avgWeight: number | null; deltaWeight: number }[]>([]);
 
-    // Функция для вычисления изменения веса по неделям
     const getWeeklyWeightDeltas = () => {
         const start = new Date(startDate).getTime();
 
-        const groupedByWeek: { [week: string]: number[] } = {};
+        const groupedByWeek: { [weekNum: number]: number[] } = {};
         statsData.forEach((item) => {
             const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
-            const weekKey = `W ${weekNumber}`;
+            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 2;
+            if (weekNumber < 1) return;
 
-            if (!groupedByWeek[weekKey]) {
-                groupedByWeek[weekKey] = [];
+            if (!groupedByWeek[weekNumber]) {
+                groupedByWeek[weekNumber] = [];
             }
 
-            // Учитываем только значения больше 0
             if (item.weight_actual && item.weight_actual > 0) {
-                groupedByWeek[weekKey].push(item.weight_actual);
+                groupedByWeek[weekNumber].push(item.weight_actual);
             }
         });
 
-        // Рассчитываем средний вес по завершённым неделям
+        // Получаем последние 10 недель с данными
         const weeksWithData = Object.keys(groupedByWeek)
-            .sort((a, b) => parseInt(a.split(' ')[1], 10) - parseInt(b.split(' ')[1], 10))
-            .map((week) => {
-                const weights = groupedByWeek[week];
-                if (weights.length === 0) {
-                    return { week, avgWeight: null }; // Если нет данных, средний вес null
-                }
-                const avgWeight = weights.reduce((sum, weight) => sum + weight, 0) / weights.length;
-                return { week, avgWeight: parseFloat(avgWeight.toFixed(2)) };
-            });
+            .map(Number)
+            .sort((a, b) => a - b);
 
-        // Добавляем пустые недели до 16
-        const fullWeeks = Array.from({ length: 16 }, (_, index) => {
-            const weekKey = `W ${index + 1}`;
-            const existingWeek = weeksWithData.find((weekData) => weekData.week === weekKey);
-            return {
-                week: weekKey,
-                avgWeight: existingWeek ? existingWeek.avgWeight : null, // Если данных нет, ставим null
-            };
+        const last10Weeks = weeksWithData.slice(-10);
+        const maxWeek = last10Weeks.length > 0 ? last10Weeks[last10Weeks.length - 1] : 10;
+        const weeksToRender = Array.from({ length: 12 }, (_, i) => maxWeek - 9 + i); // 10 с данными + 2 будущие
+
+        const fullWeeks = weeksToRender.map((weekNum) => {
+            const weights = groupedByWeek[weekNum] || [];
+            const avgWeight = weights.length
+                ? parseFloat((weights.reduce((a, b) => a + b, 0) / weights.length).toFixed(2))
+                : null;
+            return { week: `W ${weekNum}`, avgWeight };
         });
-
-        // Рассчитываем разницу веса между неделями
+        // Вычисляем дельту веса между неделями
         const weightDeltas = fullWeeks.map((currentWeek, index) => {
             if (index === 0 || currentWeek.avgWeight === null) {
-                // Первая неделя или неделя без данных
                 return { ...currentWeek, deltaWeight: 0 };
             }
 
             const prevWeek = fullWeeks[index - 1];
-
-            // Игнорируем разницу, если предыдущая неделя имеет avgWeight = null
             if (prevWeek.avgWeight === null) {
                 return { ...currentWeek, deltaWeight: 0 };
             }
 
             const deltaWeight = currentWeek.avgWeight - prevWeek.avgWeight;
-            return { ...currentWeek, deltaWeight: parseFloat(deltaWeight.toFixed(2)) };
+            return {
+                ...currentWeek,
+                deltaWeight: parseFloat(deltaWeight.toFixed(2)),
+            };
         });
-        return weightDeltas;
 
+        return weightDeltas;
     };
 
     // Вызываем функцию, когда statsData или startDate изменяются

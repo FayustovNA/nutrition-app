@@ -1,6 +1,7 @@
-import React from 'react';
-import ReactApexChart from 'react-apexcharts';
-import './chart.css';
+import React from "react";
+import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
+import "./chart.css";
 
 interface StatsDataItem {
     date: string;
@@ -10,13 +11,14 @@ interface StatsDataItem {
 
 interface FoodTargetPanelProps {
     statsData: StatsDataItem[];
-    startDate?: any;
+    startDate?: string;
 }
 
 const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, startDate }) => {
     const getWeeklyAverageCalories = () => {
-        const start = new Date(startDate).getTime();
+        if (!startDate) return [];
 
+        const start = new Date(startDate).getTime();
         const groupedByWeek: { [week: string]: { actual: number[]; target: number[] } } = {};
 
         statsData.forEach((item) => {
@@ -28,85 +30,127 @@ const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, star
                 groupedByWeek[weekKey] = { actual: [], target: [] };
             }
 
-            if (item.calories_actual && item.calories_actual > 0) {
-                groupedByWeek[weekKey].actual.push(item.calories_actual);
-            }
-            if (item.calories_target && item.calories_target > 0) {
-                groupedByWeek[weekKey].target.push(item.calories_target);
-            }
+            if (item.calories_actual > 0) groupedByWeek[weekKey].actual.push(item.calories_actual);
+            if (item.calories_target > 0) groupedByWeek[weekKey].target.push(item.calories_target);
         });
 
-        const weeksWithData = Object.keys(groupedByWeek)
-            .sort((a, b) => {
-                const weekA = parseInt(a.split(' ')[1], 10);
-                const weekB = parseInt(b.split(' ')[1], 10);
-                return weekA - weekB;
-            })
+        const sortedWeeks = Object.keys(groupedByWeek)
             .map((week) => {
-                const actualCalories = groupedByWeek[week].actual;
-                const targetCalories = groupedByWeek[week].target;
+                const actual = groupedByWeek[week].actual;
+                const target = groupedByWeek[week].target;
 
-                const avgActual = actualCalories.length > 0 ? actualCalories.reduce((sum, value) => sum + value, 0) / actualCalories.length : 0;
-                const avgTarget = targetCalories.length > 0 ? targetCalories.reduce((sum, value) => sum + value, 0) / targetCalories.length : 0;
+                const avgActual = actual.length
+                    ? Math.round(actual.reduce((sum, val) => sum + val, 0) / actual.length)
+                    : 0;
+                const avgTarget = target.length
+                    ? Math.round(target.reduce((sum, val) => sum + val, 0) / target.length)
+                    : 0;
 
-                return {
-                    week,
-                    avgActual: parseFloat(avgActual.toFixed(0)),
-                    avgTarget: parseFloat(avgTarget.toFixed(0)),
-                };
+                return { week, avgActual, avgTarget };
+            })
+            .sort((a, b) => parseInt(a.week.split(" ")[1], 10) - parseInt(b.week.split(" ")[1], 10));
+
+        const recentWeeks = sortedWeeks.slice(-9);
+
+        // Добавим 2 будущие недели
+        let lastWeekNumber = 0;
+        if (recentWeeks.length > 0) {
+            lastWeekNumber = parseInt(recentWeeks[recentWeeks.length - 1].week.split(" ")[1], 10);
+        }
+
+        for (let i = 1; i <= 2; i++) {
+            recentWeeks.push({
+                week: `W ${lastWeekNumber + i}`,
+                avgActual: 0,
+                avgTarget: 0,
             });
+        }
 
-        return weeksWithData.slice(-9); // Оставляем только последние 9 недель
+        return recentWeeks;
     };
 
     const weeklyData = getWeeklyAverageCalories();
 
-    const chartData: any = {
-        series: [
-            {
-                name: 'Факт',
-                data: weeklyData.map((data) => data.avgActual),
+    const chartOptions: ApexOptions = {
+        chart: {
+            type: "bar",
+            toolbar: { show: false },
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 3,
+                columnWidth: "80%",
+                dataLabels: { position: "top" },
             },
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: (val: number) => val.toFixed(0),
+            style: {
+                fontSize: "8px",
+                fontWeight: "bold",
+                fontFamily: "Montserrat",
+                colors: ["#E5E5EA"],
+            },
+        },
+        yaxis: {
+            title: { text: "Калории (kcal)" },
+            labels: {
+                formatter: (y: number) => y.toFixed(0),
+                style: {
+                    colors: "#A7A7A7",
+                    fontSize: "10px",
+                    fontFamily: "Montserrat",
+                    fontWeight: 600,
+                },
+            },
+        },
+        xaxis: {
+            categories: weeklyData.map((data) => data.week),
+            labels: {
+                rotate: -90,
+                style: {
+                    colors: "#A7A7A7",
+                    fontSize: "10px",
+                    fontFamily: "Montserrat",
+                    fontWeight: 600,
+                },
+            },
+        },
+        grid: {
+            show: false,
+            yaxis: {
+                lines: { show: true },
+            },
+        },
+        legend: { show: false },
+        colors: ["#007AFF", "#C8AB58"],
+        responsive: [
             {
-                name: 'План',
-                data: weeklyData.map((data) => data.avgTarget),
+                breakpoint: 576,
+                options: {
+                    dataLabels: {
+                        enabled: true,
+                        rotate: -90,
+                        style: { fontSize: "5px" },
+                    },
+                    yaxis: { labels: { style: { fontSize: "8px" } } },
+                },
             },
         ],
-        options: {
-            chart: { type: 'bar', toolbar: { show: false } },
-            plotOptions: {
-                bar: { borderRadius: 3, columnWidth: '80%', dataLabels: { position: 'top' } },
-            },
-            dataLabels: {
-                enabled: true,
-                style: { fontSize: '7px', fontFamily: 'Montserrat', fontWeight: 'bold', colors: ['#E5E5EA'] },
-            },
-            yaxis: {
-                title: { text: 'Калории (kcal)' },
-                labels: { formatter: (y: number) => y.toFixed(0), style: { colors: '#A7A7A7', fontSize: '10px', fontFamily: 'Montserrat', fontWeight: 600 } },
-            },
-            xaxis: {
-                categories: weeklyData.map((data) => data.week),
-                labels: { rotate: -90, style: { cssClass: 'vertical-data-label', colors: '#A7A7A7', fontSize: '10px', fontFamily: 'Montserrat', fontWeight: 600 } },
-            },
-            grid: { show: false, yaxis: { lines: { show: true }, row: { opacity: 0.1 } } },
-            legend: { position: 'top', horizontalAlign: 'center', colors: '#A7A7A7', fontSize: '10px', fontFamily: 'Montserrat', fontWeight: 600 },
-            colors: ['#007AFF', '#C8AB58'],
-            responsive: [
-                {
-                    breakpoint: 576,
-                    options: {
-                        dataLabels: { enabled: true, rotate: -90, style: { cssClass: 'vertical-data-label', fontSize: '5px' } },
-                        yaxis: { labels: { style: { fontSize: '8px' } } },
-                    },
-                },
-            ],
-        },
     };
 
     return (
         <div id="chart">
-            <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={160} />
+            <ReactApexChart
+                options={chartOptions}
+                series={[
+                    { name: "Факт", data: weeklyData.map((data) => data.avgActual) },
+                    { name: "План", data: weeklyData.map((data) => data.avgTarget) },
+                ]}
+                type="bar"
+                height={160}
+            />
         </div>
     );
 };

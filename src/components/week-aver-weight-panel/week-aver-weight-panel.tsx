@@ -11,55 +11,53 @@ interface WeekWeightPanelProps {
 }
 
 const WeekAverWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, startDate }) => {
-    // const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
 
-    // Группируем данные по неделям
     const getWeeklyAverageWeights = () => {
-        const start = new Date(startDate).getTime();
+        if (!startDate) return [];
 
+        const start = new Date(startDate).getTime();
         const groupedByWeek: { [week: string]: number[] } = {};
+
         statsData.forEach((item) => {
             const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 2;
             const weekKey = `W ${weekNumber}`;
 
             if (!groupedByWeek[weekKey]) {
                 groupedByWeek[weekKey] = [];
             }
 
-            // Учитываем только значения больше 0
-            if (item.weight_actual && item.weight_actual > 0) {
+            if (item.weight_actual > 0) {
                 groupedByWeek[weekKey].push(item.weight_actual);
             }
         });
 
-        // Рассчитываем средний вес по неделям
-        const weeksWithData = Object.keys(groupedByWeek)
-            .sort((a, b) => {
-                const weekA = parseInt(a.split(' ')[1], 16);
-                const weekB = parseInt(b.split(' ')[1], 16);
-                return weekA - weekB;
-            })
+        const sortedWeeks = Object.keys(groupedByWeek)
             .map((week) => {
                 const weights = groupedByWeek[week];
-                if (weights.length === 0) {
-                    return { week, avgWeight: 0 }; // Если нет данных, средний вес 0
-                }
-                const avgWeight = weights.reduce((sum, weight) => sum + weight, 0) / weights.length;
-                return { week, avgWeight: parseFloat(avgWeight.toFixed(1)) };
+                const avgWeight = weights.length
+                    ? parseFloat((weights.reduce((a, b) => a + b, 0) / weights.length).toFixed(1))
+                    : 0;
+                return { week, avgWeight };
+            })
+            .sort((a, b) => parseInt(a.week.split(" ")[1], 10) - parseInt(b.week.split(" ")[1], 10));
+
+        const recentWeeks = sortedWeeks.slice(-10);
+
+        // Добавим 2 будущие недели
+        let lastWeekNumber = 0;
+        if (recentWeeks.length > 0) {
+            lastWeekNumber = parseInt(recentWeeks[recentWeeks.length - 1].week.split(" ")[1], 10);
+        }
+
+        for (let i = 1; i <= 2; i++) {
+            recentWeeks.push({
+                week: `W ${lastWeekNumber + i}`,
+                avgWeight: 0,
             });
+        }
 
-        // Добавляем пустые недели до 16
-        const fullWeeks = Array.from({ length: 16 }, (_, index) => {
-            const weekKey = `W ${index + 1}`;
-            const existingWeek = weeksWithData.find((weekData) => weekData.week === weekKey);
-            return {
-                week: weekKey,
-                avgWeight: existingWeek ? existingWeek.avgWeight : 0, // Если данных нет, ставим 0
-            };
-        });
-
-        return fullWeeks;
+        return recentWeeks;
     };
 
     const weeklyData = getWeeklyAverageWeights();

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { ApexOptions } from "apexcharts"; // ✅ Импортируем типизацию
+import { ApexOptions } from "apexcharts";
 import "./chart.css";
 
 interface StatsDataItem {
@@ -34,7 +34,6 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
             if (item.protein_target > 0) groupedByWeek[weekKey].target.push(item.protein_target);
         });
 
-        // Создаем массив с сохранением оригинальной нумерации
         const sortedWeeks = Object.keys(groupedByWeek)
             .map((week) => ({
                 week,
@@ -47,15 +46,30 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
             }))
             .sort((a, b) => parseInt(a.week.split(" ")[1], 10) - parseInt(b.week.split(" ")[1], 10));
 
-        // Оставляем последние 9 недель
-        return sortedWeeks.slice(-9);
+        const recentWeeks = sortedWeeks.slice(-9);
+
+        // Добавим 2 будущие недели
+        let lastWeekNumber = 0;
+        if (recentWeeks.length > 0) {
+            lastWeekNumber = parseInt(recentWeeks[recentWeeks.length - 1].week.split(" ")[1], 10);
+        }
+
+        for (let i = 1; i <= 2; i++) {
+            recentWeeks.push({
+                week: `W ${lastWeekNumber + i}`,
+                avgActual: 0,
+                avgTarget: 0,
+            });
+        }
+
+        return recentWeeks;
     };
 
     const weeklyData = getWeeklyAverageProteins();
 
     const chartOptions: ApexOptions = {
         chart: {
-            type: "bar", // ✅ Строгий тип
+            type: "bar",
             toolbar: { show: false },
         },
         plotOptions: {
@@ -67,28 +81,43 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
         },
         dataLabels: {
             enabled: true,
-            formatter: (val: number) => val.toFixed(0), // ✅ Только целые значения
-            style: { fontSize: "8px", fontWeight: "bold", fontFamily: "Montserrat", colors: ["#E5E5EA"] },
+            formatter: (val: number) => val.toFixed(0),
+            style: {
+                fontSize: "8px",
+                fontWeight: "bold",
+                fontFamily: "Montserrat",
+                colors: ["#E5E5EA"],
+            },
         },
         yaxis: {
             title: { text: "Потребление белка (g)" },
             labels: {
                 formatter: (y: number) => y.toFixed(0),
-                style: { colors: "#A7A7A7", fontSize: "10px", fontFamily: "Montserrat", fontWeight: 600 },
+                style: {
+                    colors: "#A7A7A7",
+                    fontSize: "10px",
+                    fontFamily: "Montserrat",
+                    fontWeight: 600,
+                },
             },
         },
         xaxis: {
             categories: weeklyData.map((data) => data.week),
             labels: {
                 rotate: -90,
-                style: { colors: "#A7A7A7", fontSize: "10px", fontFamily: "Montserrat", fontWeight: 600 },
+                style: {
+                    colors: "#A7A7A7",
+                    fontSize: "10px",
+                    fontFamily: "Montserrat",
+                    fontWeight: 600,
+                },
             },
         },
         grid: {
             show: false,
             yaxis: {
                 lines: { show: true },
-            }
+            },
         },
         legend: { show: false },
         colors: ["#007AFF", "#C8AB58"],
@@ -96,7 +125,11 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
             {
                 breakpoint: 576,
                 options: {
-                    dataLabels: { enabled: true, rotate: -90, style: { fontSize: "5px" } },
+                    dataLabels: {
+                        enabled: true,
+                        rotate: -90,
+                        style: { fontSize: "5px" },
+                    },
                     yaxis: { labels: { style: { fontSize: "8px" } } },
                 },
             },
@@ -105,10 +138,15 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
 
     return (
         <div id="chart">
-            <ReactApexChart options={chartOptions} series={[
-                { name: "Факт", data: weeklyData.map((data) => data.avgActual) },
-                { name: "План", data: weeklyData.map((data) => data.avgTarget) }
-            ]} type="bar" height={160} />
+            <ReactApexChart
+                options={chartOptions}
+                series={[
+                    { name: "Факт", data: weeklyData.map((data) => data.avgActual) },
+                    { name: "План", data: weeklyData.map((data) => data.avgTarget) },
+                ]}
+                type="bar"
+                height={160}
+            />
         </div>
     );
 };
