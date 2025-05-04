@@ -7,7 +7,7 @@ import { Loader } from '../loader/loader'
 import Modal from '../modal/modal'
 import TopFoodList from './modal/top-foodlist'
 import GPT from '../../images/icon-status/GPT.svg?react'
-import { getFoodRecommendations } from '../../api/gpt'
+// import { getFoodRecommendations } from '../../api/gpt'
 
 interface StatsDataItem {
     date: string;
