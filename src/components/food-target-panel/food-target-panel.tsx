@@ -222,7 +222,7 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
 
         try {
             console.log("Fetching recommendations for deficit:", deficit);
-            const recommendations = await getFoodRecommendations(deficit);
+            // const recommendations = await getFoodRecommendations(deficit);
             console.log("Recommendations received:", recommendations);
             setRecommendations(recommendations);
         } catch (error) {
@@ -256,13 +256,13 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
             <div className={styles.filter}>
                 <TabsFilter activeTab={activeTab} onTabChange={handleTabChange} />
             </div>
-            {
+            {/* {
                 loading ? (
                     <Loader />
                 ) : (
                     <div>{recommendations}</div>
                 )
-            }
+            } */}
 
             {isOpenModal && (loading ? (
                 <Loader />
