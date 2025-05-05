@@ -21,11 +21,14 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
 
     const getWeeklyWeightDeltas = () => {
         const start = new Date(startDate).getTime();
+        const now = Date.now();
 
         const groupedByWeek: { [weekNum: number]: number[] } = {};
+
         statsData.forEach((item) => {
             const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 2;
+            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+
             if (weekNumber < 1) return;
 
             if (!groupedByWeek[weekNumber]) {
@@ -37,23 +40,25 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
             }
         });
 
-        // Получаем последние 10 недель с данными
-        const weeksWithData = Object.keys(groupedByWeek)
-            .map(Number)
-            .sort((a, b) => a - b);
+        const currentWeekNumber = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+        const lastWeekToShow = currentWeekNumber + 2; // текущая + 2 будущих
 
-        const last10Weeks = weeksWithData.slice(-10);
-        const maxWeek = last10Weeks.length > 0 ? last10Weeks[last10Weeks.length - 1] : 10;
-        const weeksToRender = Array.from({ length: 12 }, (_, i) => maxWeek - 9 + i); // 10 с данными + 2 будущие
+        const firstWeekToShow = Math.max(1, lastWeekToShow - 11); // 12 недель максимум
+
+        const weeksToRender = Array.from(
+            { length: lastWeekToShow - firstWeekToShow + 1 },
+            (_, i) => firstWeekToShow + i
+        );
 
         const fullWeeks = weeksToRender.map((weekNum) => {
             const weights = groupedByWeek[weekNum] || [];
             const avgWeight = weights.length
                 ? parseFloat((weights.reduce((a, b) => a + b, 0) / weights.length).toFixed(2))
                 : null;
+
             return { week: `W ${weekNum}`, avgWeight };
         });
-        // Вычисляем дельту веса между неделями
+
         const weightDeltas = fullWeeks.map((currentWeek, index) => {
             if (index === 0 || currentWeek.avgWeight === null) {
                 return { ...currentWeek, deltaWeight: 0 };

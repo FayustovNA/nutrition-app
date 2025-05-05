@@ -20,7 +20,7 @@ const WeekAverWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, startD
 
         statsData.forEach((item) => {
             const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 2;
+            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
             const weekKey = `W ${weekNumber}`;
 
             if (!groupedByWeek[weekKey]) {
