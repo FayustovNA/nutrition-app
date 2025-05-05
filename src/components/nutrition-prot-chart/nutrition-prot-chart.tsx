@@ -74,7 +74,9 @@ const WeekAverProteinPanel: React.FC<FoodTargetPanelProps> = ({ statsData, start
         },
         plotOptions: {
             bar: {
-                borderRadius: 3,
+                horizontal: false,
+                borderRadius: 8,
+                borderRadiusApplication: 'end',
                 columnWidth: "80%",
                 dataLabels: { position: "top" },
             },

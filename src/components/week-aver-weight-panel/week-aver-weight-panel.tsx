@@ -81,7 +81,9 @@ const WeekAverWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, startD
             },
             plotOptions: {
                 bar: {
-                    borderRadius: 5,
+                    horizontal: false,
+                    borderRadius: 8,
+                    borderRadiusApplication: 'end',
                     colors: {
                         ranges: [{
                             from: -5,

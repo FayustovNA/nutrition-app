@@ -100,7 +100,9 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
             },
             plotOptions: {
                 bar: {
-                    borderRadius: 5,
+                    horizontal: false,
+                    borderRadius: 8,
+                    borderRadiusApplication: 'end',
                     columnWidth: '70%',
                     colors: {
                         ranges: [
