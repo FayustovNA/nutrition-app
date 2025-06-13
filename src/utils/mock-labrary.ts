@@ -77,4 +77,10 @@ export const dataSet = [
         link: 'https://telegra.ph/Potreblenie-i-usvoenie-belka-chto-menyaetsya-s-vozrastom-01-01',
         section: 'Процесс',
     },
+    {
+        img: '../images/library/10.jpeg',
+        title: 'Питание, тренинг и менструальный цикл',
+        link: 'https://telegra.ph/Pitanie-trening-i-menstrualnyj-cikl-01-15',
+        section: 'Физиология',
+    },
 ]
