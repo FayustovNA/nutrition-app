@@ -31,6 +31,9 @@ export const Footer = () => {
                     <a className={styles.link} href={telegramm} target="_blank" rel="noopener noreferrer">Telegram</a>
                     <a className={styles.link} href={youtube} target="_blank" rel="noopener noreferrer">YouTube</a>
                     <a className={styles.link} href={instagram} target="_blank" rel="noopener noreferrer">Instagram*</a>
+                    <a className={styles.links} href="https://www.platform.fatsecret.com">
+                        <img className={styles.img} alt="Nutrition information provided by fatsecret Platform API" src="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_horizontal_white.png" srcset="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_horizontal_white@2x.png 2x, https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_horizontal_white@3x.png 3x" border="0" />
+                    </a>
                 </div>
             </div>
             {

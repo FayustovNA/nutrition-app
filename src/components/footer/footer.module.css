@@ -40,6 +40,14 @@
     color: var(--main-text-color);
     border-right: 1px solid var(--gray-main);
     padding-right: 20px;
+    margin: auto;
+}
+
+.links {
+    text-decoration: none;
+    color: var(--main-text-color);
+    padding-right: 20px;
+    margin: auto;
 }
 
 .link:hover {
@@ -70,4 +78,27 @@
     .footer {
         padding-bottom: 40px;
     }
+
+    .link {
+        border: none;
+        margin-left: 0px;
+    }
+
+    .links {
+        border: none;
+        margin-left: 0px;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        height: 10px;
+    }
+
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+    height: 25px;
 }
