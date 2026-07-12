@@ -1,4 +1,6 @@
+import { useMemo } from 'react'
 import ReactApexChart from 'react-apexcharts'
+import { getWeeklyAverages } from '../../utils/weeklyAggregation'
 interface StatsDataItem {
     id: any;
     date: string;
@@ -12,55 +14,15 @@ interface WeekWeightPanelProps {
 
 const WeekAverWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, startDate }) => {
 
-    const getWeeklyAverageWeights = () => {
-        if (!startDate) return [];
-
-        const start = new Date(startDate).getTime();
-        const groupedByWeek: { [week: string]: number[] } = {};
-
-        statsData.forEach((item) => {
-            const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
-            const weekKey = `W ${weekNumber}`;
-
-            if (!groupedByWeek[weekKey]) {
-                groupedByWeek[weekKey] = [];
-            }
-
-            if (item.weight_actual > 0) {
-                groupedByWeek[weekKey].push(item.weight_actual);
-            }
-        });
-
-        const sortedWeeks = Object.keys(groupedByWeek)
-            .map((week) => {
-                const weights = groupedByWeek[week];
-                const avgWeight = weights.length
-                    ? parseFloat((weights.reduce((a, b) => a + b, 0) / weights.length).toFixed(1))
-                    : 0;
-                return { week, avgWeight };
-            })
-            .sort((a, b) => parseInt(a.week.split(" ")[1], 10) - parseInt(b.week.split(" ")[1], 10));
-
-        const recentWeeks = sortedWeeks.slice(-10);
-
-        // Добавим 2 будущие недели
-        let lastWeekNumber = 0;
-        if (recentWeeks.length > 0) {
-            lastWeekNumber = parseInt(recentWeeks[recentWeeks.length - 1].week.split(" ")[1], 10);
-        }
-
-        for (let i = 1; i <= 2; i++) {
-            recentWeeks.push({
-                week: `W ${lastWeekNumber + i}`,
-                avgWeight: 0,
-            });
-        }
-
-        return recentWeeks;
-    };
-
-    const weeklyData = getWeeklyAverageWeights();
+    const weeklyData = useMemo(
+        () => getWeeklyAverages(statsData, startDate, {
+            getDate: (item) => item.date,
+            getActual: (item) => item.weight_actual,
+            weeksToKeep: 10,
+            round: (value) => parseFloat(value.toFixed(1)),
+        }).map(({ week, avgActual }) => ({ week, avgWeight: avgActual })),
+        [statsData, startDate]
+    );
 
     const chartData: any = {
 

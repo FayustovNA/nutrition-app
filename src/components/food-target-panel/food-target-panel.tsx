@@ -1,13 +1,12 @@
 import styles from './food-target-panel.module.css'
 import TabsFilter from '../tab-filter/tab-filter'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import TargetItem from './item/item'
 import { getTopFoodListWeek } from '../../api/userstats'
 import { Loader } from '../loader/loader'
 import Modal from '../modal/modal'
 import TopFoodList from './modal/top-foodlist'
-import GPT from '../../images/icon-status/GPT.svg?react'
-// import { getFoodRecommendations } from '../../api/gpt'
+import { filterByDateRange } from '../../utils/dateRangeFilter'
 
 interface StatsDataItem {
     date: string;
@@ -46,7 +45,6 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
     const [isOpenModal, setisOpenModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [listData, setListData] = useState(null);
-    const [recommendations, setRecommendations] = useState<string | null>(null);
 
 
     const handleTabChange = (tab: string) => {
@@ -57,11 +55,7 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
         setisOpenModal(false)
         setListData(null);
         setSelectedCategory(null);
-        // setRecommendations(null);
-        setSelectedCategory(null);
     };
-
-    console.log(recommendations)
 
     // Обработчик клика по фактическому значению
     const handleFactClick = async (title: string | undefined) => {
@@ -135,19 +129,8 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
     };
 
 
-    const getFilteredData = () => {
-        const daysLimit = {
-            Н: 7,
-            M: 30,
-            '3M': 90,
-            '6M': 180,
-        }[activeTab] || statsData.length;
-
-        // Фильтруем данные по дате и ограничению на количество дней
-        const filteredData = [...statsData] // Создаем копию массива
-            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-            .slice(0, daysLimit);
-
+    const averageData = useMemo(() => {
+        const filteredData = filterByDateRange(statsData, activeTab, (item) => item.date);
 
         // Вычисляем средние значения
         const calculateAverage = (
@@ -188,56 +171,12 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
                 target: calculateAverage(filteredData, 'sugar_target'),
             },
         };
-    };
-
-    const averageData = getFilteredData();
+    }, [statsData, activeTab]);
     type NutrientKey = keyof typeof averageData;
-
-    const handleGetRecommendations = async (event: any) => {
-        event.preventDefault(); // Предотвращаем перезагрузку страницы
-
-        console.log("Starting handleGetRecommendations...");
-        setLoading(true);
-
-        const averageData = getFilteredData();
-
-        // Собираем дефицит для всех категорий
-        const deficit: Record<string, number> = {};
-
-        Object.entries(averageData).forEach(([category, data]) => {
-            const fact = Number(data.fact);
-            const target = Number(data.target);
-
-            if (fact < target) {
-                deficit[category] = target - fact; // Сохраняем дефицит для категории
-            }
-        });
-
-        // Если дефицита нет ни в одной категории
-        if (Object.keys(deficit).length === 0) {
-            setRecommendations("Дефицита нет, корректировка не требуется.");
-            setLoading(false);
-            return;
-        }
-
-        try {
-            console.log("Fetching recommendations for deficit:", deficit);
-            // const recommendations = await getFoodRecommendations(deficit);
-            console.log("Recommendations received:", recommendations);
-            setRecommendations(recommendations);
-        } catch (error) {
-            console.error("Ошибка загрузки рекомендаций:", error);
-            setRecommendations("Ошибка при получении рекомендаций.");
-        } finally {
-            setLoading(false);
-            console.log("Finished handleGetRecommendations.");
-        }
-    };
 
     return (
         <div className={styles.content}>
             <h3 className={styles.title}>Плановые и фактические нормы</h3>
-            <button className={styles.gpt} onClick={handleGetRecommendations}><GPT />BFN GPT</button>
             <div className={styles.grid}>
                 {Object.keys(averageData).map((key) => {
                     const nutrientKey = key as NutrientKey; // Приведение типа
@@ -256,13 +195,6 @@ export const FoodTargetPanel: React.FC<FoodTargetPanelProps> = ({ statsData, use
             <div className={styles.filter}>
                 <TabsFilter activeTab={activeTab} onTabChange={handleTabChange} />
             </div>
-            {/* {
-                loading ? (
-                    <Loader />
-                ) : (
-                    <div>{recommendations}</div>
-                )
-            } */}
 
             {isOpenModal && (loading ? (
                 <Loader />

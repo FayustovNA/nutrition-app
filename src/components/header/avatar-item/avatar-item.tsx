@@ -1,5 +1,5 @@
 import style from './avatar-item.module.css';
-import { useSelector } from "react-redux";
+import { useSelector } from '../../../services/hooks';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../services/root-reducer';
 import Avatar from '../../../images/avatar_def.png'

@@ -1,11 +1,10 @@
 import styles from './stats.module.css'
 import { useEffect } from 'react'
-import { useDispatch } from '../../services/hooks'
+import { useDispatch, useSelector } from '../../services/hooks'
 import { DiaryPanel } from '../../components/diary-panel/diary-panel'
 import { FoodTargetPanel } from '../../components/food-target-panel/food-target-panel'
 import WeekAverWeightPanel from '../../components/week-aver-weight-panel/week-aver-weight-panel'
 import WeekDeltaWeightPanel from '../../components/week-delta-weight-panel/week-delta-weight-panel'
-import { useSelector } from 'react-redux'
 import { RootState } from '../../services/root-reducer'
 import { getFoodDiaryBySearch } from '../../services/slices/userStats'
 import { useSearchParams } from 'react-router-dom';
@@ -23,6 +22,7 @@ import { refreshStatisticsBySearch } from '../../api/fatsecret'
 import { resetStatisticsBySearch } from '../../api/fatsecret'
 import { useLocation } from 'react-router-dom'
 import { ProcessPan } from '../../components/process-pan/process-pan'
+import AiFab from '../../components/ai-fab/ai-fab'
 
 export const Stats = () => {
     const dispatch = useDispatch();
@@ -181,6 +181,7 @@ export const Stats = () => {
                     <SetBodyStatistics onClose={closeModal} />
                 </ModalAction>)
             }
+            <AiFab />
         </div>
     );
 };

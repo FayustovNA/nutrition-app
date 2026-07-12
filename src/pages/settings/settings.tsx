@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from './setting.module.css'
 import { useEffect } from 'react'
-import { useDispatch } from '../../services/hooks'
+import { useDispatch, useSelector } from '../../services/hooks'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'
 import { RootState } from '../../services/root-reducer'
 import Button from '../../ui/button/button'
 import { useState } from 'react'

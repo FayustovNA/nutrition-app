@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
+import { getWeeklyAverages } from "../../utils/weeklyAggregation";
 import "./chart.css";
 
 interface StatsDataItem {
@@ -15,61 +16,14 @@ interface FoodTargetPanelProps {
 }
 
 const WeekAverCaloriesPanel: React.FC<FoodTargetPanelProps> = ({ statsData, startDate }) => {
-    const getWeeklyAverageCalories = () => {
-        if (!startDate) return [];
-
-        const start = new Date(startDate).getTime();
-        const groupedByWeek: { [week: string]: { actual: number[]; target: number[] } } = {};
-
-        statsData.forEach((item) => {
-            const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
-            const weekKey = `W ${weekNumber}`;
-
-            if (!groupedByWeek[weekKey]) {
-                groupedByWeek[weekKey] = { actual: [], target: [] };
-            }
-
-            if (item.calories_actual > 0) groupedByWeek[weekKey].actual.push(item.calories_actual);
-            if (item.calories_target > 0) groupedByWeek[weekKey].target.push(item.calories_target);
-        });
-
-        const sortedWeeks = Object.keys(groupedByWeek)
-            .map((week) => {
-                const actual = groupedByWeek[week].actual;
-                const target = groupedByWeek[week].target;
-
-                const avgActual = actual.length
-                    ? Math.round(actual.reduce((sum, val) => sum + val, 0) / actual.length)
-                    : 0;
-                const avgTarget = target.length
-                    ? Math.round(target.reduce((sum, val) => sum + val, 0) / target.length)
-                    : 0;
-
-                return { week, avgActual, avgTarget };
-            })
-            .sort((a, b) => parseInt(a.week.split(" ")[1], 10) - parseInt(b.week.split(" ")[1], 10));
-
-        const recentWeeks = sortedWeeks.slice(-9);
-
-        // Добавим 2 будущие недели
-        let lastWeekNumber = 0;
-        if (recentWeeks.length > 0) {
-            lastWeekNumber = parseInt(recentWeeks[recentWeeks.length - 1].week.split(" ")[1], 10);
-        }
-
-        for (let i = 1; i <= 2; i++) {
-            recentWeeks.push({
-                week: `W ${lastWeekNumber + i}`,
-                avgActual: 0,
-                avgTarget: 0,
-            });
-        }
-
-        return recentWeeks;
-    };
-
-    const weeklyData = getWeeklyAverageCalories();
+    const weeklyData = useMemo(
+        () => getWeeklyAverages(statsData, startDate, {
+            getDate: (item) => item.date,
+            getActual: (item) => item.calories_actual,
+            getTarget: (item) => item.calories_target,
+        }),
+        [statsData, startDate]
+    );
 
     const chartOptions: ApexOptions = {
         chart: {

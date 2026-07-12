@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { computeLinearTrend, predictTrendY, TrendPoint } from '../../utils/linearTrend';
 
 export type TStatisticsData = {
     id?: number;
@@ -19,6 +20,7 @@ interface MeasurementsChartProps {
 interface MeasurementsChartState {
     series: Array<{
         name: string;
+        type: string;
         data: Array<{ x: number; y: number }>;
     }>;
     options: any;
@@ -28,15 +30,8 @@ class MeasurementsChart extends React.Component<MeasurementsChartProps, Measurem
     constructor(props: MeasurementsChartProps) {
         super(props);
 
-        // Форматируем данные для каждой метрики
-        const { waistData, hipsData, chestData } = this.formatData(props.statsData);
-
         this.state = {
-            series: [
-                { name: 'Waist', data: waistData },
-                { name: 'Hips', data: hipsData },
-                { name: 'Chest', data: chestData },
-            ],
+            series: this.buildSeries(props.statsData),
             options: {
                 chart: {
                     type: 'line',
@@ -51,6 +46,7 @@ class MeasurementsChart extends React.Component<MeasurementsChartProps, Measurem
                 },
                 dataLabels: {
                     enabled: true,
+                    enabledOnSeries: [0, 1, 2],
                     style: {
                         fontSize: '11px',
                         fontFamily: 'Montserrat',
@@ -71,8 +67,7 @@ class MeasurementsChart extends React.Component<MeasurementsChartProps, Measurem
                     fontWeight: 'bold',
                 },
                 markers: {
-                    size: 3,
-                    color: '#007AFF',
+                    size: [3, 3, 3, 0, 0, 0],
                     strokeWidth: 0,
                     strokeOpacity: 0.7,
                     hover: {
@@ -81,10 +76,12 @@ class MeasurementsChart extends React.Component<MeasurementsChartProps, Measurem
                     }
                 },
                 stroke: {
-                    width: 2,
+                    width: [2, 2, 2, 1, 1, 1],
+                    dashArray: [0, 0, 0, 4, 4, 4],
                     curve: 'smooth',
                 },
-                colors: ['#86868b', '#007AFF', '#C8AB58'], // Цвета для линий
+                // Талия, Бедра, Грудь + их линии тренда тех же цветов
+                colors: ['#86868b', '#007AFF', '#C8AB58', '#86868b', '#007AFF', '#C8AB58'],
                 yaxis: {
                     labels: {
                         formatter: function (val: number) {
@@ -117,7 +114,7 @@ class MeasurementsChart extends React.Component<MeasurementsChartProps, Measurem
                     shared: true,
                     y: {
                         formatter: function (val: number) {
-                            return `${val.toFixed(1)} cm`;
+                            return val === null || val === undefined ? '' : `${val.toFixed(1)} cm`;
                         },
                     },
                 },
@@ -131,40 +128,54 @@ class MeasurementsChart extends React.Component<MeasurementsChartProps, Measurem
 
     // Метод форматирования данных
     formatData(statsData: TStatisticsData[]) {
-        const waistData = statsData
-            .filter((item) => item.waist && item.waist > 0)
-            .map((item) => ({
-                x: new Date(item.date || '').getTime(),
-                y: item.waist!,
-            }));
+        const toPoints = (key: 'waist' | 'hips' | 'chest'): TrendPoint[] =>
+            statsData
+                .filter((item) => item[key] && item[key]! > 0)
+                .map((item) => ({
+                    x: new Date(item.date || '').getTime(),
+                    y: item[key]!,
+                }))
+                .sort((a, b) => a.x - b.x);
 
-        const hipsData = statsData
-            .filter((item) => item.hips && item.hips > 0)
-            .map((item) => ({
-                x: new Date(item.date || '').getTime(),
-                y: item.hips!,
-            }));
+        return {
+            waistData: toPoints('waist'),
+            hipsData: toPoints('hips'),
+            chestData: toPoints('chest'),
+        };
+    }
 
-        const chestData = statsData
-            .filter((item) => item.chest && item.chest > 0)
-            .map((item) => ({
-                x: new Date(item.date || '').getTime(),
-                y: item.chest!,
-            }));
+    // Линия тренда (2 точки: от первой до последней даты) для одной метрики
+    buildTrendLine(points: TrendPoint[]): TrendPoint[] {
+        if (points.length === 0) return [];
+        const trend = computeLinearTrend(points);
+        if (!trend) return [];
 
-        return { waistData, hipsData, chestData };
+        const first = points[0];
+        const last = points[points.length - 1];
+        return [
+            { x: first.x, y: predictTrendY(trend, first.x) },
+            { x: last.x, y: predictTrendY(trend, last.x) },
+        ];
+    }
+
+    buildSeries(statsData: TStatisticsData[]) {
+        const { waistData, hipsData, chestData } = this.formatData(statsData);
+
+        return [
+            { name: 'Талия', type: 'line', data: waistData },
+            { name: 'Бедра', type: 'line', data: hipsData },
+            { name: 'Грудь', type: 'line', data: chestData },
+            { name: 'Талия (тренд)', type: 'line', data: this.buildTrendLine(waistData) },
+            { name: 'Бедра (тренд)', type: 'line', data: this.buildTrendLine(hipsData) },
+            { name: 'Грудь (тренд)', type: 'line', data: this.buildTrendLine(chestData) },
+        ];
     }
 
     // Обновление данных при изменении пропсов
     componentDidUpdate(prevProps: MeasurementsChartProps) {
         if (prevProps.statsData !== this.props.statsData) {
-            const { waistData, hipsData, chestData } = this.formatData(this.props.statsData);
             this.setState({
-                series: [
-                    { name: 'Талия', data: waistData },
-                    { name: 'Бедра', data: hipsData },
-                    { name: 'Грудь', data: chestData },
-                ],
+                series: this.buildSeries(this.props.statsData),
             });
         }
     }

@@ -1,3 +1,27 @@
 .chart .apexcharts-toolbar {
     z-index: 1 !important;
 }
+
+.forecast {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--gray-main);
+}
+
+.forecastLabel {
+    font-weight: 600;
+    color: var(--main-text-color);
+}
+
+.forecastItem {
+    color: var(--gray-main);
+}
+
+.forecastItem b {
+    color: var(--gold);
+    font-weight: 600;
+}

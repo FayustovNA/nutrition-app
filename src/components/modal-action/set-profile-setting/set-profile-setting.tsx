@@ -3,8 +3,7 @@ import Input from '../../../ui/inputs/input'
 import useForm from '../../../hooks/useForm'
 import Button from '../../../ui/button/button'
 import { RootState } from '../../../services/root-reducer'
-import { useSelector } from 'react-redux'
-import { useDispatch } from '../../../services/hooks'
+import { useDispatch, useSelector } from '../../../services/hooks'
 import { updateUser } from '../../../services/slices/userSlice'
 import { fetchUserData } from '../../../services/slices/userSlice'
 
@@ -89,7 +88,7 @@ const SetProfileSetting: React.FC<SetProfileSettingProps> = ({ onClose }) => {
                     onChange={handleChange}
                     value={values.email}
                     pattern="^\S+@\S+\.\S+$"
-                    maxLength={30}
+                    maxLength={254}
                     errorMessage="Введите корректный email"
                     required
                 />

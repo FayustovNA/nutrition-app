@@ -8,6 +8,7 @@ import { Settings } from './pages/settings/settings'
 import ForgotPassword from './pages/forgot-password/forgot-password'
 import SetPassword from './pages/set-password/set-password'
 import { Library } from './pages/library/library'
+import { Videos } from './pages/videos/videos'
 import { Сalculators } from './pages/сalculators/сalculators'
 import { Stats } from './pages/stats/stats'
 import { Clients } from './pages/clients/clients'
@@ -80,6 +81,13 @@ function App() {
               element={
                 <PrivateRoute isLoggedIn={isLoggedIn}>
                   <Library />
+                </PrivateRoute>
+              }></Route>
+
+            <Route path='/videos'
+              element={
+                <PrivateRoute isLoggedIn={isLoggedIn}>
+                  <Videos />
                 </PrivateRoute>
               }></Route>
 

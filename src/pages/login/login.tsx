@@ -8,8 +8,6 @@ import { loginIn } from '../../services/slices/userSlice'
 import Input from '../../ui/inputs/input'
 import Button from '../../ui/button/button'
 import Login from '../../images/login.svg?react'
-// import { useAppSelector } from '../../services/store'
-
 
 const LogIn = () => {
     const [error, setError] = useState('');
@@ -57,7 +55,7 @@ const LogIn = () => {
                     onChange={handleChange}
                     value={values.email}
                     pattern="^\S+@\S+\.\S+$"
-                    maxLength={30}
+                    maxLength={254}
                     errorMessage="Введите корректный email"
                     required
                 />

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Logo from '../../images/logo.svg?react';
 import Button from '../../ui/button/button';
 import { HeaderItem } from './item/item';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { RootState } from '../../services/root-reducer';
 import AvatarItem from './avatar-item/avatar-item';
 import Telegram from '../../images/social/telegram.svg';
@@ -12,6 +12,7 @@ import Calculations from '../../images/header/Calc.svg?react';
 import Stats from '../../images/header/Stats.svg?react';
 import Lib from '../../images/header/Lib.svg?react';
 import Pip from '../../images/header/People.svg?react'
+import VideoIcon from '../../images/header/Video.svg?react'
 
 export const Header = () => {
     const [selected, setSelected] = useState('');
@@ -40,14 +41,16 @@ export const Header = () => {
                 <div className={styles.panes}>
                     <div className={styles.items}>
 
-                        <HeaderItem
-                            title={'Калькуляторы'}
-                            path={'/calculators'}
-                            selected={selected}
-                            setSelected={setSelected}
-                            children={<Calculations />}
-                        >
-                        </HeaderItem>
+                        {!isLoggedIn && (
+                            <HeaderItem
+                                title={'Калькуляторы'}
+                                path={'/calculators'}
+                                selected={selected}
+                                setSelected={setSelected}
+                                children={<Calculations />}
+                            >
+                            </HeaderItem>
+                        )}
                     </div>
                     <div className={styles.items}>
                         {isUser === "admin" && (
@@ -91,15 +94,25 @@ export const Header = () => {
                             setSelected={setSelected}
                             children={<Lib />}>
                         </HeaderItem> : null}
+
+                        {isLoggedIn ? <HeaderItem
+                            title={'Видео'}
+                            path={'/videos'}
+                            selected={selected}
+                            setSelected={setSelected}
+                            children={<VideoIcon />}>
+                        </HeaderItem> : null}
                     </div>
                 </div>
 
 
                 <div className={styles.login_block}>
 
-                    <a className={styles.telegram} href={'https://t.me/nikolayfayustov'}>
-                        <img className={styles.icon} src={Telegram} alt="telegram" />
-                    </a>
+                    {!isLoggedIn && (
+                        <a className={styles.telegram} href={'https://t.me/nikolayfayustov'}>
+                            <img className={styles.icon} src={Telegram} alt="telegram" />
+                        </a>
+                    )}
 
                     {isLoggedIn ?
                         <div

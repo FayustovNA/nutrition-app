@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                     onChange={handleChange}
                     value={values.email}
                     pattern="^\S+@\S+\.\S+$"
-                    maxLength={30}
+                    maxLength={254}
                     errorMessage="Введите корректный email"
                     required
                 />

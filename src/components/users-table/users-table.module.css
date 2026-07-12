@@ -1,0 +1,254 @@
+.tablebox {
+    width: 100%;
+    margin: auto;
+}
+
+.empty {
+    text-align: center;
+    color: var(--gray-main);
+    padding: 40px 0;
+}
+
+/* Desktop table */
+
+.tableScroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    background-color: rgba(84, 84, 88, 0.15);
+    font-size: 12px;
+}
+
+.table thead {
+    background-color: #252525;
+}
+
+.col {
+    padding: 14px 10px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-main);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.col:hover {
+    color: var(--main-text-color);
+}
+
+.sortArrow {
+    font-size: 9px;
+    color: var(--gold);
+    margin-left: 2px;
+}
+
+.colActions {
+    width: 140px;
+}
+
+.rows {
+    border-bottom: 1px solid var(--main-background);
+}
+
+.rows:hover {
+    background-color: var(--main-background);
+}
+
+.rows:last-child {
+    border-bottom: none;
+}
+
+.row {
+    padding: 8px 10px;
+    color: var(--main-text-color);
+}
+
+.row_f {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px 8px 20px;
+    color: var(--main-text-color);
+    white-space: nowrap;
+}
+
+.rowActions {
+    padding: 8px 10px;
+}
+
+.rowActions,
+.row_f {
+    display: flex;
+}
+
+.rowActions {
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn_st,
+.btn_action,
+.btn_action_ {
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+}
+
+.btn_st:hover * {
+    fill: var(--hover-blue);
+}
+
+.btn_action_:hover * {
+    fill: var(--hover-blue);
+}
+
+.btn_action:hover * {
+    fill: #FF453A;
+}
+
+/* Общее */
+
+.avatarbox_t {
+    box-sizing: border-box;
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 100%;
+    border: var(--border-light);
+    overflow: hidden;
+}
+
+.avatar {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 20px;
+    background-color: #252525;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Мобильные карточки */
+
+/* Отступы сверху/снизу — иначе первая карточка сливается с тулбаром над ней,
+   а последняя с футером/пагинацией под ней (у всех одинаковый фон #252525) */
+.usercards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 520px;
+    margin: 12px auto;
+}
+
+/* Собственный фон (отличный от фона страницы) — чтобы карточки читались
+   как отдельные блоки, а не сливались с фоном за пределами простого
+   разделения через gap */
+.card {
+    box-sizing: border-box;
+    min-height: 56px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: #252525;
+    color: var(--gold);
+    font-size: 14px;
+    padding: 8px 14px;
+}
+
+.card:hover {
+    background: #2b2b2b;
+}
+
+.avatar_user {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatarbox {
+    box-sizing: border-box;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 100%;
+    border: var(--border-light);
+    overflow: hidden;
+}
+
+.fio {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.status {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.status svg {
+    width: 15px;
+    height: 13px;
+}
+
+.btnrows {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn_st_mob,
+.btn_action_mob,
+.btn_action_mob_ {
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.btn_st_mob svg,
+.btn_action_mob svg,
+.btn_action_mob_ svg {
+    width: 17px;
+    height: 17px;
+}
+
+.btn_st_mob:hover * {
+    fill: var(--hover-blue);
+}
+
+.btn_action_mob_:hover * {
+    fill: var(--hover-blue);
+}
+
+.btn_action_mob:hover * {
+    fill: #FF453A;
+}

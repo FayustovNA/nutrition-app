@@ -104,6 +104,7 @@ const SignUp = () => {
             </h2>
 
             <form className={styles.form} onSubmit={handleSubmit}>
+                {renderErrorMessages('form')}
                 <Input
                     placeholder="Имя"
                     name="first_name"
@@ -147,7 +148,7 @@ const SignUp = () => {
                     onChange={handleChange}
                     value={values.email}
                     pattern="^\S+@\S+\.\S+$"
-                    maxLength={30}
+                    maxLength={254}
                     errorMessage="Введите корректный email"
                     required
                 />
@@ -199,6 +200,7 @@ const SignUp = () => {
                         variant='default'
                         size='large'
                         buttonHtmlType='submit'
+                        disabled={isLoading}
                     >
                         < p className={styles.btntxt}> Зарегистрироваться</p>
                     </Button>

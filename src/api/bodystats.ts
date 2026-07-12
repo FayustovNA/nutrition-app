@@ -1,21 +1,12 @@
 import { BASE_URL as API_URL } from '../utils/config'
-import { apiRequest } from './utils'
-import { getAccessToken } from '../services/auth/authService';
+import { authorizedRequest } from './utils'
 
 // Запрос данных статистики по строке поиска (query)
 export const getStatisticsBySearch = async (search: string) => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
         // Формируем URL с query параметром
-        const response = await apiRequest(`${API_URL}/bodystats/?user=${encodeURIComponent(search)}`, {
+        const response = await authorizedRequest(`${API_URL}/bodystats/?user=${encodeURIComponent(search)}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
         });
         if (response) {
             return response; // Возвращаем полученные данные
@@ -27,7 +18,7 @@ export const getStatisticsBySearch = async (search: string) => {
     }
 };
 
-// POST запрос для передачи|создания статистики по замерам 
+// POST запрос для передачи|создания статистики по замерам
 export const createBodyStatistics = async (statisticsData: {
     user?: string;
     date: string;
@@ -38,18 +29,9 @@ export const createBodyStatistics = async (statisticsData: {
     waist: number;
 }) => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-
         // Отправка POST-запроса для создания новой записи статистики
-        const response = await apiRequest(`${API_URL}/bodystats/`, {
+        const response = await authorizedRequest(`${API_URL}/bodystats/`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
             body: JSON.stringify(statisticsData), // Передаем данные в формате JSON
         });
 

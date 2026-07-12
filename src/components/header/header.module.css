@@ -7,6 +7,7 @@
     position: fixed;
     z-index: 100;
     backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(134, 134, 139, 0.25);
 }
 
 .logo {
@@ -29,6 +30,11 @@
 .panes {
     display: flex;
     flex-direction: row;
+}
+
+.items {
+    display: flex;
+    align-items: center;
 }
 
 .login_block {
@@ -88,52 +94,72 @@
     opacity: 0.5;
 }
 
+/* Нижний таб-бар (мобильные и планшеты в этом диапазоне): один общий
+   flex-ряд на всю ширину. Каждая иконка получает РАВНЫЙ по ширине слот
+   (flex: 1) и центрируется в нём — так расстояния выглядят одинаковыми
+   независимо от собственной ширины иконки (в отличие от justify-content:
+   space-evenly, который уравнивает только "воздух" между границами и
+   визуально стягивает более широкие круглые иконки друг к другу).
+   Устойчиво к добавлению/удалению пунктов меню, в отличие от прежней
+   связки фиксированных width/margin/gap у .panes и абсолютного
+   позиционирования у .login_block */
+@media (max-width: 576px), (min-width: 768px) and (max-width: 992px) {
+    .header {
+        bottom: 0px;
+        border-bottom: none;
+        border-top: 1px solid rgba(134, 134, 139, 0.25);
+    }
+
+    .menu,
+    .panes,
+    .items {
+        display: contents;
+    }
+
+    .logo {
+        flex: 1 0 0%;
+        justify-content: center;
+        position: static;
+    }
+
+    /* .login_block остаётся настоящим боксом-слотом (не display:contents) —
+       иначе telegram/avatar_btn пришлось бы растягивать через flex: 1 напрямую,
+       а у них зафиксированы width/height/border-radius под круг: flex-grow
+       растягивает только ширину (это ось flex-контейнера), высота остаётся
+       прежней — круг превращается в таблетку. Вместо этого слотом-растяжкой
+       становится .login_block, а иконки внутри него сохраняют свою форму. */
+    .login_block {
+        flex: 1 0 0%;
+        position: static;
+        margin: 0;
+        right: auto;
+        gap: 8px;
+    }
+
+    .telegram,
+    .avatar_btn {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
 /* Маленькие экраны: до 576px */
 @media (max-width: 576px) {
     .header {
         height: 60px;
         background-color: #252525;
     }
-
-    .items {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-    }
-
-    .panes {
-        width: 45%;
-        display: flex;
-        margin-left: 90px;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-    }
-
-    .header {
-        bottom: 0px;
-    }
-
-    .menu {
-        margin: 0px 0px 0px 0px;
-    }
 }
 
 /* Низкое среднее: от 576px до 768px */
 @media (min-width: 576px) and (max-width: 768px) {
     /* Стили для низкого среднего диапазона */
-}
-
-/* Средние экраны: от 768px до 992px */
-@media (min-width: 768px) and (max-width: 992px) {
-    .header {
-        bottom: 0px;
-    }
-
-    .menu {
-        margin: 0px 0px 0px 0px;
-    }
 }
 
 /* Высокое среднее: от 992px до 1200px */

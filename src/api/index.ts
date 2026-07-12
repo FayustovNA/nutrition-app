@@ -31,13 +31,25 @@ export const registerUserRequestApi = async ({
     });
 
     if (!response.ok) {
-        // Если сервер вернул ошибку, читаем тело ответа и выбрасываем исключение
-        const errorData = await response.json();
-        throw errorData;
+        // Если сервер вернул ошибку, читаем тело ответа и выбрасываем исключение.
+        // Тело может быть пустым/не-JSON — в этом случае не роняем обработку ошибки.
+        try {
+            throw await response.json();
+        } catch (parseError) {
+            if (parseError instanceof SyntaxError) {
+                throw { form: ['Ошибка регистрации. Попробуйте позже.'] };
+            }
+            throw parseError;
+        }
     }
 
-    // Если запрос успешен, возвращаем данные
-    return response.json();
+    // Запрос успешен: пользователь уже создан на сервере.
+    // Тело ответа может быть пустым — это не повод считать регистрацию неуспешной.
+    try {
+        return await response.json();
+    } catch {
+        return {} as TUserRegisterResponse;
+    }
 };
 
 // Запрос на логирование

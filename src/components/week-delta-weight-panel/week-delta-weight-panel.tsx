@@ -1,8 +1,7 @@
 import ReactApexChart from 'react-apexcharts'
-// import { useSelector } from 'react-redux'
-// import { RootState } from '../../services/root-reducer'
 import { useState } from 'react';
 import { useEffect } from 'react'
+import { getWeekNumber } from '../../utils/weeklyAggregation'
 
 interface StatsDataItem {
     id?: any;
@@ -16,18 +15,15 @@ interface WeekWeightPanelProps {
 }
 
 const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, startDate }) => {
-    // const startDate = useSelector((state: RootState) => state.projectData.projectData?.start_date);
     const [weeklyData, setWeeklyData] = useState<{ week: string; avgWeight: number | null; deltaWeight: number }[]>([]);
 
     const getWeeklyWeightDeltas = () => {
-        const start = new Date(startDate).getTime();
         const now = Date.now();
 
         const groupedByWeek: { [weekNum: number]: number[] } = {};
 
         statsData.forEach((item) => {
-            const currentDate = new Date(item.date).getTime();
-            const weekNumber = Math.floor((currentDate - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+            const weekNumber = getWeekNumber(item.date, startDate);
 
             if (weekNumber < 1) return;
 
@@ -40,7 +36,7 @@ const WeekDeltaWeightPanel: React.FC<WeekWeightPanelProps> = ({ statsData, start
             }
         });
 
-        const currentWeekNumber = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000)) + 1;
+        const currentWeekNumber = getWeekNumber(now, startDate);
         const lastWeekToShow = currentWeekNumber + 2; // текущая + 2 будущих
 
         const firstWeekToShow = Math.max(1, lastWeekToShow - 11); // 12 недель максимум

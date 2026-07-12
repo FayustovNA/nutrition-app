@@ -1,11 +1,12 @@
 import styles from './clients.module.css'
-import { useDispatch } from '../../services/hooks';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { useEffect, useMemo } from 'react';
 import { RootState } from '../../services/root-reducer';
 import { fetchUsersList } from '../../services/slices/adminPanelSlice';
 import { Loader } from '../../components/loader/loader';
-import TableUsers from '../adminpanel/table-users/table-users';
+import UsersTable from '../../components/users-table/users-table';
+import UsersToolbar from '../../components/users-table/users-toolbar';
+import { useUsersTable } from '../../hooks/useUsersTable';
 
 export const Clients = () => {
     const dispatch = useDispatch();
@@ -14,7 +15,12 @@ export const Clients = () => {
     const loading = useSelector((state: RootState) => state.usersList.loading);
 
     // Фильтруем список пользователей
-    const filteredUsers = usersList.filter(user => user.coach === currenCoach);
+    const filteredUsers = useMemo(
+        () => usersList.filter(user => user.coach === currenCoach),
+        [usersList, currenCoach]
+    );
+
+    const table = useUsersTable(filteredUsers);
 
     useEffect(() => {
         dispatch(fetchUsersList());
@@ -28,9 +34,22 @@ export const Clients = () => {
             <div className={styles.grid}>
                 {loading ? (
                     <Loader />
-                ) : usersList.length > 0 ? (
+                ) : filteredUsers.length > 0 ? (
                     <div className={styles.table}>
-                        <TableUsers data={filteredUsers} />
+                        <UsersToolbar
+                            search={table.search}
+                            onSearchChange={table.setSearch}
+                            totalCount={table.totalCount}
+                        />
+                        <UsersTable
+                            users={table.pageItems}
+                            page={table.page}
+                            totalPages={table.totalPages}
+                            onPageChange={table.setPage}
+                            sortField={table.sortField}
+                            sortDirection={table.sortDirection}
+                            onToggleSort={table.toggleSort}
+                        />
                     </div>
                 ) : (
                     <p>Пользователи не найдены</p>

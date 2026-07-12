@@ -1,15 +1,16 @@
 import styles from './diary-panel.module.css'
 import ItemDiary from './item/item'
 import TabsFilter from '../tab-filter/tab-filter'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Modal from '../modal/modal'
 import ModalDiary from './modal/modal-diary'
 import { getFatSecretDiary } from '../../api/fatsecret'
 import { Loader } from '../loader/loader'
 import Refresh from '../../images/icon-status/Refresh.svg?react'
 import Reset from '../../images/icon-status/Circular.svg?react'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../services/hooks'
 import { RootState } from '../../services/root-reducer'
+import { filterByDateRange } from '../../utils/dateRangeFilter'
 
 interface StatsDataItem {
     id?: any;
@@ -57,32 +58,10 @@ export const DiaryPanel: React.FC<DiaryPanelProps> = ({ statsData, user, onRefre
         setActiveTab(tab);
     };
 
-    const getFilteredData = () => {
-        const today = new Date(); // Текущая дата
-        const ranges: { [key: string]: number } = {
-            'Н': 7,
-            'M': 30,
-            '3M': 90,
-            '6M': 180,
-        };
-
-        // Определяем, сколько дней от текущей даты нужно учитывать
-        const rangeDays = ranges[activeTab];
-
-        if (rangeDays) {
-            // Фильтруем данные по диапазону
-            return statsData.filter(item => {
-                const itemDate = new Date(item.date);
-                const diffDays = (today.getTime() - itemDate.getTime()) / (1000 * 60 * 60 * 24);
-                return diffDays <= rangeDays;
-            });
-        }
-
-        // Если активная вкладка не соответствует диапазону, возвращаем все данные
-        return statsData;
-    };
-
-    const filteredData = getFilteredData(); // Переворачиваем, чтобы отображать от последних к первым
+    const filteredData = useMemo(
+        () => filterByDateRange(statsData, activeTab, (item) => item.date),
+        [statsData, activeTab]
+    );
 
     return (
         <div className={styles.content}>

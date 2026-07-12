@@ -1,19 +1,11 @@
 import { BASE_URL as API_URL } from '../utils/config'
-import { apiRequest } from './utils'
+import { authorizedRequest } from './utils'
 import { getAccessToken } from '../services/auth/authService'
 
 //Обновление данных пользователя
 export const updateUserRequestApi = async (formData: FormData) => {
-    const accessToken = getAccessToken();
-    if (!accessToken) {
-        throw new Error('Access token не найден');
-    }
-
-    const response = await apiRequest(`${API_URL}/users/me/`, {
+    const response = await authorizedRequest(`${API_URL}/users/me/`, {
         method: 'PATCH',
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
         body: formData, // Отправляем данные в формате FormData
     });
 
@@ -26,16 +18,8 @@ export const updateUserRequestApi = async (formData: FormData) => {
 
 // Получение данных пользователя
 export const getUserRequestApi = async () => {
-    const accessToken = getAccessToken();
-    if (!accessToken) {
-        throw new Error('Access token not found');
-    }
-
-    const response = await apiRequest(`${API_URL}/users/me/`, {
+    const response = await authorizedRequest(`${API_URL}/users/me/`, {
         method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-        },
     });
 
     if (!response) {

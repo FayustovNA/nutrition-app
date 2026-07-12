@@ -1,20 +1,11 @@
 import { BASE_URL as API_URL } from '../utils/config'
-import { getAccessToken } from '../services/auth/authService'
-import { apiRequest } from './utils'
+import { authorizedRequest } from './utils'
 
 //Запрос листа пользователей
 export const getUsersList = async () => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-        const response = await apiRequest(`${API_URL}/users/`, {
+        const response = await authorizedRequest(`${API_URL}/users/`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
         });
 
         if (response) {
@@ -37,16 +28,8 @@ interface ApiResponse {
 
 export const deleteUserById = async (userId: string): Promise<ApiResponse | void> => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-        const response: ApiResponse = await apiRequest(`${API_URL}/users/${userId}/`, {
+        const response: ApiResponse = await authorizedRequest(`${API_URL}/users/${userId}/`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`, // Исправлено: добавлены обратные кавычки
-            },
         });
         // Проверяем, что статус ответа равен 204
         if (response.status === 204) {
@@ -64,18 +47,9 @@ export const deleteUserById = async (userId: string): Promise<ApiResponse | void
 //Запрос проекта по строке поиска (query)
 export const getProjectBySearch = async (search: string) => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
-
         // Добавляем строку поиска как query параметр
-        const response = await apiRequest(`${API_URL}/project/?user=${encodeURIComponent(search)}`, {
+        const response = await authorizedRequest(`${API_URL}/project/?user=${encodeURIComponent(search)}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
         });
 
         if (response) {
@@ -102,17 +76,9 @@ export const createProject = async (projectData: {
     target_weight: number;
 }) => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
         // POST запрос для создания нового проекта с переданными данными
-        const response = await apiRequest(`${API_URL}/project/`, {
+        const response = await authorizedRequest(`${API_URL}/project/`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
             body: JSON.stringify(projectData), // Передаем данные в формате JSON
         });
 
@@ -139,17 +105,9 @@ export const updateProject = async (projectId: string, updateData: {
     target_weight?: number;
 }) => {
     try {
-        const accessToken = getAccessToken();
-        if (!accessToken) {
-            throw new Error('Access token not found');
-        }
         // PATCH запрос для обновления проекта с переданными данными
-        const response = await apiRequest(`${API_URL}/project/${projectId}/`, {
+        const response = await authorizedRequest(`${API_URL}/project/${projectId}/`, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${accessToken}`,
-            },
             body: JSON.stringify(updateData), // Передаем только те данные, которые нужно обновить
         });
 
