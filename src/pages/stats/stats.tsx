@@ -181,7 +181,7 @@ export const Stats = () => {
                     <SetBodyStatistics onClose={closeModal} />
                 </ModalAction>)
             }
-            <AiFab />
+            <AiFab statsData={statsData} user={usernameToFetch || undefined} />
         </div>
     );
 };
